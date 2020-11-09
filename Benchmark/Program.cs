@@ -7,7 +7,6 @@ namespace Benchmark
         static void Main()
         {
             BenchmarkRunner.Run<FastNewBenchmark>();
-
         }
     }
 }
