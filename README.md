@@ -1,10 +1,16 @@
-# FastGenericNew ![GitHub](https://img.shields.io/github/license/BThree496/FastGenericNew?style=flat-square)
+# FastGenericNew ![GitHub](https://img.shields.io/github/license/BThree496/FastGenericNew?style=flat-square&logo=github) ![Nuget](https://img.shields.io/nuget/v/Boring3.FastGenericNew?style=flat-square&logo=nuget) ![Nuget](https://img.shields.io/nuget/dt/Boring3.FastGenericNew?style=flat-square&logo=nuget)
 
-FastGenericNew is 10x times faster than `new T()` / `Activator.CreateInstance<T>()`  
-Also with parameters support
+FastGenericNew is 10x times faster than `Activator.CreateInstance<T>()` / `new T()`
+
+## Features
+---
+  - Parameters Supported
+  - Non-Public Constructor Supported
+  - Zero box/unbox
+  - ValueType Supported
 
 ## Examples
-
+---
 Fast create instance of `T`:
 
 ```cs
@@ -19,6 +25,7 @@ FastNew<T, string, int>.CreateInstance("parameter", 0);
 ```
 
 ## Benchmark
+---
 
 ```ini
 
@@ -38,10 +45,11 @@ AMD Ryzen 9 3900X, 1 CPU, 24 logical and 12 physical cores
 |      NewT | 33.332 ns | 0.3524 ns | 0.3296 ns | 14.74 |    0.16 |       No | 0.0029 |     - |     - |      24 B |      88 B |
 
 ## How it works
+---
 
 Not like `Activator.CreateInstance<T>()`. FastGenericNew will dynamic compile a method that return `T`. And cache it up by generic.
 
 You can invoke this method by a delegate with no any box/unbox.
 
 But there's still a little problem anyway.  
-.NET Runtime will not inline delegate in any case. So it cause more cost than direct new.
+.NET Runtime will not inline delegate in any case currently. So it cause bit more costs than direct new.

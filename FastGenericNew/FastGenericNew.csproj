@@ -1,15 +1,36 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+  <PropertyGroup>
+    <PackageId>Boring3.FastGenericNew</PackageId>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Description>FastGenericNew is 10x times faster than new T()</Description>
+    <Authors>Boring3</Authors>
+    <RepositoryUrl>https://github.com/BThree496/FastGenericNew</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/BThree496/FastGenericNew</PackageProjectUrl>
+    <PackageIcon>meaninglessLogo.png</PackageIcon>
+    <PackageTags>Performance, Generic, Fast, Expression, Optimization, DynamicMethod</PackageTags>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
 
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <Optimize>true</Optimize>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\meaninglessLogo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
