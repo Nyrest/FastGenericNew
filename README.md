@@ -3,14 +3,14 @@
 FastGenericNew is 10x times faster than `Activator.CreateInstance<T>()` / `new T()`
 
 ## Features
----
+
   - Parameters Supported
   - Non-Public Constructor Supported
   - Zero box/unbox
   - ValueType Supported
 
 ## Examples
----
+
 Fast create instance of `T`:
 
 ```cs
@@ -25,7 +25,6 @@ FastNew<T, string, int>.CreateInstance("parameter", 0);
 ```
 
 ## Benchmark
----
 
 ```ini
 
@@ -45,7 +44,6 @@ AMD Ryzen 9 3900X, 1 CPU, 24 logical and 12 physical cores
 |      NewT | 33.332 ns | 0.3524 ns | 0.3296 ns | 14.74 |    0.16 |       No | 0.0029 |     - |     - |      24 B |      88 B |
 
 ## How it works
----
 
 Not like `Activator.CreateInstance<T>()`. FastGenericNew will dynamic compile a method that return `T`. And cache it up by generic.
 
