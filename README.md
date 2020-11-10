@@ -1,6 +1,23 @@
-# FastGenericNew ![GitHub](https://img.shields.io/github/license/BThree496/FastGenericNew?style=flat-square&logo=github) ![Nuget](https://img.shields.io/nuget/v/Boring3.FastGenericNew?style=flat-square&logo=nuget) ![Nuget](https://img.shields.io/nuget/dt/Boring3.FastGenericNew?style=flat-square&logo=nuget)
+# FastGenericNew [![GitHub](https://img.shields.io/github/license/BThree496/FastGenericNew?style=flat-square&logo=github)](https://github.com/BThree496/FastGenericNew/blob/master/LICENSE) [![Nuget](https://img.shields.io/nuget/v/Boring3.FastGenericNew?style=flat-square&logo=nuget)](https://www.nuget.org/packages/Boring3.FastGenericNew/) [![Nuget](https://img.shields.io/nuget/dt/Boring3.FastGenericNew?style=flat-square&logo=nuget)](https://www.nuget.org/packages/Boring3.FastGenericNew/)
 
 FastGenericNew is 10x times faster than `Activator.CreateInstance<T>()` / `new T()`
+
+## Install
+
+### DotNet CLI
+```powershell
+dotnet add package Boring3.FastGenericNew --version 1.1.0
+```
+
+### Package Reference
+```xml
+<PackageReference Include="Boring3.FastGenericNew" Version="1.1.0" />
+```
+
+### Package Manager
+```powershell
+Install-Package Boring3.FastGenericNew -Version 1.1.0
+```
 
 ## Features
 
@@ -45,9 +62,9 @@ AMD Ryzen 9 3900X, 1 CPU, 24 logical and 12 physical cores
 
 ## How it works
 
-Not like `Activator.CreateInstance<T>()`. FastGenericNew will dynamic compile a method that return `T`. And cache it up by generic.
+Not like `Activator.CreateInstance<T>()`. FastGenericNew will dynamically compile a method that return `T`. And cache it up by generic.
 
 You can invoke this method by a delegate with no any box/unbox.
 
 But there's still a little problem anyway.  
-.NET Runtime will not inline delegate in any case currently. So it cause bit more costs than direct new.
+.NET Runtime will not inline delegate in any case currently. So it causes bit more costs than direct new.
