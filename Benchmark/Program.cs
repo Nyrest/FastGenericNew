@@ -1,4 +1,5 @@
-﻿using BenchmarkDotNet.Running;
+﻿using System.Reflection;
+using BenchmarkDotNet.Running;
 
 namespace Benchmark
 {
@@ -6,7 +7,7 @@ namespace Benchmark
     {
         static void Main()
         {
-            BenchmarkRunner.Run<FastNewBenchmark>();
+            BenchmarkRunner.Run(Assembly.GetCallingAssembly());
         }
     }
 }
