@@ -43,22 +43,35 @@ FastNew<T, string, int>.CreateInstance("parameter", 0);
 
 ## Benchmark
 
-```ini
+### **Environment**
+``` ini
 
 BenchmarkDotNet=v0.12.1, OS=Windows 10.0.19042
 AMD Ryzen 9 3900X, 1 CPU, 24 logical and 12 physical cores
-.NET Core SDK=5.0.100-rc.2.20479.15
-  [Host]     : .NET Core 5.0.0 (CoreCLR 5.0.20.47505, CoreFX 5.0.20.47505), X64 RyuJIT
-  DefaultJob : .NET Core 5.0.0 (CoreCLR 5.0.20.47505, CoreFX 5.0.20.47505), X64 RyuJIT
-
-
+.NET Core SDK=5.0.100
+  [Host]     : .NET Core 5.0.0 (CoreCLR 5.0.20.51904, CoreFX 5.0.20.51904), X64 RyuJIT
+  DefaultJob : .NET Core 5.0.0 (CoreCLR 5.0.20.51904, CoreFX 5.0.20.51904), X64 RyuJIT
 ```
 
-|    Method |      Mean |     Error |    StdDev | Ratio | RatioSD | Baseline |  Gen 0 | Gen 1 | Gen 2 | Allocated | Code Size |
-|---------- |----------:|----------:|----------:|------:|--------:|--------- |-------:|------:|------:|----------:|----------:|
-| DirectNew |  1.793 ns | 0.0206 ns | 0.0193 ns |  0.79 |    0.01 |       No | 0.0029 |     - |     - |      24 B |      25 B |
-|  FastNewT |  2.262 ns | 0.0076 ns | 0.0071 ns |  1.00 |    0.00 |      Yes | 0.0029 |     - |     - |      24 B |      24 B |
-|      NewT | 33.332 ns | 0.3524 ns | 0.3296 ns | 14.74 |    0.16 |       No | 0.0029 |     - |     - |      24 B |      88 B |
+### **Reference Type** (class)
+|          Method |      Mean |     Error |    StdDev | Ratio | RatioSD | Baseline |  Gen 0 | Gen 1 | Gen 2 | Allocated | Code Size |
+|---------------- |----------:|----------:|----------:|------:|--------:|--------- |-------:|------:|------:|----------:|----------:|
+|       DirectNew |  1.757 ns | 0.0083 ns | 0.0074 ns |  0.79 |    0.01 |       No | 0.0029 |     - |     - |      24 B |      25 B |
+|        FastNewT |  2.223 ns | 0.0121 ns | 0.0108 ns |  1.00 |    0.00 |      Yes | 0.0029 |     - |     - |      24 B |      24 B |
+| ActivatorCreate | 32.653 ns | 0.4308 ns | 0.4030 ns | 14.69 |    0.18 |       No | 0.0029 |     - |     - |      24 B |      88 B |
+|            NewT | 32.717 ns | 0.6927 ns | 0.7977 ns | 14.70 |    0.37 |       No | 0.0029 |     - |     - |      24 B |      88 B |
+
+### **Value Type** (struct)
+|          Method |       Mean |     Error |    StdDev |     Median |  Ratio | RatioSD | Baseline |  Gen 0 | Gen 1 | Gen 2 | Allocated | Code Size |
+|---------------- |-----------:|----------:|----------:|-----------:|-------:|--------:|--------- |-------:|------:|------:|----------:|----------:|
+|       DirectNew |  0.0014 ns | 0.0011 ns | 0.0010 ns |  0.0014 ns |  0.004 |    0.00 |       No |      - |     - |     - |         - |       3 B |
+|            NewT |  0.0102 ns | 0.0130 ns | 0.0121 ns |  0.0023 ns |  0.020 |    0.03 |       No |      - |     - |     - |         - |       3 B |
+|        FastNewT |  0.4629 ns | 0.0099 ns | 0.0077 ns |  0.4613 ns |  1.000 |    0.00 |      Yes |      - |     - |     - |         - |      24 B |
+| ActivatorCreate | 33.6680 ns | 0.7328 ns | 0.6855 ns | 33.7002 ns | 72.346 |    1.36 |       No | 0.0029 |     - |     - |      24 B |      88 B |
+
+> **Note:** JIT have two solutions for `new T()` compilation.  
+> For Reference Types. `new T()` will equals `Activator.CreateInstance<T>()`  
+> For Value Types. `new T()` will allocate it inline. So it fast than  `FastNew` that unable to be inlined.
 
 ## How it works
 
@@ -67,4 +80,5 @@ Not like `Activator.CreateInstance<T>()`. FastGenericNew will dynamically compil
 You can invoke this method by a delegate with no any box/unbox.
 
 But there's still a little problem anyway.  
-.NET Runtime will not inline delegate in any case currently. So it causes bit more costs than direct new.
+.NET Runtime will not inline delegate in any case currently.  
+So it causes bit more costs than direct new.
