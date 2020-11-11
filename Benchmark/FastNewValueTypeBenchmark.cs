@@ -11,26 +11,26 @@ namespace Benchmark
     [DisassemblyDiagnoser]
     [BaselineColumn]
     [Orderer(SummaryOrderPolicy.FastestToSlowest)]
-    public class FastNewBenchmark
+    public class FastNewValueTypeBenchmark
     {
         [Benchmark]
-        public Example DirectNew() =>
-            new Example();
+        public ExampleValueType DirectNew() =>
+            new ExampleValueType();
 
         [Benchmark(Baseline = true)]
-        public Example FastNewT() =>
-            Test<Example>.FastNew();
+        public ExampleValueType FastNewT() =>
+            Test<ExampleValueType>.FastNew();
 
         [Benchmark]
-        public Example NewT() =>
-            Test<Example>.New();
+        public ExampleValueType NewT() =>
+            Test<ExampleValueType>.New();
 
         [Benchmark]
         public Example ActivatorCreate() =>
             Test<Example>.ActivatorCreate();
     }
 
-    public static class Test<T> where T : new()
+    public static class TestValueType<T> where T : new()
     {
         public static T FastNew() => FastNew<T>.CreateInstance();
 
@@ -39,5 +39,5 @@ namespace Benchmark
         public static T ActivatorCreate() => Activator.CreateInstance<T>();
     }
 
-    public class Example { }
+    public struct ExampleValueType { }
 }
