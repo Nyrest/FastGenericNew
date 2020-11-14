@@ -12,7 +12,7 @@
     <Authors>Boring3</Authors>
     <RepositoryUrl>https://github.com/BThree496/FastGenericNew</RepositoryUrl>
     <PackageProjectUrl>https://github.com/BThree496/FastGenericNew</PackageProjectUrl>
-    <PackageIcon>meaninglessLogo.png</PackageIcon>
+    <PackageIcon>logo.png</PackageIcon>
     <PackageTags>Performance, Generic, Fast, Expression, Optimization, DynamicMethod</PackageTags>
     <AssemblyVersion>1.1.0.0</AssemblyVersion>
     <FileVersion>1.1.0.0</FileVersion>
@@ -28,7 +28,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\meaninglessLogo.png">
+    <None Include="..\logo.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
