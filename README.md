@@ -1,4 +1,5 @@
 # FastGenericNew [![GitHub](https://img.shields.io/github/license/BThree496/FastGenericNew?style=flat-square&logo=github)](https://github.com/BThree496/FastGenericNew/blob/master/LICENSE) [![Nuget](https://img.shields.io/nuget/v/Boring3.FastGenericNew?style=flat-square&logo=nuget)](https://www.nuget.org/packages/Boring3.FastGenericNew/) [![Nuget](https://img.shields.io/nuget/dt/Boring3.FastGenericNew?style=flat-square&logo=nuget)](https://www.nuget.org/packages/Boring3.FastGenericNew/)
+<img src="./logo.png" alt="logo" style="width:90px;"/>
 
 FastGenericNew is 10x times faster than `Activator.CreateInstance<T>()` / `new T()`
 
