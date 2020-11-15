@@ -74,6 +74,21 @@ AMD Ryzen 9 3900X, 1 CPU, 24 logical and 12 physical cores
 > For Reference Types. `new T()` will equals `Activator.CreateInstance<T>()`  
 > For Value Types. `new T()` will allocate it inline. So it fast than  `FastNew` that unable to be inlined.
 
+### **Legends**
+
+>  `Mean`      : Arithmetic mean of all measurements  
+>  `Error`     : Half of 99.9% confidence interval  
+>  `StdDev`    : Standard deviation of all measurements  
+>  `Median`    : Value separating the higher half of all measurements (50th percentile)  
+>  `Ratio`     : Mean of the ratio distribution ([Current]/[Baseline])  
+> ` RatioSD`   : Standard deviation of the ratio distribution ([Current]/[Baseline])  
+>  `Gen 0`     : GC Generation 0 collects per 1000 operations  
+>  `Gen 1`     : GC Generation 1 collects per 1000 operations  
+>  `Gen 2`     : GC Generation 2 collects per 1000 operations  
+>  `Allocated` : Allocated memory per single operation (managed only, inclusive, 1KB = 1024B)  
+>  `Code Size` : Native code size of the disassembled method(s)  
+>  `1 ns`      : 1 Nanosecond (0.000000001 sec)  
+
 ## How it works
 
 Not like `Activator.CreateInstance<T>()`. FastGenericNew will dynamically compile a method that return `T`. And cache it up by generic.
