@@ -1,13 +1,4 @@
-﻿using System.Reflection;
-using BenchmarkDotNet.Running;
+﻿using BenchmarkDotNet.Running;
+using System.Reflection;
 
-namespace Benchmark
-{
-    class Program
-    {
-        static void Main()
-        {
-            BenchmarkRunner.Run(Assembly.GetCallingAssembly());
-        }
-    }
-}
+BenchmarkRunner.Run(Assembly.GetCallingAssembly());
