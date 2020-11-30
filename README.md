@@ -12,7 +12,7 @@ FastGenericNew is 10x times faster than `Activator.CreateInstance<T>()` / `new T
   - [Examples](#examples)
     - [Fast create instance of `T`](#fast-create-instance-of-t)
     - [Fast create instance of `T` with parameter(s)](#fast-create-instance-of-t-with-parameters)
-    - [Fast create instance by using TypeNew **(Experimental)**](#fast-create-instance-by-using-typenew-**Experimental**)
+    - [Fast create instance by using TypeNew **(Experimental)**](#fast-create-instance-by-using-typenew-experimental)
   - [Benchmark](#benchmark)
     - [Environment](#environment)
     - [Reference Type (class)](#reference-type-class)
