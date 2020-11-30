@@ -1,42 +1,48 @@
-using System;
 using BenchmarkDotNet.Attributes;
-using BenchmarkDotNet.Order;
+using BenchmarkDotNet.Jobs;
 using FastGenericNew;
+using System;
 #pragma warning disable CA1822 // Member does not access instance data and can be marked as static
 
 namespace Benchmark
 {
     [StopOnFirstError]
     [MemoryDiagnoser]
-    [DisassemblyDiagnoser]
     [BaselineColumn]
-    [Orderer(SummaryOrderPolicy.FastestToSlowest)]
+    [SimpleJob(RuntimeMoniker.Net48)]
+    [SimpleJob(RuntimeMoniker.NetCoreApp50)]
+    //[Orderer(SummaryOrderPolicy.FastestToSlowest)]
     public class FastNewValueTypeBenchmark
     {
-        [Benchmark]
-        public ExampleValueType DirectNew() =>
-            new ExampleValueType();
+        public static Func<ExampleValueType> typeNew;
+
+        public static Func<object> typeNewBox;
+
+        [GlobalSetup]
+        public void SetUp()
+        {
+            typeNew = TypeNew.GetCreateInstance<ExampleValueType>(typeof(ExampleValueType));
+            typeNewBox = TypeNew.GetCreateInstance(typeof(Example));
+        }
 
         [Benchmark(Baseline = true)]
         public ExampleValueType FastNewT() =>
-            Test<ExampleValueType>.FastNew();
+    FastNew<ExampleValueType>.CreateInstance();
 
         [Benchmark]
-        public ExampleValueType NewT() =>
-            Test<ExampleValueType>.New();
+        public ExampleValueType DirectNew() => new();
 
         [Benchmark]
-        public Example ActivatorCreate() =>
-            Test<Example>.ActivatorCreate();
-    }
+        public ExampleValueType ActivatorCreate() =>
+            Activator.CreateInstance<ExampleValueType>();
 
-    public static class TestValueType<T> where T : new()
-    {
-        public static T FastNew() => FastNew<T>.CreateInstance();
+        [Benchmark]
+        public ExampleValueType TypeNewGenericResult() =>
+            typeNew();
 
-        public static T New() => new T();
-
-        public static T ActivatorCreate() => Activator.CreateInstance<T>();
+        [Benchmark]
+        public object TypeNewObjectResult() =>
+            typeNewBox();
     }
 
     public struct ExampleValueType { }
