@@ -60,7 +60,7 @@ FastNew<T, string>.CreateInstance("parameter");
 FastNew<T, string, int>.CreateInstance("parameter", 0);
 ```
 
-### Fast create instance by using TypeNew: **(Experimental)**
+### Fast create instance by using TypeNew **(Experimental)**
 
 ```cs
 // Slower a bit than FastNew<T> because boxing/unboxing.
