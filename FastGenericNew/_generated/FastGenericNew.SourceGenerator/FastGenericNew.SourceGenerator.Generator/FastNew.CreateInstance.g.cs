@@ -16,7 +16,17 @@ namespace @FastGenericNew
 {
 	public static partial class FastNew	{
 
-	    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <summary>
+        /// <para>Create an instance of <typeparamref name="T" /></para>
+        /// <para>Returns <c><see langword="new" /> <typeparamref name="T" />()</c> if <typeparamref name="T"/> is a <see cref="ValueType"/>(struct)</para>
+        /// <para>This <b>CAN</b> call the Parameterless Constructor of the <see cref="ValueType"/>(struct)</para>
+        /// </summary>
+        /// <typeparam name="T">The type to create.</typeparam>
+        /// <returns>A new instance of <typeparamref name="T" /></returns>
+        /// <remarks>
+        /// Equivalent to <c><see langword="new" /> <typeparamref name="T" />()</c> for both Reference Types and Value Types
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
 	    public static T CreateInstance<
 #if NET5_0_OR_GREATER
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
@@ -31,6 +41,17 @@ T>()
                 : global::@FastGenericNew.FastNew<T>.CompiledDelegate();
 #endif
 	    }
+        /// <summary>
+        /// Create an instance of <typeparamref name="T" /> <br/>
+        /// Returns <c><see langword="default" />(<typeparamref name="T" />)</c> if <typeparamref name="T"/> is a <see cref="ValueType"/>(struct) <br/>
+        /// This <b>WILL NOT</b> call the Parameterless Constructor of the <see cref="ValueType"/>(struct)
+        /// </summary>
+        /// <typeparam name="T">The type to create.</typeparam>
+        /// <returns>A new instance of <typeparamref name="T" /></returns>
+        /// <remarks>
+        /// For reference types, equivalent to <c><see langword="new" /> <typeparamref name="T" />()</c> <br/>
+        /// For value types, equivalent to <c><see langword="default" />(<typeparamref name="T" />)</c>
+        /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 	    public static T NewOrDefault<
 #if NET5_0_OR_GREATER
