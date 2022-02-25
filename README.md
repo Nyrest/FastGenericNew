@@ -83,7 +83,12 @@ AMD Ryzen 9 3900X, 1 CPU, 24 logical and 12 physical cores
   .NET Framework 4.8 : .NET Framework 4.8 (4.8.4470.0), X64 RyuJIT
 ```
 
+### Reference Types
+
 ![Benchmark Result of Reference Types](./Benchmark_ReferenceType.png)  
+
+### Value Types
+
 ![Benchmark Result of Value Types](./Benchmark_ValueType.png)
 
 ## License
