@@ -38,21 +38,6 @@
 		<PackageTagsPostfix>, Generated</PackageTagsPostfix>
 		<AnalysisLevel>preview</AnalysisLevel>
 	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0|AnyCPU'">
-		<NoWarn>1701;1702;CS1591</NoWarn>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
-		<NoWarn>1701;1702;CS1591</NoWarn>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.1|AnyCPU'">
-		<NoWarn>1701;1702;CS1591</NoWarn>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net5.0|AnyCPU'">
-		<NoWarn>1701;1702;CS1591</NoWarn>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net461|AnyCPU'">
-		<NoWarn>1701;1702;CS1591</NoWarn>
-	</PropertyGroup>
 
 	<!-- Dependencies for TargetFrameworks doesn't compatible to 'NET 5.0' -->
 	<ItemGroup Condition="!$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net5.0'))">
