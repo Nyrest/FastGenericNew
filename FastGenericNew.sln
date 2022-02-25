@@ -21,8 +21,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastGenericNew.Tests", "Fas
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastGenericNew.Benchmarks", "FastGenericNew.Benchmarks\FastGenericNew.Benchmarks.csproj", "{24108B29-8FAD-4080-90B4-0A6A19CE06BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrimTest", "TrimTest\TrimTest.csproj", "{6BC84D31-4A22-4500-9186-36187F2F5472}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,10 +43,6 @@ Global
 		{24108B29-8FAD-4080-90B4-0A6A19CE06BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24108B29-8FAD-4080-90B4-0A6A19CE06BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24108B29-8FAD-4080-90B4-0A6A19CE06BE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6BC84D31-4A22-4500-9186-36187F2F5472}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6BC84D31-4A22-4500-9186-36187F2F5472}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6BC84D31-4A22-4500-9186-36187F2F5472}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6BC84D31-4A22-4500-9186-36187F2F5472}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
