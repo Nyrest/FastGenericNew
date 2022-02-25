@@ -22,7 +22,7 @@ public class ThrowHelperGenerator : CodeGenerator<ThrowHelperGenerator>
         [DynamicDependency(""SmartThrowImpl``1()"", typeof({options.GlobalNSDot()}{ClassName}))]
 #endif");
         builder.AppendLine(@$"
-        public static System.Reflection.MethodInfo GetSmartThrow<T>() => typeof({options.GlobalNSDot()}ThrowHelper).GetMethod(""SmartThrowImpl"", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static).MakeGenericMethod(typeof(T));
+        public static System.Reflection.MethodInfo GetSmartThrow<T>() => typeof({options.GlobalNSDot()}ThrowHelper).GetMethod(""SmartThrowImpl"", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static)!.MakeGenericMethod(typeof(T));
 
         public static T SmartThrowImpl<T>(ConstructorInfo? constructor)
         {{
