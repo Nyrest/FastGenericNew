@@ -1,0 +1,31 @@
+<Project>
+	<PropertyGroup>
+		<Version>3.0.0.0</Version>
+		<AssemblyVersion>$(Version)</AssemblyVersion>
+	</PropertyGroup>
+
+	<!-- Nuget Package Properties -->
+	<PropertyGroup>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<Description>$(DescriptionPrefix)</Description>
+		<Authors>Boring3</Authors>
+		<RepositoryUrl>https://github.com/BThree496/FastGenericNew</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/BThree496/FastGenericNew</PackageProjectUrl>
+		<PackageTags>Performance, Fast, Generic, New, Expression, Optimization, CreateInstance, Activator$(PackageTagsPostfix)</PackageTags>
+	</PropertyGroup>
+
+	<!-- Nuget Package README -->
+	<ItemGroup>
+		<None Include="..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<!-- Create symbol package (.snupkg) -->
+	<!--PropertyGroup>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	</PropertyGroup-->
+</Project>

@@ -1,0 +1,20 @@
+<Project>
+	<!-- Declare MSBuild Properties -->
+	<ItemGroup>
+		<CompilerVisibleProperty Include="FastNew_MaxParameterCount" />
+		<CompilerVisibleProperty Include="FastNew_PublicConstructorOf" />
+		<CompilerVisibleProperty Include="FastNew_GenerateTryCreateInstance" />
+		<CompilerVisibleProperty Include="FastNew_GenerateCreateInstance" />
+		<CompilerVisibleProperty Include="FastNew_PublicSourceExpression" />
+		<CompilerVisibleProperty Include="FastNew_PublicCompiledDelegate" />
+		<CompilerVisibleProperty Include="FastNew_NonPublicConstructorSupport" />
+		<CompilerVisibleProperty Include="FastNew_Namespace" />
+		<CompilerVisibleProperty Include="FastNew_DisableGeneratorCache" />
+		<CompilerVisibleProperty Include="FastNew_ForceFastNewDelegate" />
+		<CompilerVisibleProperty Include="FastNew_GeneratedAlert" />
+		<CompilerVisibleProperty Include="FastNew_Trimmable" />
+		<CompilerVisibleProperty Include="FastNew_PrettyOutput" />
+		<CompilerVisibleProperty Include="FastNew_MultiThreadedGeneration" />
+		<CompilerVisibleProperty Include="FastNew_OutputGenerationInfo" />
+	</ItemGroup>
+</Project>
