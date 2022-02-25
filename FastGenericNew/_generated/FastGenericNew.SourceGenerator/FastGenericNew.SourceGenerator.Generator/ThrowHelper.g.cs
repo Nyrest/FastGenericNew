@@ -24,7 +24,7 @@ namespace @FastGenericNew
         [DynamicDependency("SmartThrowImpl``1()", typeof(global::@FastGenericNew.ThrowHelper))]
 #endif
 
-        public static System.Reflection.MethodInfo GetSmartThrow<T>() => typeof(global::@FastGenericNew.ThrowHelper).GetMethod("SmartThrowImpl", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static).MakeGenericMethod(typeof(T));
+        public static System.Reflection.MethodInfo GetSmartThrow<T>() => typeof(global::@FastGenericNew.ThrowHelper).GetMethod("SmartThrowImpl", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static)!.MakeGenericMethod(typeof(T));
 
         public static T SmartThrowImpl<T>(ConstructorInfo? constructor)
         {
