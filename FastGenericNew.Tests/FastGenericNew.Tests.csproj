@@ -1,19 +1,21 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+	<PropertyGroup>
+		<TargetFrameworks>net6.0;net5.0;net461</TargetFrameworks>
+		<LangVersion>10</LangVersion>
+		<Nullable>enable</Nullable>
+		<IsPackable>false</IsPackable>
+	</PropertyGroup>
 
-    <IsPackable>false</IsPackable>
-  </PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
+		<PackageReference Include="NUnit" Version="3.13.2" />
+		<PackageReference Include="NUnit3TestAdapter" Version="4.0.0" />
+		<PackageReference Include="coverlet.collector" Version="3.1.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="NUnit" Version="3.12.0" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.16.1" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\FastGenericNew\FastGenericNew.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\FastGenericNew\FastGenericNew.csproj" />
+	</ItemGroup>
 
 </Project>

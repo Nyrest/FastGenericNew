@@ -1,16 +1,33 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <LangVersion>9.0</LangVersion>
-  </PropertyGroup>
+	<!-- Library Properties -->
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<LangVersion>preview</LangVersion>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<IsRoslynComponent>true</IsRoslynComponent>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.8.0" />
-  </ItemGroup>
+	<!-- The following libraries include the source generator interfaces and types we need -->
+	<ItemGroup>
+		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.3" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.1.0-1.final" PrivateAssets="all" />
+	</ItemGroup>
+
+	<!-- Nuget Package Properties-->
+	<PropertyGroup>
+		<PackageId>FastGenericNew.SourceGenerator</PackageId>
+		<DescriptionPrefix>
+			Configurable Source Generator of FastGenericNew
+
+			Minimum required: .NET Standard 2.0 &amp; C# 8.0
+		</DescriptionPrefix>
+		<PackageTagsPostfix>, SourceGenerator, SourceGeneratorV2, IncrementalGenerator</PackageTagsPostfix>
+	</PropertyGroup>
+
+	<!-- Imports -->
+	<Import Project="../FastGenericNew.Shared.props" />
 
 </Project>
