@@ -10,7 +10,7 @@ internal unsafe ref partial struct CodeBuilder
 
     private int _length;
 
-    public readonly Span<char> _span => _buffer.AsSpan(_length);
+    public readonly Span<char> AvailableBuffer => _buffer.AsSpan(_length);
 
     public readonly GeneratorOptions Options { get; }
 
@@ -160,7 +160,7 @@ internal unsafe ref partial struct CodeBuilder
     public void Append(ReadOnlySpan<char> value)
     {
     tryAgain:
-        if (!value.TryCopyTo(_span))
+        if (!value.TryCopyTo(AvailableBuffer))
         {
             Grow();
             goto tryAgain;
