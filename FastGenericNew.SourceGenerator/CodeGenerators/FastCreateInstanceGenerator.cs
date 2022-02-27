@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace FastGenericNew.SourceGenerator.CodeGenerators;
+﻿namespace FastGenericNew.SourceGenerator.CodeGenerators;
 
 public class FastCreateInstanceGenerator : CodeGenerator<FastCreateInstanceGenerator>
 {
