@@ -16,5 +16,7 @@
 		<CompilerVisibleProperty Include="FastNew_PrettyOutput" />
 		<CompilerVisibleProperty Include="FastNew_MultiThreadedGeneration" />
 		<CompilerVisibleProperty Include="FastNew_OutputGenerationInfo" />
+		<CompilerVisibleProperty Include="FastNew_GenerateTypeCreateInstance" />
+		<CompilerVisibleProperty Include="FastNew_GenerateTypeTryCreateInstance" />
 	</ItemGroup>
 </Project>

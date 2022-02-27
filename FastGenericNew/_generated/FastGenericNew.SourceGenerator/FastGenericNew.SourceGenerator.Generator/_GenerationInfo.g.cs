@@ -16,7 +16,9 @@
     PublicConstructorOf = True
     PublicSourceExpression = True
     GenerateTryCreateInstance = True
+    GenerateTypeTryCreateInstance = True
     GenerateCreateInstance = True
+    GenerateTypeCreateInstance = True
     PublicCompiledDelegate = True
     NonPublicConstructorSupport = True
     Namespace = FastGenericNew
@@ -35,7 +37,9 @@
     <FastNew_PublicConstructorOf>True<FastNew_PublicConstructorOf />
     <FastNew_PublicSourceExpression>True<FastNew_PublicSourceExpression />
     <FastNew_GenerateTryCreateInstance>True<FastNew_GenerateTryCreateInstance />
+    <FastNew_GenerateTypeTryCreateInstance>True<FastNew_GenerateTypeTryCreateInstance />
     <FastNew_GenerateCreateInstance>True<FastNew_GenerateCreateInstance />
+    <FastNew_GenerateTypeCreateInstance>True<FastNew_GenerateTypeCreateInstance />
     <FastNew_PublicCompiledDelegate>True<FastNew_PublicCompiledDelegate />
     <FastNew_NonPublicConstructorSupport>True<FastNew_NonPublicConstructorSupport />
     <FastNew_Namespace>FastGenericNew<FastNew_Namespace />
