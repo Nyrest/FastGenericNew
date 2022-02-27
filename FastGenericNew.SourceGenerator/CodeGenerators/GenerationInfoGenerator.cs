@@ -1,4 +1,6 @@
-﻿namespace FastGenericNew.SourceGenerator.CodeGenerators;
+﻿using System.Runtime.InteropServices;
+
+namespace FastGenericNew.SourceGenerator.CodeGenerators;
 
 public class GenerationInfoGenerator : CodeGenerator<GenerationInfoGenerator>
 {
@@ -11,6 +13,17 @@ public class GenerationInfoGenerator : CodeGenerator<GenerationInfoGenerator>
 
         builder.Append("/*\n");
 
+        builder.AppendLine();
+        builder.AppendLine("  Environment:");
+        builder.AppendLine();
+        builder.AppendLine("    Version = " + Assembly.GetCallingAssembly().GetName().Version.ToString());
+        builder.AppendLine("    Runtime = " + RuntimeInformation.FrameworkDescription);
+        builder.AppendLine("    System = " + RuntimeInformation.OSDescription);
+        builder.AppendLine("    SystemArch = " + RuntimeInformation.OSArchitecture.ToString());
+        builder.AppendLine("    ProcessArch = " + RuntimeInformation.ProcessArchitecture);
+        builder.AppendLine("    ProcessorCount = " + Environment.ProcessorCount);
+
+        builder.AppendLine();
         builder.AppendLine();
         builder.AppendLine("  KeyValues:");
         builder.AppendLine();
