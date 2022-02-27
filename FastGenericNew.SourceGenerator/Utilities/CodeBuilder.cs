@@ -145,6 +145,15 @@ internal unsafe ref partial struct CodeBuilder
         _buffer[_length++] = value;
     }
 
+    public void Append(char value, int count)
+    {
+        if (count == 0) return;
+        if (BufferAvailable < count)
+            Grow(count);
+        _buffer.AsSpan(_length, count).Fill(value);
+        _length += count;
+    }
+
     public void Append(char value, char value2)
     {
         if (BufferAvailable == 0)
@@ -171,7 +180,7 @@ internal unsafe ref partial struct CodeBuilder
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void AppendLine(char value)
     {
-        if (BufferAvailable <= 1)
+        if (BufferAvailable < 2)
             Grow();
         _buffer[_length] = value;
         _buffer[_length + 1] = '\n';
@@ -208,6 +217,16 @@ internal unsafe ref partial struct CodeBuilder
     {
         var oldBuffer = _buffer;
         _buffer = pool.Rent((_buffer.Length + 1) * 2);
+        oldBuffer.CopyTo(_buffer, 0);
+        pool.Return(oldBuffer);
+    }
+
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public void Grow(int minimalGrowSize)
+    {
+        var oldBuffer = _buffer;
+        int newSize = Math.Max((_buffer.Length + 1) * 2, _length + minimalGrowSize);
+        _buffer = pool.Rent(newSize);
         oldBuffer.CopyTo(_buffer, 0);
         pool.Return(oldBuffer);
     }
