@@ -16,10 +16,18 @@ namespace @FastGenericNew
 {
 	public static partial class FastNew<T>
 	{
+		/// <summary>
+		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
+		/// Could be <see langword="null" /> if the constructor couldn't be found.
+		/// </summary>
 		public static readonly ConstructorInfo? Constructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, Type.EmptyTypes, null);
 	}
 	public static partial class FastNew<T, TArg0>
 	{
+		/// <summary>
+		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
+		/// Could be <see langword="null" /> if the constructor couldn't be found.
+		/// </summary>
 		public static readonly ConstructorInfo? Constructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, new Type[]
 		{
 			typeof(TArg0),
@@ -27,6 +35,10 @@ namespace @FastGenericNew
 	}
 	public static partial class FastNew<T, TArg0, TArg1>
 	{
+		/// <summary>
+		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
+		/// Could be <see langword="null" /> if the constructor couldn't be found.
+		/// </summary>
 		public static readonly ConstructorInfo? Constructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, new Type[]
 		{
 			typeof(TArg0),
@@ -35,6 +47,10 @@ namespace @FastGenericNew
 	}
 	public static partial class FastNew<T, TArg0, TArg1, TArg2>
 	{
+		/// <summary>
+		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
+		/// Could be <see langword="null" /> if the constructor couldn't be found.
+		/// </summary>
 		public static readonly ConstructorInfo? Constructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, new Type[]
 		{
 			typeof(TArg0),
@@ -44,6 +60,10 @@ namespace @FastGenericNew
 	}
 	public static partial class FastNew<T, TArg0, TArg1, TArg2, TArg3>
 	{
+		/// <summary>
+		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
+		/// Could be <see langword="null" /> if the constructor couldn't be found.
+		/// </summary>
 		public static readonly ConstructorInfo? Constructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, new Type[]
 		{
 			typeof(TArg0),
@@ -54,6 +74,10 @@ namespace @FastGenericNew
 	}
 	public static partial class FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4>
 	{
+		/// <summary>
+		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
+		/// Could be <see langword="null" /> if the constructor couldn't be found.
+		/// </summary>
 		public static readonly ConstructorInfo? Constructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, new Type[]
 		{
 			typeof(TArg0),
@@ -65,6 +89,10 @@ namespace @FastGenericNew
 	}
 	public static partial class FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5>
 	{
+		/// <summary>
+		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
+		/// Could be <see langword="null" /> if the constructor couldn't be found.
+		/// </summary>
 		public static readonly ConstructorInfo? Constructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, new Type[]
 		{
 			typeof(TArg0),
@@ -77,6 +105,10 @@ namespace @FastGenericNew
 	}
 	public static partial class FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6>
 	{
+		/// <summary>
+		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
+		/// Could be <see langword="null" /> if the constructor couldn't be found.
+		/// </summary>
 		public static readonly ConstructorInfo? Constructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, new Type[]
 		{
 			typeof(TArg0),
@@ -90,6 +122,10 @@ namespace @FastGenericNew
 	}
 	public static partial class FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7>
 	{
+		/// <summary>
+		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
+		/// Could be <see langword="null" /> if the constructor couldn't be found.
+		/// </summary>
 		public static readonly ConstructorInfo? Constructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, new Type[]
 		{
 			typeof(TArg0),
@@ -104,6 +140,10 @@ namespace @FastGenericNew
 	}
 	public static partial class FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8>
 	{
+		/// <summary>
+		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
+		/// Could be <see langword="null" /> if the constructor couldn't be found.
+		/// </summary>
 		public static readonly ConstructorInfo? Constructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, new Type[]
 		{
 			typeof(TArg0),
@@ -119,6 +159,10 @@ namespace @FastGenericNew
 	}
 	public static partial class FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9>
 	{
+		/// <summary>
+		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
+		/// Could be <see langword="null" /> if the constructor couldn't be found.
+		/// </summary>
 		public static readonly ConstructorInfo? Constructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, new Type[]
 		{
 			typeof(TArg0),
@@ -135,6 +179,10 @@ namespace @FastGenericNew
 	}
 	public static partial class FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10>
 	{
+		/// <summary>
+		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
+		/// Could be <see langword="null" /> if the constructor couldn't be found.
+		/// </summary>
 		public static readonly ConstructorInfo? Constructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, new Type[]
 		{
 			typeof(TArg0),
@@ -152,6 +200,10 @@ namespace @FastGenericNew
 	}
 	public static partial class FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11>
 	{
+		/// <summary>
+		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
+		/// Could be <see langword="null" /> if the constructor couldn't be found.
+		/// </summary>
 		public static readonly ConstructorInfo? Constructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, new Type[]
 		{
 			typeof(TArg0),
@@ -170,6 +222,10 @@ namespace @FastGenericNew
 	}
 	public static partial class FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12>
 	{
+		/// <summary>
+		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
+		/// Could be <see langword="null" /> if the constructor couldn't be found.
+		/// </summary>
 		public static readonly ConstructorInfo? Constructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, new Type[]
 		{
 			typeof(TArg0),
@@ -189,6 +245,10 @@ namespace @FastGenericNew
 	}
 	public static partial class FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13>
 	{
+		/// <summary>
+		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
+		/// Could be <see langword="null" /> if the constructor couldn't be found.
+		/// </summary>
 		public static readonly ConstructorInfo? Constructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, new Type[]
 		{
 			typeof(TArg0),
@@ -209,6 +269,10 @@ namespace @FastGenericNew
 	}
 	public static partial class FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14>
 	{
+		/// <summary>
+		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
+		/// Could be <see langword="null" /> if the constructor couldn't be found.
+		/// </summary>
 		public static readonly ConstructorInfo? Constructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, new Type[]
 		{
 			typeof(TArg0),
@@ -230,6 +294,10 @@ namespace @FastGenericNew
 	}
 	public static partial class FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TArg15>
 	{
+		/// <summary>
+		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
+		/// Could be <see langword="null" /> if the constructor couldn't be found.
+		/// </summary>
 		public static readonly ConstructorInfo? Constructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, new Type[]
 		{
 			typeof(TArg0),

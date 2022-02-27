@@ -2,7 +2,7 @@
 
 public class CodeGenerationResult
 {
-    public static readonly CodeGenerationResult Empty = new CodeGenerationResult(string.Empty);
+    public static readonly CodeGenerationResult Empty = new(string.Empty);
 
     public CodeGenerationResult(string filename, SourceText? sourceText = null, Diagnostic[]? diagnostics = null)
     {
