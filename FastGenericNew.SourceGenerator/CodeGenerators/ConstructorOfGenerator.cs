@@ -10,7 +10,7 @@ public class ConstructorOfGenerator : CodeGenerator<ConstructorOfGenerator>
 
     public override CodeGenerationResult Generate(in GeneratorOptions options)
     {
-        CodeBuilder builder = new(10240, in options);
+        CodeBuilder builder = new(20480, in options);
         builder.WriteFileHeader();
         builder.StartNamespace();
 
@@ -25,6 +25,12 @@ public class ConstructorOfGenerator : CodeGenerator<ConstructorOfGenerator>
             builder.AppendLine();
 
             builder.StartBlock(1);
+
+            builder.XmlDoc(2, @"
+/// <summary>
+/// The constructor of <typeparamref name=""T"" /> with given arguments. <br/>
+/// Could be <see langword=""null"" /> if the constructor couldn't be found.
+/// </summary>");
 
             builder.Indent(2);
             builder.AppendAccessibility(ClassName == "FastNew" ? options.PublicConstructorOf : true);

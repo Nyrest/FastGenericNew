@@ -1,6 +1,4 @@
-﻿using Microsoft.CodeAnalysis;
-
-namespace FastGenericNew.SourceGenerator;
+﻿namespace FastGenericNew.SourceGenerator;
 
 public readonly record struct GeneratorOptions
 {

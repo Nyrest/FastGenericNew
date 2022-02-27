@@ -1,5 +1,15 @@
 ﻿/*
 
+  Environment:
+
+    Version = 3.0.0.0
+    Runtime = .NET Framework 4.8.4470.0
+    System = Microsoft Windows 10.0.22000 
+    SystemArch = X64
+    ProcessArch = X64
+    ProcessorCount = 24
+
+
   KeyValues:
 
     MaxParameterCount = 16
