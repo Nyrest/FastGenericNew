@@ -10,7 +10,11 @@ public readonly record struct GeneratorOptions
 
     public bool GenerateTryCreateInstance { get; }
 
+    public bool GenerateTypeTryCreateInstance { get; }
+
     public bool GenerateCreateInstance { get; }
+
+    public bool GenerateTypeCreateInstance { get; }
 
     public bool PublicCompiledDelegate { get; }
 
@@ -52,6 +56,9 @@ public readonly record struct GeneratorOptions
         PrettyOutput = options.GetOrDefault(nameof(PrettyOutput), false);
         MultiThreadedGeneration = options.GetOrDefault(nameof(MultiThreadedGeneration), true);
         OutputGenerationInfo = options.GetOrDefault(nameof(OutputGenerationInfo), false);
+
+        GenerateTypeCreateInstance = options.GetOrDefault(nameof(GenerateTypeCreateInstance), true);
+        GenerateTypeTryCreateInstance = options.GetOrDefault(nameof(GenerateTypeTryCreateInstance), true);
     }
 
     public string GlobalNSDot() => string.IsNullOrWhiteSpace(Namespace)
