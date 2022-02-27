@@ -8,7 +8,7 @@ public class TypeNewGenerator : CodeGenerator<TypeNewGenerator>
 
     public override CodeGenerationResult Generate(in GeneratorOptions options)
     {
-        CodeBuilder builder = new(65536, in options);
+        CodeBuilder builder = new(20480, in options);
         builder.WriteFileHeader();
         builder.StartNamespace();
 
