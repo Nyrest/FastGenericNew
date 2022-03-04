@@ -1,18 +1,30 @@
 <Project>
 	<PropertyGroup>
-		<Version>3.0.0.0</Version>
-		<AssemblyVersion>$(Version)</AssemblyVersion>
+		<Version>3.0.0-rc1</Version>
+		<AssemblyVersion>3.0.0</AssemblyVersion>
 	</PropertyGroup>
 
 	<!-- Nuget Package Properties -->
 	<PropertyGroup>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<Description>$(DescriptionPrefix)</Description>
+		<Description>$(DescriptionPrefix)
+The ultimate fast alternative to Activator.CreateInstance&lt;T&gt;
+
+Up to 50x faster than Activator.CreateInstance&lt;T&gt;
+Generic Parameters Support
+Non-Public Constructor Support
+No Generic Constraints
+TryGetValue-like TryFastNew API
+Link Mode PublishTrimmed Support
+C# 8 Nullable Support
+C# 10 Parameterless struct constructors Support (Both invokes or not)
+		</Description>
 		<Authors>Boring3</Authors>
-		<RepositoryUrl>https://github.com/BThree496/FastGenericNew</RepositoryUrl>
-		<PackageProjectUrl>https://github.com/BThree496/FastGenericNew</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/Nyerst/FastGenericNew</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/Nyerst/FastGenericNew</PackageProjectUrl>
 		<PackageTags>Performance, Fast, Generic, New, Expression, Optimization, CreateInstance, Activator$(PackageTagsPostfix)</PackageTags>
+		<IsPackable>true</IsPackable>
 	</PropertyGroup>
 
 	<!-- Nuget Package README -->
