@@ -19,11 +19,8 @@
 	<!-- Nuget Package Properties-->
 	<PropertyGroup>
 		<PackageId>FastGenericNew.SourceGenerator</PackageId>
-		<DescriptionPrefix>
-			Configurable Source Generator of FastGenericNew
-
-			Minimum required: .NET Standard 2.0 &amp; C# 8.0
-		</DescriptionPrefix>
+		<DescriptionPrefix>Configurable Source Generator of FastGenericNew
+Minimum required: .NET Standard 2.0 &amp; C# 8.0</DescriptionPrefix>
 		<PackageTagsPostfix>, SourceGenerator, SourceGeneratorV2, IncrementalGenerator</PackageTagsPostfix>
 	</PropertyGroup>
 

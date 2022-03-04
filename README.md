@@ -22,26 +22,32 @@ The ultimate fast alternative to `Activator.CreateInstance<T>`
   - [C# 8 Nullable](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nullable-reference-types) Support
   - [C# 10 Parameterless struct constructors](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-10.0/parameterless-struct-constructors) Support (Both invokes or not)
 
-## Installation (Unreleased)  
+## Installation
 
-### DotNet CLI
+> You can only use one of them
+
+### Pre-Compiled Version
 
 ```powershell
-dotnet add package FastGenericNew --version 3.0.0
+dotnet add package FastGenericNew --version 3.0.0-rc1
 ```
-
-### Package Reference
 
 ```xml
 <ItemGroup>
-  <PackageReference Include="FastGenericNew" Version="3.0.0" />
+  <PackageReference Include="FastGenericNew" Version="3.0.0-rc1" />
 </ItemGroup>
 ```
 
-### Package Manager
+### SourceGenerator Version
 
 ```powershell
-Install-Package FastGenericNew -Version 3.0.0
+dotnet add package FastGenericNew.SourceGenerator --version 3.0.0-rc1
+```
+
+```xml
+<ItemGroup>
+  <PackageReference Include="FastGenericNew.SourceGenerator" Version="3.0.0-rc1" />
+</ItemGroup>
 ```
 
 ## Examples

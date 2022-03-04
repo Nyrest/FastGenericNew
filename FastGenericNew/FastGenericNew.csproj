@@ -29,9 +29,7 @@
 	<!-- Nuget Package Properties-->
 	<PropertyGroup>
 		<PackageId>FastGenericNew</PackageId>
-		<DescriptionPrefix>
-
-		</DescriptionPrefix>
+		<DescriptionPrefix>Pre-Compiled FastGenericNew</DescriptionPrefix>
 		<PackageTagsPostfix>, Generated</PackageTagsPostfix>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
