@@ -6,7 +6,7 @@
 
 	<!-- Nuget Package Properties -->
 	<PropertyGroup>
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<Description>$(DescriptionPrefix)
 The ultimate fast alternative to Activator.CreateInstance&lt;T&gt;
@@ -22,6 +22,7 @@ C# 10 Parameterless struct constructors Support (Both invokes or not)
 		</Description>
 		<Authors>Boring3</Authors>
 		<RepositoryUrl>https://github.com/Nyerst/FastGenericNew</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
 		<PackageProjectUrl>https://github.com/Nyerst/FastGenericNew</PackageProjectUrl>
 		<PackageTags>Performance, Fast, Generic, New, Expression, Optimization, CreateInstance, Activator$(PackageTagsPostfix)</PackageTags>
 		<IsPackable>true</IsPackable>
