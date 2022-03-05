@@ -3,14 +3,14 @@
 public class ReferenceTypeBenchmark
 {
     [Benchmark]
-    public DemoStruct FastNew()
+    public DemoClass FastNew()
     {
-        return FastGenericNew.FastNew.CreateInstance<DemoStruct>();
+        return FastGenericNew.FastNew.CreateInstance<DemoClass>();
     }
 
     [Benchmark]
-    public DemoStruct Activator()
+    public DemoClass Activator()
     {
-        return System.Activator.CreateInstance<DemoStruct>();
+        return System.Activator.CreateInstance<DemoClass>();
     }
 }
