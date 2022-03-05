@@ -38,7 +38,7 @@ T>
     
         public static readonly bool IsValid = typeof(T).IsValueType || (global::@FastGenericNew.FastNew<T>.Constructor != null && !typeof(T).IsAbstract);
     }
-	public static partial class FastNew<
+	internal static partial class FastNew<
 #if NET5_0_OR_GREATER
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
 #endif
@@ -61,7 +61,7 @@ T, TArg0>
 			, new System.Linq.Expressions.ParameterExpression[] { p0 })).Compile();
 		}
 	}
-	public static partial class FastNew<
+	internal static partial class FastNew<
 #if NET5_0_OR_GREATER
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
 #endif
@@ -85,7 +85,7 @@ T, TArg0, TArg1>
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1 })).Compile();
 		}
 	}
-	public static partial class FastNew<
+	internal static partial class FastNew<
 #if NET5_0_OR_GREATER
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
 #endif
@@ -110,7 +110,7 @@ T, TArg0, TArg1, TArg2>
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2 })).Compile();
 		}
 	}
-	public static partial class FastNew<
+	internal static partial class FastNew<
 #if NET5_0_OR_GREATER
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
 #endif
@@ -136,7 +136,7 @@ T, TArg0, TArg1, TArg2, TArg3>
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2, p3 })).Compile();
 		}
 	}
-	public static partial class FastNew<
+	internal static partial class FastNew<
 #if NET5_0_OR_GREATER
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
 #endif
@@ -163,7 +163,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4>
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2, p3, p4 })).Compile();
 		}
 	}
-	public static partial class FastNew<
+	internal static partial class FastNew<
 #if NET5_0_OR_GREATER
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
 #endif
@@ -191,7 +191,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5>
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2, p3, p4, p5 })).Compile();
 		}
 	}
-	public static partial class FastNew<
+	internal static partial class FastNew<
 #if NET5_0_OR_GREATER
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
 #endif
@@ -220,7 +220,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6>
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2, p3, p4, p5, p6 })).Compile();
 		}
 	}
-	public static partial class FastNew<
+	internal static partial class FastNew<
 #if NET5_0_OR_GREATER
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
 #endif
@@ -250,7 +250,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7>
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2, p3, p4, p5, p6, p7 })).Compile();
 		}
 	}
-	public static partial class FastNew<
+	internal static partial class FastNew<
 #if NET5_0_OR_GREATER
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
 #endif
@@ -281,7 +281,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8>
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2, p3, p4, p5, p6, p7, p8 })).Compile();
 		}
 	}
-	public static partial class FastNew<
+	internal static partial class FastNew<
 #if NET5_0_OR_GREATER
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
 #endif
@@ -313,7 +313,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9>
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2, p3, p4, p5, p6, p7, p8, p9 })).Compile();
 		}
 	}
-	public static partial class FastNew<
+	internal static partial class FastNew<
 #if NET5_0_OR_GREATER
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
 #endif
@@ -346,7 +346,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10>
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10 })).Compile();
 		}
 	}
-	public static partial class FastNew<
+	internal static partial class FastNew<
 #if NET5_0_OR_GREATER
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
 #endif
@@ -380,7 +380,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11 })).Compile();
 		}
 	}
-	public static partial class FastNew<
+	internal static partial class FastNew<
 #if NET5_0_OR_GREATER
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
 #endif
@@ -415,7 +415,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12 })).Compile();
 		}
 	}
-	public static partial class FastNew<
+	internal static partial class FastNew<
 #if NET5_0_OR_GREATER
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
 #endif
@@ -451,7 +451,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13 })).Compile();
 		}
 	}
-	public static partial class FastNew<
+	internal static partial class FastNew<
 #if NET5_0_OR_GREATER
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
 #endif
@@ -488,7 +488,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14 })).Compile();
 		}
 	}
-	public static partial class FastNew<
+	internal static partial class FastNew<
 #if NET5_0_OR_GREATER
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
 #endif
