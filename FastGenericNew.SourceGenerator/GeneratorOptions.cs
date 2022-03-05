@@ -4,7 +4,9 @@ public readonly record struct GeneratorOptions
 {
     public int MaxParameterCount { get; }
 
-    public bool PublicConstructorOf { get; }
+    public bool PublicFastNewCore { get; }
+
+    public bool FastNew_PublicConstructorCache { get; }
 
     public bool PublicSourceExpression { get; }
 
@@ -24,7 +26,7 @@ public readonly record struct GeneratorOptions
 
     public bool ForceFastNewDelegate { get; }
 
-    public bool GeneratedAlert { get; }
+    public bool IsGeneratedHeader { get; }
 
     public bool DisableGeneratorCache { get; }
 
@@ -40,7 +42,8 @@ public readonly record struct GeneratorOptions
     {
         var options = provider.GlobalOptions;
         MaxParameterCount = options.GetOrDefault(nameof(MaxParameterCount), 16);
-        PublicConstructorOf = options.GetOrDefault(nameof(PublicConstructorOf), true);
+        PublicFastNewCore = options.GetOrDefault(nameof(PublicFastNewCore), false);
+        FastNew_PublicConstructorCache = options.GetOrDefault(nameof(FastNew_PublicConstructorCache), true);
         GenerateTryCreateInstance = options.GetOrDefault(nameof(GenerateTryCreateInstance), true);
         GenerateCreateInstance = options.GetOrDefault(nameof(GenerateCreateInstance), true);
 
@@ -51,7 +54,7 @@ public readonly record struct GeneratorOptions
         ForceFastNewDelegate = options.GetOrDefault(nameof(ForceFastNewDelegate), false);
         Trimmable = options.GetOrDefault(nameof(Trimmable), true);
 
-        GeneratedAlert = options.GetOrDefault(nameof(GeneratedAlert), true);
+        IsGeneratedHeader = options.GetOrDefault(nameof(IsGeneratedHeader), true);
         DisableGeneratorCache = options.GetOrDefault(nameof(DisableGeneratorCache), false);
         PrettyOutput = options.GetOrDefault(nameof(PrettyOutput), false);
         MultiThreadedGeneration = options.GetOrDefault(nameof(MultiThreadedGeneration), true);

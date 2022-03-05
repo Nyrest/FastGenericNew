@@ -52,5 +52,5 @@
 
 	<!-- Imports -->
 	<Import Project="../FastGenericNew.Shared.props" />
-	<Import Project="../FastGenericNew.SourceGenerator/FastGenericNew.props" />
+	<Import Project="../FastGenericNew.SourceGenerator/FastGenericNew.SourceGenerator.props" />
 </Project>
