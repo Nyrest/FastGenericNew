@@ -15,7 +15,7 @@ The ultimate fast alternative to `Activator.CreateInstance<T>` / `new T()`
 
 - Modern Compiler Integration
   - Source Generator v2 (Incremental Generator)
-  - Highly Configurable
+  - Highly Configurable [Props](https://github.com/Nyerst/FastGenericNew/blob/main/FastGenericNew.SourceGenerator/FastGenericNew.SourceGenerator.props)
   - Multi-threaded Generation
 
 - Lastest C# Features Support
@@ -93,11 +93,11 @@ AMD Ryzen 9 3900X, 1 CPU, 24 logical and 12 physical cores
 
 ### Reference Types
 
-![Benchmark Result of Reference Types](./Benchmark_ReferenceType.png)  
+![Benchmark Result of Reference Types](https://raw.githubusercontent.com/Nyerst/FastGenericNew/main/Benchmark_ReferenceType.png)  
 
 ### Value Types
 
-![Benchmark Result of Value Types](./Benchmark_ValueType.png)
+![Benchmark Result of Value Types](https://raw.githubusercontent.com/Nyerst/FastGenericNew/main/Benchmark_ValueType.png)
 
 ## License
 
