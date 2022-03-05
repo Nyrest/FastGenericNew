@@ -19,12 +19,9 @@
 
         private DemoClassPrivateCtor(int val) => value = val;
 
-        // Keep references to avoid Roslyn remove them.
-        public static void A()
-        {
-            Console.Write(new DemoClassPrivateCtor());
-            Console.Write(new DemoClassPrivateCtor(1));
-        }
+        public static DemoClassPrivateCtor Create() => new();
+
+        public static DemoClassPrivateCtor Create(int val) => new(val);
     }
 
     public record class DemoClass
