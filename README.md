@@ -15,7 +15,7 @@ The ultimate fast alternative to `Activator.CreateInstance<T>` / `new T()`
 
 - Modern Compiler Integration
   - Source Generator v2 (Incremental Generator)
-  - Highly Configurable [Props](https://github.com/Nyerst/FastGenericNew/blob/main/FastGenericNew.SourceGenerator/FastGenericNew.SourceGenerator.props)
+  - Highly Configurable ([Props](https://github.com/Nyerst/FastGenericNew/blob/main/FastGenericNew.SourceGenerator/FastGenericNew.SourceGenerator.props))
   - Multi-threaded Generation
 
 - Lastest C# Features Support
