@@ -18,6 +18,10 @@
         private DemoClassPrivateCtor() { }
 
         private DemoClassPrivateCtor(int val) => value = val;
+
+        public static DemoClassPrivateCtor Create() => new();
+
+        public static DemoClassPrivateCtor Create(int val) => new(val);
     }
 
     public record class DemoClass
