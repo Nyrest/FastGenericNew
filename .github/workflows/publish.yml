@@ -49,4 +49,4 @@ jobs:
       - name: Push to Nuget
         env:
           NUGET_UPDATEKEY: ${{ secrets.NUGET_UPDATEKEY }}
-        run: dotnet nuget push publishOutput/*.nupkg -k $NUGET_UPDATEKEY
+        run: dotnet nuget push publishOutput/*.nupkg -k $NUGET_UPDATEKEY --source https://api.nuget.org/v3/index.json
