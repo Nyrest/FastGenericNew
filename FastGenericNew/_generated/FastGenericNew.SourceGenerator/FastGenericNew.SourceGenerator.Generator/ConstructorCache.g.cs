@@ -14,7 +14,7 @@ using System.ComponentModel;
 
 namespace @FastGenericNew
 {
-	public static partial class FastNew<T>
+	partial class FastNew<T>
 	{
 		/// <summary>
 		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
@@ -22,7 +22,7 @@ namespace @FastGenericNew
 		/// </summary>
 		public static readonly ConstructorInfo? Constructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, Type.EmptyTypes, null);
 	}
-	public static partial class FastNew<T, TArg0>
+	partial class FastNew<T, TArg0>
 	{
 		/// <summary>
 		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
@@ -33,7 +33,7 @@ namespace @FastGenericNew
 			typeof(TArg0),
 		}, null);
 	}
-	public static partial class FastNew<T, TArg0, TArg1>
+	partial class FastNew<T, TArg0, TArg1>
 	{
 		/// <summary>
 		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
@@ -45,7 +45,7 @@ namespace @FastGenericNew
 			typeof(TArg1),
 		}, null);
 	}
-	public static partial class FastNew<T, TArg0, TArg1, TArg2>
+	partial class FastNew<T, TArg0, TArg1, TArg2>
 	{
 		/// <summary>
 		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
@@ -58,7 +58,7 @@ namespace @FastGenericNew
 			typeof(TArg2),
 		}, null);
 	}
-	public static partial class FastNew<T, TArg0, TArg1, TArg2, TArg3>
+	partial class FastNew<T, TArg0, TArg1, TArg2, TArg3>
 	{
 		/// <summary>
 		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
@@ -72,7 +72,7 @@ namespace @FastGenericNew
 			typeof(TArg3),
 		}, null);
 	}
-	public static partial class FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4>
+	partial class FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4>
 	{
 		/// <summary>
 		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
@@ -87,7 +87,7 @@ namespace @FastGenericNew
 			typeof(TArg4),
 		}, null);
 	}
-	public static partial class FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5>
+	partial class FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5>
 	{
 		/// <summary>
 		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
@@ -103,7 +103,7 @@ namespace @FastGenericNew
 			typeof(TArg5),
 		}, null);
 	}
-	public static partial class FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6>
+	partial class FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6>
 	{
 		/// <summary>
 		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
@@ -120,7 +120,7 @@ namespace @FastGenericNew
 			typeof(TArg6),
 		}, null);
 	}
-	public static partial class FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7>
+	partial class FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7>
 	{
 		/// <summary>
 		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
@@ -138,7 +138,7 @@ namespace @FastGenericNew
 			typeof(TArg7),
 		}, null);
 	}
-	public static partial class FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8>
+	partial class FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8>
 	{
 		/// <summary>
 		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
@@ -157,7 +157,7 @@ namespace @FastGenericNew
 			typeof(TArg8),
 		}, null);
 	}
-	public static partial class FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9>
+	partial class FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9>
 	{
 		/// <summary>
 		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
@@ -177,7 +177,7 @@ namespace @FastGenericNew
 			typeof(TArg9),
 		}, null);
 	}
-	public static partial class FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10>
+	partial class FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10>
 	{
 		/// <summary>
 		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
@@ -198,7 +198,7 @@ namespace @FastGenericNew
 			typeof(TArg10),
 		}, null);
 	}
-	public static partial class FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11>
+	partial class FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11>
 	{
 		/// <summary>
 		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
@@ -220,7 +220,7 @@ namespace @FastGenericNew
 			typeof(TArg11),
 		}, null);
 	}
-	public static partial class FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12>
+	partial class FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12>
 	{
 		/// <summary>
 		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
@@ -243,7 +243,7 @@ namespace @FastGenericNew
 			typeof(TArg12),
 		}, null);
 	}
-	public static partial class FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13>
+	partial class FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13>
 	{
 		/// <summary>
 		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
@@ -267,7 +267,7 @@ namespace @FastGenericNew
 			typeof(TArg13),
 		}, null);
 	}
-	public static partial class FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14>
+	partial class FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14>
 	{
 		/// <summary>
 		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
@@ -292,7 +292,7 @@ namespace @FastGenericNew
 			typeof(TArg14),
 		}, null);
 	}
-	public static partial class FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TArg15>
+	partial class FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TArg15>
 	{
 		/// <summary>
 		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>

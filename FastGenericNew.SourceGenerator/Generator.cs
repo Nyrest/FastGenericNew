@@ -13,7 +13,7 @@ public unsafe class Generator : IIncrementalGenerator
             (nint)
             typeof(GeneratorInstance<>)
             .MakeGenericType(x)
-            .GetMethod(nameof(GeneratorInstance<ConstructorOfGenerator>.Generate))
+            .GetMethod(nameof(GeneratorInstance<ConstructorCacheGenerator>.Generate))
             .MethodHandle.GetFunctionPointer()
             )
         .ToArray();
