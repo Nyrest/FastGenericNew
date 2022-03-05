@@ -12,7 +12,7 @@ public readonly record struct GeneratorOptions
 
     public bool GenerateTryCreateInstance { get; }
 
-    public bool GenerateTypeTryCreateInstance { get; }
+    //public bool GenerateTypeTryCreateInstance { get; }
 
     public bool GenerateCreateInstance { get; }
 
@@ -61,7 +61,7 @@ public readonly record struct GeneratorOptions
         OutputGenerationInfo = options.GetOrDefault(nameof(OutputGenerationInfo), false);
 
         GenerateTypeCreateInstance = options.GetOrDefault(nameof(GenerateTypeCreateInstance), true);
-        GenerateTypeTryCreateInstance = options.GetOrDefault(nameof(GenerateTypeTryCreateInstance), true);
+        //GenerateTypeTryCreateInstance = options.GetOrDefault(nameof(GenerateTypeTryCreateInstance), true);
     }
 
     public string GlobalNSDot() => string.IsNullOrWhiteSpace(Namespace)
