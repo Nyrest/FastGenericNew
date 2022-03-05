@@ -50,6 +50,8 @@ dotnet add package FastGenericNew.SourceGenerator --version 3.0.0-preview1
 </ItemGroup>
 ```
 
+> .NET Standard 2.0 & C# 8.0 or above is required for SourceGenerator version
+
 ## Examples
 
 ```cs
