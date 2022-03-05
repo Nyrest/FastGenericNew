@@ -57,11 +57,11 @@ dotnet add package FastGenericNew.SourceGenerator --version 3.0.0-preview1
 ```cs
 using FastGenericNew;
 
-FastNew.CreateInstance<T>();
+var obj = FastNew.CreateInstance<T>();
 
 // With parameter(s)
-FastNew.CreateInstance<T, string>("text");
-FastNew.CreateInstance<T, string, int>("text", 0);
+var obj2 = FastNew.CreateInstance<T, string>("text");
+var obj3 = FastNew.CreateInstance<T, string, int>("text", 0);
 
 // Try 
 if (FastNew.TryCreateInstance<T, string>("arg0", out T result));
