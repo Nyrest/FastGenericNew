@@ -47,6 +47,4 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: Push to Nuget
-        env:
-          NUGET_UPDATEKEY: ${{ secrets.NUGET_UPDATEKEY }}
-        run: dotnet nuget push publishOutput/*.nupkg -k $NUGET_UPDATEKEY --source https://api.nuget.org/v3/index.json
+        run: dotnet nuget push publishOutput\*.nupkg -k ${{ secrets.NUGET_UPDATEKEY }} -s https://api.nuget.org/v3/index.json
