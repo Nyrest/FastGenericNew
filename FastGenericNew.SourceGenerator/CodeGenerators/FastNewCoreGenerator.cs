@@ -49,7 +49,7 @@ T>
         for (int parameterIndex = 1; parameterIndex <= options.MaxParameterCount; parameterIndex++)
         {
             builder.Indent(1);
-            builder.AppendAccessibility(options.FastNew_PublicConstructorCache);
+            builder.AppendAccessibility(options.PublicFastNewCore);
             builder.AppendKeyword("static partial class");
 
             builder.Append(ClassName);
