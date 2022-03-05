@@ -7,7 +7,7 @@ public abstract class CodeGenerator
     public virtual bool ShouldUpdate(in GeneratorOptions oldValue, in GeneratorOptions newValue) => 
         oldValue.Namespace != newValue.Namespace
         || oldValue.MaxParameterCount != newValue.MaxParameterCount
-        || oldValue.GeneratedAlert != newValue.GeneratedAlert
+        || oldValue.IsGeneratedHeader != newValue.IsGeneratedHeader
         || oldValue.PrettyOutput != newValue.PrettyOutput;
 
     public abstract CodeGenerationResult Generate(in GeneratorOptions options);

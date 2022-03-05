@@ -17,8 +17,8 @@ public class ConstructorOfGenerator : CodeGenerator<ConstructorOfGenerator>
         for (int parameterIndex = 0; parameterIndex <= options.MaxParameterCount; parameterIndex++)
         {
             builder.Indent(1);
-            builder.AppendAccessibility(ClassName == "FastNew" ? true : options.PublicConstructorOf);
-            builder.AppendKeyword("static partial class");
+            builder.AppendAccessibility(options.PublicFastNewCore);
+            builder.AppendKeyword("partial class");
 
             builder.Append(ClassName);
             builder.DeclareGenericMember(parameterIndex, ClassName == "FastNew");
@@ -33,7 +33,7 @@ public class ConstructorOfGenerator : CodeGenerator<ConstructorOfGenerator>
 /// </summary>");
 
             builder.Indent(2);
-            builder.AppendAccessibility(ClassName == "FastNew" ? options.PublicConstructorOf : true);
+            builder.AppendAccessibility(options.FastNew_PublicConstructorCache);
             builder.Append($"static readonly ConstructorInfo? {ValueName} = typeof(T).GetConstructor(");
             builder.Append(options.NonPublicConstructorSupport
                 ? "BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic"
@@ -72,5 +72,5 @@ public class ConstructorOfGenerator : CodeGenerator<ConstructorOfGenerator>
 
     public override bool ShouldUpdate(in GeneratorOptions oldValue, in GeneratorOptions newValue) =>
         base.ShouldUpdate(oldValue, newValue)
-        || oldValue.PublicConstructorOf != newValue.PublicConstructorOf;
+        || oldValue.FastNew_PublicConstructorCache != newValue.FastNew_PublicConstructorCache;
 }

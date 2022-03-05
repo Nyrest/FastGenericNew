@@ -44,5 +44,5 @@ public class ThrowHelperGenerator : CodeGenerator<ThrowHelperGenerator>
 
     public override bool ShouldUpdate(in GeneratorOptions oldValue, in GeneratorOptions newValue) =>
         oldValue.Namespace != newValue.Namespace
-        || oldValue.GeneratedAlert != newValue.GeneratedAlert;
+        || oldValue.IsGeneratedHeader != newValue.IsGeneratedHeader;
 }

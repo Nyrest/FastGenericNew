@@ -19,8 +19,9 @@ public class FastNewCoreGenerator : CodeGenerator<FastNewCoreGenerator>
         CodeBuilder builder = new(65536, in options);
         builder.WriteFileHeader();
         builder.StartNamespace();
-
-        builder.AppendLine(@$"    public static partial class FastNew<
+        builder.Indent(1);
+        builder.AppendAccessibility(options.PublicFastNewCore);
+        builder.AppendLine(@$"static partial class FastNew<
 #if NET5_0_OR_GREATER
 {options.DynamicallyAccessedMembers(0)}
 #endif
@@ -48,7 +49,7 @@ T>
         for (int parameterIndex = 1; parameterIndex <= options.MaxParameterCount; parameterIndex++)
         {
             builder.Indent(1);
-            builder.AppendAccessibility(options.PublicConstructorOf);
+            builder.AppendAccessibility(options.FastNew_PublicConstructorCache);
             builder.AppendKeyword("static partial class");
 
             builder.Append(ClassName);
