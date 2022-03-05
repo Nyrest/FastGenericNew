@@ -30,11 +30,17 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore
         
-      - name: Build
-        run: dotnet build --no-restore
+      - name: Build (Debug)
+        run: dotnet build -c Debug --no-restore
         
-      - name: Test
-        run: dotnet test --no-build --verbosity normal
+      - name: Test (Debug)
+        run: dotnet test -c Debug --no-build --verbosity normal
+        
+      - name: Build (Release)
+        run: dotnet build -c Release --no-restore
+        
+      - name: Test (Release)
+        run: dotnet test -c Release --no-build --verbosity normal
 
       - name: Pack
         run: dotnet pack -o publishOutput --no-restore --no-build --verbosity normal
