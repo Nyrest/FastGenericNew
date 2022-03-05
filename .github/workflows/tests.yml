@@ -12,9 +12,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-
+  Tests:
+  
     runs-on: windows-latest
+
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
 
     steps:
     - uses: actions/checkout@v2
@@ -28,6 +32,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build -c ${{ matrix.configuration }} --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test -c ${{ matrix.configuration }} --no-build --verbosity normal
