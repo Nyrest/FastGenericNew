@@ -70,9 +70,11 @@ if (FastNew.TryCreateInstance<T, string>("arg0", out T result));
 
 ### Notes
 
-> **With .NET Framework**, `Activator.CreateInstance<T>()` invokes the parameterless constructor of `ValueType` if the constraint is `where T : new()` but appears to **ignore the parameterless constructor if the constraint is `where T : struct`**.  
+> **With .NET Framework**, `Activator.CreateInstance<T>()` invokes the parameterless constructor of **ValueType** if  
+> the constraint is `where T : new()` but appears to **ignore the parameterless constructor if the constraint is `where T : struct`**.  
 > **But `FastNew.CreateInstance<T>()` will always invoke the parameterless constructor if it's available.**  
-> If you don't want to invoke the parameterless constructor of `ValueType`.  
+> 
+> If you don't want to invoke the parameterless constructor of **ValueType**.  
 > Consider to use `FastNew.NewOrDefault<T>()` which **will never invoke the parameterless constructor of `ValueType`**
 
 ## Benchmark  
