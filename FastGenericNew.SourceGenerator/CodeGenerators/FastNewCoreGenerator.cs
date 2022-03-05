@@ -1,6 +1,4 @@
-﻿using System.Linq.Expressions;
-
-namespace FastGenericNew.SourceGenerator.CodeGenerators;
+﻿namespace FastGenericNew.SourceGenerator.CodeGenerators;
 
 public class FastNewCoreGenerator : CodeGenerator<FastNewCoreGenerator>
 {
@@ -13,6 +11,8 @@ public class FastNewCoreGenerator : CodeGenerator<FastNewCoreGenerator>
     internal const string CompiledDelegateName = "CompiledDelegate";
 
     internal const string IsValueTypeTName = "_isValueTypeT";
+
+    internal const string ConsructorName = "CachedConstructor";
 
     public override CodeGenerationResult Generate(in GeneratorOptions options)
     {
@@ -32,18 +32,26 @@ T>
         internal static readonly bool _isValueTypeT = typeof(T).IsValueType;
 #endif
 
+		/// <summary>
+		/// The constructor of <typeparamref name=""T"" /> with given arguments. <br/>
+		/// Could be <see langword=""null"" /> if the constructor couldn't be found.
+		/// </summary>
+		public static readonly ConstructorInfo? {ConsructorName} = typeof(T).GetConstructor({(options.NonPublicConstructorSupport
+                ? "BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic"
+                : "BindingFlags.Instance | BindingFlags.Public")}, null, Type.EmptyTypes, null);
+
         {(options.PublicSourceExpression ? "public" : "internal")} static readonly System.Linq.Expressions.Expression<Func<T>> SourceExpression = System.Linq.Expressions.Expression.Lambda<Func<T>>(typeof(T).IsValueType
-            ? ({options.GlobalNSDot()}{ConstructorCacheGenerator.ClassName}<T>.{ConstructorCacheGenerator.ValueName} != null
-                ? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New({options.GlobalNSDot()}{ConstructorCacheGenerator.ClassName}<T>.{ConstructorCacheGenerator.ValueName})
+            ? ({options.GlobalNSDot()}{ClassName}<T>.{ConsructorName} != null
+                ? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New({options.GlobalNSDot()}{ClassName}<T>.{ConsructorName})
                 : (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(typeof(T)))
-            : (({options.GlobalNSDot()}{ConstructorCacheGenerator.ClassName}<T>.{ConstructorCacheGenerator.ValueName} != null && !typeof(T).IsAbstract)
-                ? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New({options.GlobalNSDot()}{ConstructorCacheGenerator.ClassName}<T>.{ConstructorCacheGenerator.ValueName})
-                : (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call({options.GlobalNSDot()}{ThrowHelperGenerator.ClassName}.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant({options.GlobalNSDot()}{ConstructorCacheGenerator.ClassName}<T>.{ConstructorCacheGenerator.ValueName}, typeof(ConstructorInfo))))
+            : (({options.GlobalNSDot()}{ClassName}<T>.{ConsructorName} != null && !typeof(T).IsAbstract)
+                ? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New({options.GlobalNSDot()}{ClassName}<T>.{ConsructorName})
+                : (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call({options.GlobalNSDot()}{ThrowHelperGenerator.ClassName}.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant({options.GlobalNSDot()}{ClassName}<T>.{ConsructorName}, typeof(ConstructorInfo))))
             , Array.Empty<System.Linq.Expressions.ParameterExpression>());
 
 	    {(options.PublicCompiledDelegate ? "public" : "internal")} static readonly Func<T> {CompiledDelegateName} = SourceExpression.Compile();
     
-        public static readonly bool {IsValidName} = typeof(T).IsValueType || ({options.GlobalNSDot()}{ConstructorCacheGenerator.ClassName}<T>.{ConstructorCacheGenerator.ValueName} != null && !typeof(T).IsAbstract);
+        public static readonly bool {IsValidName} = typeof(T).IsValueType || ({options.GlobalNSDot()}{ClassName}<T>.{ConsructorName} != null && !typeof(T).IsAbstract);
     }}");
 
         for (int parameterIndex = 1; parameterIndex <= options.MaxParameterCount; parameterIndex++)
@@ -57,6 +65,43 @@ T>
             builder.AppendLine();
 
             builder.StartBlock(1);
+
+            #region MyRegion
+            builder.XmlDoc(2, @"
+/// <summary>
+/// The constructor of <typeparamref name=""T"" /> with given arguments. <br/>
+/// Could be <see langword=""null"" /> if the constructor couldn't be found.
+/// </summary>");
+
+            builder.Indent(2);
+            builder.Append($"public static readonly ConstructorInfo? {ConsructorName} = typeof(T).GetConstructor(");
+            builder.Append(options.NonPublicConstructorSupport
+                ? "BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic"
+                : "BindingFlags.Instance | BindingFlags.Public");
+            builder.Append(", null, ");
+            if (parameterIndex == 0)
+            {
+                builder.Append("Type.EmptyTypes");
+            }
+            else
+            {
+                builder.Append("new Type[]");
+                builder.AppendLine();
+                builder.StartBlock(2);
+
+                for (int i = 0; i < parameterIndex; i++)
+                {
+                    builder.Indent(3);
+                    builder.Append("typeof(");
+                    builder.AppendGenericArgumentName(i);
+                    builder.Append(')', ',');
+                    builder.AppendLine();
+                }
+
+                builder.EndBlock(2, false);
+            }
+            builder.AppendLine(", null);");
+            #endregion
 
             builder.Indent(2);
             builder.AppendAccessibility(options.PublicSourceExpression);
@@ -85,9 +130,9 @@ T>
             builder.Indent(3);
             builder.Append("var constructor = ");
             builder.GlobalNamespaceDot();
-            builder.Append(ConstructorCacheGenerator.ClassName);
+            builder.Append(ClassName);
             builder.UseGenericMember(parameterIndex);
-            builder.AppendLine($".{ConstructorCacheGenerator.ValueName};");
+            builder.AppendLine($".{ConsructorName};");
             #endregion
 
             #region IsValid
@@ -132,7 +177,7 @@ T>
             builder.Append(": (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(");
             builder.GlobalNamespaceDot();
             builder.Append($"{ThrowHelperGenerator.ClassName}.GetSmartThrow<T>(), ");
-            builder.Append($"System.Linq.Expressions.Expression.Constant({options.GlobalNSDot()}{ConstructorCacheGenerator.ClassName}<T>.{ConstructorCacheGenerator.ValueName}, typeof(ConstructorInfo))");
+            builder.Append($"System.Linq.Expressions.Expression.Constant({options.GlobalNSDot()}{ClassName}<T>.{ConsructorName}, typeof(ConstructorInfo))");
             builder.AppendLine(')');
 
             builder.Indent(3);

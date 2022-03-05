@@ -3,7 +3,6 @@
 	<ItemGroup>
 		<CompilerVisibleProperty Include="FastNew_MaxParameterCount" />
 		<CompilerVisibleProperty Include="FastNew_PublicFastNewCore" />
-		<CompilerVisibleProperty Include="FastNew_PublicConstructorCache" />
 		<CompilerVisibleProperty Include="FastNew_GenerateTryCreateInstance" />
 		<CompilerVisibleProperty Include="FastNew_GenerateCreateInstance" />
 		<CompilerVisibleProperty Include="FastNew_PublicSourceExpression" />

@@ -3,8 +3,8 @@
   Environment:
 
     Version = 3.0.0.0
-    Runtime = .NET 7.0.0-preview.1.22076.8
-    System = Microsoft Windows 10.0.22000
+    Runtime = .NET Framework 4.8.4470.0
+    System = Microsoft Windows 10.0.22000 
     SystemArch = X64
     ProcessArch = X64
     ProcessorCount = 24
@@ -14,7 +14,6 @@
 
     MaxParameterCount = 16
     PublicFastNewCore = False
-    FastNew_PublicConstructorCache = True
     PublicSourceExpression = True
     GenerateTryCreateInstance = True
     GenerateCreateInstance = True
@@ -35,7 +34,6 @@
 
     <FastNew_MaxParameterCount>16<FastNew_MaxParameterCount />
     <FastNew_PublicFastNewCore>False<FastNew_PublicFastNewCore />
-    <FastNew_FastNew_PublicConstructorCache>True<FastNew_FastNew_PublicConstructorCache />
     <FastNew_PublicSourceExpression>True<FastNew_PublicSourceExpression />
     <FastNew_GenerateTryCreateInstance>True<FastNew_GenerateTryCreateInstance />
     <FastNew_GenerateCreateInstance>True<FastNew_GenerateCreateInstance />
