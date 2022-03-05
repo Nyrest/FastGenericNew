@@ -25,18 +25,24 @@ T>
         internal static readonly bool _isValueTypeT = typeof(T).IsValueType;
 #endif
 
+		/// <summary>
+		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
+		/// Could be <see langword="null" /> if the constructor couldn't be found.
+		/// </summary>
+		public static readonly ConstructorInfo? CachedConstructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, Type.EmptyTypes, null);
+
         public static readonly System.Linq.Expressions.Expression<Func<T>> SourceExpression = System.Linq.Expressions.Expression.Lambda<Func<T>>(typeof(T).IsValueType
-            ? (global::@FastGenericNew.FastNew<T>.Constructor != null
-                ? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(global::@FastGenericNew.FastNew<T>.Constructor)
+            ? (global::@FastGenericNew.FastNew<T>.CachedConstructor != null
+                ? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(global::@FastGenericNew.FastNew<T>.CachedConstructor)
                 : (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(typeof(T)))
-            : ((global::@FastGenericNew.FastNew<T>.Constructor != null && !typeof(T).IsAbstract)
-                ? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(global::@FastGenericNew.FastNew<T>.Constructor)
-                : (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(global::@FastGenericNew.FastNew<T>.Constructor, typeof(ConstructorInfo))))
+            : ((global::@FastGenericNew.FastNew<T>.CachedConstructor != null && !typeof(T).IsAbstract)
+                ? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(global::@FastGenericNew.FastNew<T>.CachedConstructor)
+                : (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(global::@FastGenericNew.FastNew<T>.CachedConstructor, typeof(ConstructorInfo))))
             , Array.Empty<System.Linq.Expressions.ParameterExpression>());
 
 	    public static readonly Func<T> CompiledDelegate = SourceExpression.Compile();
     
-        public static readonly bool IsValid = typeof(T).IsValueType || (global::@FastGenericNew.FastNew<T>.Constructor != null && !typeof(T).IsAbstract);
+        public static readonly bool IsValid = typeof(T).IsValueType || (global::@FastGenericNew.FastNew<T>.CachedConstructor != null && !typeof(T).IsAbstract);
     }
 	internal static partial class FastNew<
 #if NET5_0_OR_GREATER
@@ -44,6 +50,14 @@ T>
 #endif
 T, TArg0>
 	{
+		/// <summary>
+		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
+		/// Could be <see langword="null" /> if the constructor couldn't be found.
+		/// </summary>
+		public static readonly ConstructorInfo? CachedConstructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, new Type[]
+		{
+			typeof(TArg0),
+		}, null);
 		public static readonly System.Linq.Expressions.Expression<Func<TArg0, T>> SourceExpression;
 
 		public static readonly Func<TArg0, T> CompiledDelegate;
@@ -52,12 +66,12 @@ T, TArg0>
 
 		static FastNew()
 		{
-			var constructor = global::@FastGenericNew.FastNew<T, TArg0>.Constructor;
+			var constructor = global::@FastGenericNew.FastNew<T, TArg0>.CachedConstructor;
 			IsValid = constructor != null && !typeof(T).IsAbstract;
 			var p0 = System.Linq.Expressions.Expression.Parameter(typeof(TArg0));
 			CompiledDelegate = (SourceExpression = System.Linq.Expressions.Expression.Lambda<Func<TArg0, T>>(IsValid
 				? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(constructor!, p0)
-				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(global::@FastGenericNew.FastNew<T>.Constructor, typeof(ConstructorInfo)))
+				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(global::@FastGenericNew.FastNew<T>.CachedConstructor, typeof(ConstructorInfo)))
 			, new System.Linq.Expressions.ParameterExpression[] { p0 })).Compile();
 		}
 	}
@@ -67,6 +81,15 @@ T, TArg0>
 #endif
 T, TArg0, TArg1>
 	{
+		/// <summary>
+		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
+		/// Could be <see langword="null" /> if the constructor couldn't be found.
+		/// </summary>
+		public static readonly ConstructorInfo? CachedConstructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, new Type[]
+		{
+			typeof(TArg0),
+			typeof(TArg1),
+		}, null);
 		public static readonly System.Linq.Expressions.Expression<Func<TArg0, TArg1, T>> SourceExpression;
 
 		public static readonly Func<TArg0, TArg1, T> CompiledDelegate;
@@ -75,13 +98,13 @@ T, TArg0, TArg1>
 
 		static FastNew()
 		{
-			var constructor = global::@FastGenericNew.FastNew<T, TArg0, TArg1>.Constructor;
+			var constructor = global::@FastGenericNew.FastNew<T, TArg0, TArg1>.CachedConstructor;
 			IsValid = constructor != null && !typeof(T).IsAbstract;
 			var p0 = System.Linq.Expressions.Expression.Parameter(typeof(TArg0));
 			var p1 = System.Linq.Expressions.Expression.Parameter(typeof(TArg1));
 			CompiledDelegate = (SourceExpression = System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, T>>(IsValid
 				? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(constructor!, p0, p1)
-				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(global::@FastGenericNew.FastNew<T>.Constructor, typeof(ConstructorInfo)))
+				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(global::@FastGenericNew.FastNew<T>.CachedConstructor, typeof(ConstructorInfo)))
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1 })).Compile();
 		}
 	}
@@ -91,6 +114,16 @@ T, TArg0, TArg1>
 #endif
 T, TArg0, TArg1, TArg2>
 	{
+		/// <summary>
+		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
+		/// Could be <see langword="null" /> if the constructor couldn't be found.
+		/// </summary>
+		public static readonly ConstructorInfo? CachedConstructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, new Type[]
+		{
+			typeof(TArg0),
+			typeof(TArg1),
+			typeof(TArg2),
+		}, null);
 		public static readonly System.Linq.Expressions.Expression<Func<TArg0, TArg1, TArg2, T>> SourceExpression;
 
 		public static readonly Func<TArg0, TArg1, TArg2, T> CompiledDelegate;
@@ -99,14 +132,14 @@ T, TArg0, TArg1, TArg2>
 
 		static FastNew()
 		{
-			var constructor = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2>.Constructor;
+			var constructor = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2>.CachedConstructor;
 			IsValid = constructor != null && !typeof(T).IsAbstract;
 			var p0 = System.Linq.Expressions.Expression.Parameter(typeof(TArg0));
 			var p1 = System.Linq.Expressions.Expression.Parameter(typeof(TArg1));
 			var p2 = System.Linq.Expressions.Expression.Parameter(typeof(TArg2));
 			CompiledDelegate = (SourceExpression = System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, T>>(IsValid
 				? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(constructor!, p0, p1, p2)
-				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(global::@FastGenericNew.FastNew<T>.Constructor, typeof(ConstructorInfo)))
+				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(global::@FastGenericNew.FastNew<T>.CachedConstructor, typeof(ConstructorInfo)))
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2 })).Compile();
 		}
 	}
@@ -116,6 +149,17 @@ T, TArg0, TArg1, TArg2>
 #endif
 T, TArg0, TArg1, TArg2, TArg3>
 	{
+		/// <summary>
+		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
+		/// Could be <see langword="null" /> if the constructor couldn't be found.
+		/// </summary>
+		public static readonly ConstructorInfo? CachedConstructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, new Type[]
+		{
+			typeof(TArg0),
+			typeof(TArg1),
+			typeof(TArg2),
+			typeof(TArg3),
+		}, null);
 		public static readonly System.Linq.Expressions.Expression<Func<TArg0, TArg1, TArg2, TArg3, T>> SourceExpression;
 
 		public static readonly Func<TArg0, TArg1, TArg2, TArg3, T> CompiledDelegate;
@@ -124,7 +168,7 @@ T, TArg0, TArg1, TArg2, TArg3>
 
 		static FastNew()
 		{
-			var constructor = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3>.Constructor;
+			var constructor = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3>.CachedConstructor;
 			IsValid = constructor != null && !typeof(T).IsAbstract;
 			var p0 = System.Linq.Expressions.Expression.Parameter(typeof(TArg0));
 			var p1 = System.Linq.Expressions.Expression.Parameter(typeof(TArg1));
@@ -132,7 +176,7 @@ T, TArg0, TArg1, TArg2, TArg3>
 			var p3 = System.Linq.Expressions.Expression.Parameter(typeof(TArg3));
 			CompiledDelegate = (SourceExpression = System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, TArg3, T>>(IsValid
 				? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(constructor!, p0, p1, p2, p3)
-				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(global::@FastGenericNew.FastNew<T>.Constructor, typeof(ConstructorInfo)))
+				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(global::@FastGenericNew.FastNew<T>.CachedConstructor, typeof(ConstructorInfo)))
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2, p3 })).Compile();
 		}
 	}
@@ -142,6 +186,18 @@ T, TArg0, TArg1, TArg2, TArg3>
 #endif
 T, TArg0, TArg1, TArg2, TArg3, TArg4>
 	{
+		/// <summary>
+		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
+		/// Could be <see langword="null" /> if the constructor couldn't be found.
+		/// </summary>
+		public static readonly ConstructorInfo? CachedConstructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, new Type[]
+		{
+			typeof(TArg0),
+			typeof(TArg1),
+			typeof(TArg2),
+			typeof(TArg3),
+			typeof(TArg4),
+		}, null);
 		public static readonly System.Linq.Expressions.Expression<Func<TArg0, TArg1, TArg2, TArg3, TArg4, T>> SourceExpression;
 
 		public static readonly Func<TArg0, TArg1, TArg2, TArg3, TArg4, T> CompiledDelegate;
@@ -150,7 +206,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4>
 
 		static FastNew()
 		{
-			var constructor = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4>.Constructor;
+			var constructor = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4>.CachedConstructor;
 			IsValid = constructor != null && !typeof(T).IsAbstract;
 			var p0 = System.Linq.Expressions.Expression.Parameter(typeof(TArg0));
 			var p1 = System.Linq.Expressions.Expression.Parameter(typeof(TArg1));
@@ -159,7 +215,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4>
 			var p4 = System.Linq.Expressions.Expression.Parameter(typeof(TArg4));
 			CompiledDelegate = (SourceExpression = System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, TArg3, TArg4, T>>(IsValid
 				? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(constructor!, p0, p1, p2, p3, p4)
-				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(global::@FastGenericNew.FastNew<T>.Constructor, typeof(ConstructorInfo)))
+				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(global::@FastGenericNew.FastNew<T>.CachedConstructor, typeof(ConstructorInfo)))
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2, p3, p4 })).Compile();
 		}
 	}
@@ -169,6 +225,19 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4>
 #endif
 T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5>
 	{
+		/// <summary>
+		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
+		/// Could be <see langword="null" /> if the constructor couldn't be found.
+		/// </summary>
+		public static readonly ConstructorInfo? CachedConstructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, new Type[]
+		{
+			typeof(TArg0),
+			typeof(TArg1),
+			typeof(TArg2),
+			typeof(TArg3),
+			typeof(TArg4),
+			typeof(TArg5),
+		}, null);
 		public static readonly System.Linq.Expressions.Expression<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, T>> SourceExpression;
 
 		public static readonly Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, T> CompiledDelegate;
@@ -177,7 +246,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5>
 
 		static FastNew()
 		{
-			var constructor = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5>.Constructor;
+			var constructor = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5>.CachedConstructor;
 			IsValid = constructor != null && !typeof(T).IsAbstract;
 			var p0 = System.Linq.Expressions.Expression.Parameter(typeof(TArg0));
 			var p1 = System.Linq.Expressions.Expression.Parameter(typeof(TArg1));
@@ -187,7 +256,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5>
 			var p5 = System.Linq.Expressions.Expression.Parameter(typeof(TArg5));
 			CompiledDelegate = (SourceExpression = System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, T>>(IsValid
 				? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(constructor!, p0, p1, p2, p3, p4, p5)
-				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(global::@FastGenericNew.FastNew<T>.Constructor, typeof(ConstructorInfo)))
+				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(global::@FastGenericNew.FastNew<T>.CachedConstructor, typeof(ConstructorInfo)))
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2, p3, p4, p5 })).Compile();
 		}
 	}
@@ -197,6 +266,20 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5>
 #endif
 T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6>
 	{
+		/// <summary>
+		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
+		/// Could be <see langword="null" /> if the constructor couldn't be found.
+		/// </summary>
+		public static readonly ConstructorInfo? CachedConstructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, new Type[]
+		{
+			typeof(TArg0),
+			typeof(TArg1),
+			typeof(TArg2),
+			typeof(TArg3),
+			typeof(TArg4),
+			typeof(TArg5),
+			typeof(TArg6),
+		}, null);
 		public static readonly System.Linq.Expressions.Expression<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, T>> SourceExpression;
 
 		public static readonly Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, T> CompiledDelegate;
@@ -205,7 +288,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6>
 
 		static FastNew()
 		{
-			var constructor = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6>.Constructor;
+			var constructor = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6>.CachedConstructor;
 			IsValid = constructor != null && !typeof(T).IsAbstract;
 			var p0 = System.Linq.Expressions.Expression.Parameter(typeof(TArg0));
 			var p1 = System.Linq.Expressions.Expression.Parameter(typeof(TArg1));
@@ -216,7 +299,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6>
 			var p6 = System.Linq.Expressions.Expression.Parameter(typeof(TArg6));
 			CompiledDelegate = (SourceExpression = System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, T>>(IsValid
 				? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(constructor!, p0, p1, p2, p3, p4, p5, p6)
-				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(global::@FastGenericNew.FastNew<T>.Constructor, typeof(ConstructorInfo)))
+				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(global::@FastGenericNew.FastNew<T>.CachedConstructor, typeof(ConstructorInfo)))
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2, p3, p4, p5, p6 })).Compile();
 		}
 	}
@@ -226,6 +309,21 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6>
 #endif
 T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7>
 	{
+		/// <summary>
+		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
+		/// Could be <see langword="null" /> if the constructor couldn't be found.
+		/// </summary>
+		public static readonly ConstructorInfo? CachedConstructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, new Type[]
+		{
+			typeof(TArg0),
+			typeof(TArg1),
+			typeof(TArg2),
+			typeof(TArg3),
+			typeof(TArg4),
+			typeof(TArg5),
+			typeof(TArg6),
+			typeof(TArg7),
+		}, null);
 		public static readonly System.Linq.Expressions.Expression<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, T>> SourceExpression;
 
 		public static readonly Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, T> CompiledDelegate;
@@ -234,7 +332,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7>
 
 		static FastNew()
 		{
-			var constructor = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7>.Constructor;
+			var constructor = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7>.CachedConstructor;
 			IsValid = constructor != null && !typeof(T).IsAbstract;
 			var p0 = System.Linq.Expressions.Expression.Parameter(typeof(TArg0));
 			var p1 = System.Linq.Expressions.Expression.Parameter(typeof(TArg1));
@@ -246,7 +344,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7>
 			var p7 = System.Linq.Expressions.Expression.Parameter(typeof(TArg7));
 			CompiledDelegate = (SourceExpression = System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, T>>(IsValid
 				? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(constructor!, p0, p1, p2, p3, p4, p5, p6, p7)
-				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(global::@FastGenericNew.FastNew<T>.Constructor, typeof(ConstructorInfo)))
+				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(global::@FastGenericNew.FastNew<T>.CachedConstructor, typeof(ConstructorInfo)))
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2, p3, p4, p5, p6, p7 })).Compile();
 		}
 	}
@@ -256,6 +354,22 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7>
 #endif
 T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8>
 	{
+		/// <summary>
+		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
+		/// Could be <see langword="null" /> if the constructor couldn't be found.
+		/// </summary>
+		public static readonly ConstructorInfo? CachedConstructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, new Type[]
+		{
+			typeof(TArg0),
+			typeof(TArg1),
+			typeof(TArg2),
+			typeof(TArg3),
+			typeof(TArg4),
+			typeof(TArg5),
+			typeof(TArg6),
+			typeof(TArg7),
+			typeof(TArg8),
+		}, null);
 		public static readonly System.Linq.Expressions.Expression<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, T>> SourceExpression;
 
 		public static readonly Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, T> CompiledDelegate;
@@ -264,7 +378,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8>
 
 		static FastNew()
 		{
-			var constructor = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8>.Constructor;
+			var constructor = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8>.CachedConstructor;
 			IsValid = constructor != null && !typeof(T).IsAbstract;
 			var p0 = System.Linq.Expressions.Expression.Parameter(typeof(TArg0));
 			var p1 = System.Linq.Expressions.Expression.Parameter(typeof(TArg1));
@@ -277,7 +391,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8>
 			var p8 = System.Linq.Expressions.Expression.Parameter(typeof(TArg8));
 			CompiledDelegate = (SourceExpression = System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, T>>(IsValid
 				? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(constructor!, p0, p1, p2, p3, p4, p5, p6, p7, p8)
-				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(global::@FastGenericNew.FastNew<T>.Constructor, typeof(ConstructorInfo)))
+				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(global::@FastGenericNew.FastNew<T>.CachedConstructor, typeof(ConstructorInfo)))
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2, p3, p4, p5, p6, p7, p8 })).Compile();
 		}
 	}
@@ -287,6 +401,23 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8>
 #endif
 T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9>
 	{
+		/// <summary>
+		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
+		/// Could be <see langword="null" /> if the constructor couldn't be found.
+		/// </summary>
+		public static readonly ConstructorInfo? CachedConstructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, new Type[]
+		{
+			typeof(TArg0),
+			typeof(TArg1),
+			typeof(TArg2),
+			typeof(TArg3),
+			typeof(TArg4),
+			typeof(TArg5),
+			typeof(TArg6),
+			typeof(TArg7),
+			typeof(TArg8),
+			typeof(TArg9),
+		}, null);
 		public static readonly System.Linq.Expressions.Expression<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, T>> SourceExpression;
 
 		public static readonly Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, T> CompiledDelegate;
@@ -295,7 +426,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9>
 
 		static FastNew()
 		{
-			var constructor = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9>.Constructor;
+			var constructor = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9>.CachedConstructor;
 			IsValid = constructor != null && !typeof(T).IsAbstract;
 			var p0 = System.Linq.Expressions.Expression.Parameter(typeof(TArg0));
 			var p1 = System.Linq.Expressions.Expression.Parameter(typeof(TArg1));
@@ -309,7 +440,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9>
 			var p9 = System.Linq.Expressions.Expression.Parameter(typeof(TArg9));
 			CompiledDelegate = (SourceExpression = System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, T>>(IsValid
 				? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(constructor!, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9)
-				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(global::@FastGenericNew.FastNew<T>.Constructor, typeof(ConstructorInfo)))
+				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(global::@FastGenericNew.FastNew<T>.CachedConstructor, typeof(ConstructorInfo)))
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2, p3, p4, p5, p6, p7, p8, p9 })).Compile();
 		}
 	}
@@ -319,6 +450,24 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9>
 #endif
 T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10>
 	{
+		/// <summary>
+		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
+		/// Could be <see langword="null" /> if the constructor couldn't be found.
+		/// </summary>
+		public static readonly ConstructorInfo? CachedConstructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, new Type[]
+		{
+			typeof(TArg0),
+			typeof(TArg1),
+			typeof(TArg2),
+			typeof(TArg3),
+			typeof(TArg4),
+			typeof(TArg5),
+			typeof(TArg6),
+			typeof(TArg7),
+			typeof(TArg8),
+			typeof(TArg9),
+			typeof(TArg10),
+		}, null);
 		public static readonly System.Linq.Expressions.Expression<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, T>> SourceExpression;
 
 		public static readonly Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, T> CompiledDelegate;
@@ -327,7 +476,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10>
 
 		static FastNew()
 		{
-			var constructor = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10>.Constructor;
+			var constructor = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10>.CachedConstructor;
 			IsValid = constructor != null && !typeof(T).IsAbstract;
 			var p0 = System.Linq.Expressions.Expression.Parameter(typeof(TArg0));
 			var p1 = System.Linq.Expressions.Expression.Parameter(typeof(TArg1));
@@ -342,7 +491,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10>
 			var p10 = System.Linq.Expressions.Expression.Parameter(typeof(TArg10));
 			CompiledDelegate = (SourceExpression = System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, T>>(IsValid
 				? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(constructor!, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10)
-				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(global::@FastGenericNew.FastNew<T>.Constructor, typeof(ConstructorInfo)))
+				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(global::@FastGenericNew.FastNew<T>.CachedConstructor, typeof(ConstructorInfo)))
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10 })).Compile();
 		}
 	}
@@ -352,6 +501,25 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10>
 #endif
 T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11>
 	{
+		/// <summary>
+		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
+		/// Could be <see langword="null" /> if the constructor couldn't be found.
+		/// </summary>
+		public static readonly ConstructorInfo? CachedConstructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, new Type[]
+		{
+			typeof(TArg0),
+			typeof(TArg1),
+			typeof(TArg2),
+			typeof(TArg3),
+			typeof(TArg4),
+			typeof(TArg5),
+			typeof(TArg6),
+			typeof(TArg7),
+			typeof(TArg8),
+			typeof(TArg9),
+			typeof(TArg10),
+			typeof(TArg11),
+		}, null);
 		public static readonly System.Linq.Expressions.Expression<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, T>> SourceExpression;
 
 		public static readonly Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, T> CompiledDelegate;
@@ -360,7 +528,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 
 		static FastNew()
 		{
-			var constructor = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11>.Constructor;
+			var constructor = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11>.CachedConstructor;
 			IsValid = constructor != null && !typeof(T).IsAbstract;
 			var p0 = System.Linq.Expressions.Expression.Parameter(typeof(TArg0));
 			var p1 = System.Linq.Expressions.Expression.Parameter(typeof(TArg1));
@@ -376,7 +544,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 			var p11 = System.Linq.Expressions.Expression.Parameter(typeof(TArg11));
 			CompiledDelegate = (SourceExpression = System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, T>>(IsValid
 				? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(constructor!, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11)
-				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(global::@FastGenericNew.FastNew<T>.Constructor, typeof(ConstructorInfo)))
+				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(global::@FastGenericNew.FastNew<T>.CachedConstructor, typeof(ConstructorInfo)))
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11 })).Compile();
 		}
 	}
@@ -386,6 +554,26 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 #endif
 T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12>
 	{
+		/// <summary>
+		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
+		/// Could be <see langword="null" /> if the constructor couldn't be found.
+		/// </summary>
+		public static readonly ConstructorInfo? CachedConstructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, new Type[]
+		{
+			typeof(TArg0),
+			typeof(TArg1),
+			typeof(TArg2),
+			typeof(TArg3),
+			typeof(TArg4),
+			typeof(TArg5),
+			typeof(TArg6),
+			typeof(TArg7),
+			typeof(TArg8),
+			typeof(TArg9),
+			typeof(TArg10),
+			typeof(TArg11),
+			typeof(TArg12),
+		}, null);
 		public static readonly System.Linq.Expressions.Expression<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, T>> SourceExpression;
 
 		public static readonly Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, T> CompiledDelegate;
@@ -394,7 +582,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 
 		static FastNew()
 		{
-			var constructor = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12>.Constructor;
+			var constructor = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12>.CachedConstructor;
 			IsValid = constructor != null && !typeof(T).IsAbstract;
 			var p0 = System.Linq.Expressions.Expression.Parameter(typeof(TArg0));
 			var p1 = System.Linq.Expressions.Expression.Parameter(typeof(TArg1));
@@ -411,7 +599,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 			var p12 = System.Linq.Expressions.Expression.Parameter(typeof(TArg12));
 			CompiledDelegate = (SourceExpression = System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, T>>(IsValid
 				? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(constructor!, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12)
-				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(global::@FastGenericNew.FastNew<T>.Constructor, typeof(ConstructorInfo)))
+				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(global::@FastGenericNew.FastNew<T>.CachedConstructor, typeof(ConstructorInfo)))
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12 })).Compile();
 		}
 	}
@@ -421,6 +609,27 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 #endif
 T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13>
 	{
+		/// <summary>
+		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
+		/// Could be <see langword="null" /> if the constructor couldn't be found.
+		/// </summary>
+		public static readonly ConstructorInfo? CachedConstructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, new Type[]
+		{
+			typeof(TArg0),
+			typeof(TArg1),
+			typeof(TArg2),
+			typeof(TArg3),
+			typeof(TArg4),
+			typeof(TArg5),
+			typeof(TArg6),
+			typeof(TArg7),
+			typeof(TArg8),
+			typeof(TArg9),
+			typeof(TArg10),
+			typeof(TArg11),
+			typeof(TArg12),
+			typeof(TArg13),
+		}, null);
 		public static readonly System.Linq.Expressions.Expression<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, T>> SourceExpression;
 
 		public static readonly Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, T> CompiledDelegate;
@@ -429,7 +638,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 
 		static FastNew()
 		{
-			var constructor = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13>.Constructor;
+			var constructor = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13>.CachedConstructor;
 			IsValid = constructor != null && !typeof(T).IsAbstract;
 			var p0 = System.Linq.Expressions.Expression.Parameter(typeof(TArg0));
 			var p1 = System.Linq.Expressions.Expression.Parameter(typeof(TArg1));
@@ -447,7 +656,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 			var p13 = System.Linq.Expressions.Expression.Parameter(typeof(TArg13));
 			CompiledDelegate = (SourceExpression = System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, T>>(IsValid
 				? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(constructor!, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13)
-				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(global::@FastGenericNew.FastNew<T>.Constructor, typeof(ConstructorInfo)))
+				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(global::@FastGenericNew.FastNew<T>.CachedConstructor, typeof(ConstructorInfo)))
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13 })).Compile();
 		}
 	}
@@ -457,6 +666,28 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 #endif
 T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14>
 	{
+		/// <summary>
+		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
+		/// Could be <see langword="null" /> if the constructor couldn't be found.
+		/// </summary>
+		public static readonly ConstructorInfo? CachedConstructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, new Type[]
+		{
+			typeof(TArg0),
+			typeof(TArg1),
+			typeof(TArg2),
+			typeof(TArg3),
+			typeof(TArg4),
+			typeof(TArg5),
+			typeof(TArg6),
+			typeof(TArg7),
+			typeof(TArg8),
+			typeof(TArg9),
+			typeof(TArg10),
+			typeof(TArg11),
+			typeof(TArg12),
+			typeof(TArg13),
+			typeof(TArg14),
+		}, null);
 		public static readonly System.Linq.Expressions.Expression<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, T>> SourceExpression;
 
 		public static readonly Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, T> CompiledDelegate;
@@ -465,7 +696,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 
 		static FastNew()
 		{
-			var constructor = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14>.Constructor;
+			var constructor = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14>.CachedConstructor;
 			IsValid = constructor != null && !typeof(T).IsAbstract;
 			var p0 = System.Linq.Expressions.Expression.Parameter(typeof(TArg0));
 			var p1 = System.Linq.Expressions.Expression.Parameter(typeof(TArg1));
@@ -484,7 +715,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 			var p14 = System.Linq.Expressions.Expression.Parameter(typeof(TArg14));
 			CompiledDelegate = (SourceExpression = System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, T>>(IsValid
 				? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(constructor!, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14)
-				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(global::@FastGenericNew.FastNew<T>.Constructor, typeof(ConstructorInfo)))
+				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(global::@FastGenericNew.FastNew<T>.CachedConstructor, typeof(ConstructorInfo)))
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14 })).Compile();
 		}
 	}
@@ -494,6 +725,29 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 #endif
 T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TArg15>
 	{
+		/// <summary>
+		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
+		/// Could be <see langword="null" /> if the constructor couldn't be found.
+		/// </summary>
+		public static readonly ConstructorInfo? CachedConstructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, new Type[]
+		{
+			typeof(TArg0),
+			typeof(TArg1),
+			typeof(TArg2),
+			typeof(TArg3),
+			typeof(TArg4),
+			typeof(TArg5),
+			typeof(TArg6),
+			typeof(TArg7),
+			typeof(TArg8),
+			typeof(TArg9),
+			typeof(TArg10),
+			typeof(TArg11),
+			typeof(TArg12),
+			typeof(TArg13),
+			typeof(TArg14),
+			typeof(TArg15),
+		}, null);
 		public static readonly System.Linq.Expressions.Expression<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TArg15, T>> SourceExpression;
 
 		public static readonly Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TArg15, T> CompiledDelegate;
@@ -502,7 +756,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 
 		static FastNew()
 		{
-			var constructor = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TArg15>.Constructor;
+			var constructor = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TArg15>.CachedConstructor;
 			IsValid = constructor != null && !typeof(T).IsAbstract;
 			var p0 = System.Linq.Expressions.Expression.Parameter(typeof(TArg0));
 			var p1 = System.Linq.Expressions.Expression.Parameter(typeof(TArg1));
@@ -522,7 +776,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 			var p15 = System.Linq.Expressions.Expression.Parameter(typeof(TArg15));
 			CompiledDelegate = (SourceExpression = System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TArg15, T>>(IsValid
 				? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(constructor!, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15)
-				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(global::@FastGenericNew.FastNew<T>.Constructor, typeof(ConstructorInfo)))
+				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(global::@FastGenericNew.FastNew<T>.CachedConstructor, typeof(ConstructorInfo)))
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15 })).Compile();
 		}
 	}
