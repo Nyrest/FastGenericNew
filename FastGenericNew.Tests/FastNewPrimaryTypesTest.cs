@@ -38,7 +38,8 @@ namespace FastGenericNew.Tests
         public void CreateInstanceClassPrivateCtor()
         {
             var actual = FastNew.CreateInstance<DemoClassPrivateCtor>();
-            Assert.AreEqual(DemoClassPrivateCtor.DefaultValue, actual.value);
+            var expected = DemoClassPrivateCtor.Create();
+            Assert.AreEqual(expected, actual);
         }
 
         [Test()]
@@ -46,7 +47,8 @@ namespace FastGenericNew.Tests
         {
             const int val = 99999;
             var actual = FastNew.CreateInstance<DemoClassPrivateCtor, int>(val);
-            Assert.AreEqual(val, actual.value);
+            var expected = DemoClassPrivateCtor.Create(val);
+            Assert.AreEqual(expected, actual);
         }
 
         #endregion
