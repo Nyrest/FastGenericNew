@@ -1,6 +1,6 @@
 # FastGenericNew (3.0.0 Preview 1)
 
-The ultimate fast alternative to `Activator.CreateInstance<T>`
+The ultimate fast alternative to `Activator.CreateInstance<T>` / `new T()`
 
 ## Features
 
