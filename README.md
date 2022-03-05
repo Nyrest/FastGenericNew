@@ -1,4 +1,4 @@
-# FastGenericNew (3.0.0 WIP)
+# FastGenericNew (3.0.0 Preview 1)
 
 The ultimate fast alternative to `Activator.CreateInstance<T>`
 
@@ -29,24 +29,24 @@ The ultimate fast alternative to `Activator.CreateInstance<T>`
 ### Pre-Compiled Version
 
 ```powershell
-dotnet add package FastGenericNew --version 3.0.0-rc1
+dotnet add package FastGenericNew --version 3.0.0-preview1
 ```
 
 ```xml
 <ItemGroup>
-  <PackageReference Include="FastGenericNew" Version="3.0.0-rc1" />
+  <PackageReference Include="FastGenericNew" Version="3.0.0-preview1" />
 </ItemGroup>
 ```
 
 ### SourceGenerator Version
 
 ```powershell
-dotnet add package FastGenericNew.SourceGenerator --version 3.0.0-rc1
+dotnet add package FastGenericNew.SourceGenerator --version 3.0.0-preview1
 ```
 
 ```xml
 <ItemGroup>
-  <PackageReference Include="FastGenericNew.SourceGenerator" Version="3.0.0-rc1" />
+  <PackageReference Include="FastGenericNew.SourceGenerator" Version="3.0.0-preview1" />
 </ItemGroup>
 ```
 
