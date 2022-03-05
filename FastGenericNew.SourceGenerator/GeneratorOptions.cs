@@ -6,8 +6,6 @@ public readonly record struct GeneratorOptions
 
     public bool PublicFastNewCore { get; }
 
-    public bool FastNew_PublicConstructorCache { get; }
-
     public bool PublicSourceExpression { get; }
 
     public bool GenerateTryCreateInstance { get; }
@@ -43,7 +41,6 @@ public readonly record struct GeneratorOptions
         var options = provider.GlobalOptions;
         MaxParameterCount = options.GetOrDefault(nameof(MaxParameterCount), 16);
         PublicFastNewCore = options.GetOrDefault(nameof(PublicFastNewCore), false);
-        FastNew_PublicConstructorCache = options.GetOrDefault(nameof(FastNew_PublicConstructorCache), true);
         GenerateTryCreateInstance = options.GetOrDefault(nameof(GenerateTryCreateInstance), true);
         GenerateCreateInstance = options.GetOrDefault(nameof(GenerateCreateInstance), true);
 
