@@ -33,17 +33,17 @@ T>
 #endif
 
         {(options.PublicSourceExpression ? "public" : "internal")} static readonly System.Linq.Expressions.Expression<Func<T>> SourceExpression = System.Linq.Expressions.Expression.Lambda<Func<T>>(typeof(T).IsValueType
-            ? ({options.GlobalNSDot()}{ConstructorOfGenerator.ClassName}<T>.{ConstructorOfGenerator.ValueName} != null
-                ? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New({options.GlobalNSDot()}{ConstructorOfGenerator.ClassName}<T>.{ConstructorOfGenerator.ValueName})
+            ? ({options.GlobalNSDot()}{ConstructorCacheGenerator.ClassName}<T>.{ConstructorCacheGenerator.ValueName} != null
+                ? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New({options.GlobalNSDot()}{ConstructorCacheGenerator.ClassName}<T>.{ConstructorCacheGenerator.ValueName})
                 : (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(typeof(T)))
-            : (({options.GlobalNSDot()}{ConstructorOfGenerator.ClassName}<T>.{ConstructorOfGenerator.ValueName} != null && !typeof(T).IsAbstract)
-                ? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New({options.GlobalNSDot()}{ConstructorOfGenerator.ClassName}<T>.{ConstructorOfGenerator.ValueName})
-                : (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call({options.GlobalNSDot()}{ThrowHelperGenerator.ClassName}.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant({options.GlobalNSDot()}{ConstructorOfGenerator.ClassName}<T>.{ConstructorOfGenerator.ValueName}, typeof(ConstructorInfo))))
+            : (({options.GlobalNSDot()}{ConstructorCacheGenerator.ClassName}<T>.{ConstructorCacheGenerator.ValueName} != null && !typeof(T).IsAbstract)
+                ? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New({options.GlobalNSDot()}{ConstructorCacheGenerator.ClassName}<T>.{ConstructorCacheGenerator.ValueName})
+                : (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call({options.GlobalNSDot()}{ThrowHelperGenerator.ClassName}.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant({options.GlobalNSDot()}{ConstructorCacheGenerator.ClassName}<T>.{ConstructorCacheGenerator.ValueName}, typeof(ConstructorInfo))))
             , Array.Empty<System.Linq.Expressions.ParameterExpression>());
 
 	    {(options.PublicCompiledDelegate ? "public" : "internal")} static readonly Func<T> {CompiledDelegateName} = SourceExpression.Compile();
     
-        public static readonly bool {IsValidName} = typeof(T).IsValueType || ({options.GlobalNSDot()}{ConstructorOfGenerator.ClassName}<T>.{ConstructorOfGenerator.ValueName} != null && !typeof(T).IsAbstract);
+        public static readonly bool {IsValidName} = typeof(T).IsValueType || ({options.GlobalNSDot()}{ConstructorCacheGenerator.ClassName}<T>.{ConstructorCacheGenerator.ValueName} != null && !typeof(T).IsAbstract);
     }}");
 
         for (int parameterIndex = 1; parameterIndex <= options.MaxParameterCount; parameterIndex++)
@@ -85,9 +85,9 @@ T>
             builder.Indent(3);
             builder.Append("var constructor = ");
             builder.GlobalNamespaceDot();
-            builder.Append(ConstructorOfGenerator.ClassName);
+            builder.Append(ConstructorCacheGenerator.ClassName);
             builder.UseGenericMember(parameterIndex);
-            builder.AppendLine($".{ConstructorOfGenerator.ValueName};");
+            builder.AppendLine($".{ConstructorCacheGenerator.ValueName};");
             #endregion
 
             #region IsValid
@@ -132,7 +132,7 @@ T>
             builder.Append(": (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(");
             builder.GlobalNamespaceDot();
             builder.Append($"{ThrowHelperGenerator.ClassName}.GetSmartThrow<T>(), ");
-            builder.Append($"System.Linq.Expressions.Expression.Constant({options.GlobalNSDot()}{ConstructorOfGenerator.ClassName}<T>.{ConstructorOfGenerator.ValueName}, typeof(ConstructorInfo))");
+            builder.Append($"System.Linq.Expressions.Expression.Constant({options.GlobalNSDot()}{ConstructorCacheGenerator.ClassName}<T>.{ConstructorCacheGenerator.ValueName}, typeof(ConstructorInfo))");
             builder.AppendLine(')');
 
             builder.Indent(3);

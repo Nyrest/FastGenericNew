@@ -14,7 +14,7 @@ using System.ComponentModel;
 
 namespace @FastGenericNew
 {
-    public static partial class FastNew<
+	internal static partial class FastNew<
 #if NET5_0_OR_GREATER
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
 #endif

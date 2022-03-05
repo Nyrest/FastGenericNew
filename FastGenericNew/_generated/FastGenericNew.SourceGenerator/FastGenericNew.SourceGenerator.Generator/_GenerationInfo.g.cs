@@ -13,17 +13,17 @@
   KeyValues:
 
     MaxParameterCount = 16
-    PublicConstructorOf = True
+    PublicFastNewCore = False
+    FastNew_PublicConstructorCache = True
     PublicSourceExpression = True
     GenerateTryCreateInstance = True
-    GenerateTypeTryCreateInstance = True
     GenerateCreateInstance = True
     GenerateTypeCreateInstance = True
     PublicCompiledDelegate = True
     NonPublicConstructorSupport = True
     Namespace = FastGenericNew
     ForceFastNewDelegate = False
-    GeneratedAlert = True
+    IsGeneratedHeader = True
     DisableGeneratorCache = False
     Trimmable = True
     PrettyOutput = True
@@ -34,17 +34,17 @@
   MSBuild Properties:
 
     <FastNew_MaxParameterCount>16<FastNew_MaxParameterCount />
-    <FastNew_PublicConstructorOf>True<FastNew_PublicConstructorOf />
+    <FastNew_PublicFastNewCore>False<FastNew_PublicFastNewCore />
+    <FastNew_FastNew_PublicConstructorCache>True<FastNew_FastNew_PublicConstructorCache />
     <FastNew_PublicSourceExpression>True<FastNew_PublicSourceExpression />
     <FastNew_GenerateTryCreateInstance>True<FastNew_GenerateTryCreateInstance />
-    <FastNew_GenerateTypeTryCreateInstance>True<FastNew_GenerateTypeTryCreateInstance />
     <FastNew_GenerateCreateInstance>True<FastNew_GenerateCreateInstance />
     <FastNew_GenerateTypeCreateInstance>True<FastNew_GenerateTypeCreateInstance />
     <FastNew_PublicCompiledDelegate>True<FastNew_PublicCompiledDelegate />
     <FastNew_NonPublicConstructorSupport>True<FastNew_NonPublicConstructorSupport />
     <FastNew_Namespace>FastGenericNew<FastNew_Namespace />
     <FastNew_ForceFastNewDelegate>False<FastNew_ForceFastNewDelegate />
-    <FastNew_GeneratedAlert>True<FastNew_GeneratedAlert />
+    <FastNew_IsGeneratedHeader>True<FastNew_IsGeneratedHeader />
     <FastNew_DisableGeneratorCache>False<FastNew_DisableGeneratorCache />
     <FastNew_Trimmable>True<FastNew_Trimmable />
     <FastNew_PrettyOutput>True<FastNew_PrettyOutput />

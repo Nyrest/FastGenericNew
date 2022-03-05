@@ -1,8 +1,8 @@
 ﻿namespace FastGenericNew.SourceGenerator.CodeGenerators;
 
-public class ConstructorOfGenerator : CodeGenerator<ConstructorOfGenerator>
+public class ConstructorCacheGenerator : CodeGenerator<ConstructorCacheGenerator>
 {
-    public override string Filename => "ConstructorOf.g.cs";
+    public override string Filename => "ConstructorCache.g.cs";
 
     internal const string ClassName = "FastNew";
 
@@ -17,7 +17,6 @@ public class ConstructorOfGenerator : CodeGenerator<ConstructorOfGenerator>
         for (int parameterIndex = 0; parameterIndex <= options.MaxParameterCount; parameterIndex++)
         {
             builder.Indent(1);
-            builder.AppendAccessibility(options.PublicFastNewCore);
             builder.AppendKeyword("partial class");
 
             builder.Append(ClassName);
