@@ -1,4 +1,4 @@
-# FastGenericNew (3.0.0 Preview 1)
+# FastGenericNew [![Tests](https://github.com/Nyerst/FastGenericNew/actions/workflows/tests.yml/badge.svg)](https://github.com/Nyerst/FastGenericNew/actions/workflows/tests.yml) [![](https://img.shields.io/nuget/vpre/FastGenericNew)](https://www.nuget.org/packages/FastGenericNew/) [![](https://img.shields.io/nuget/vpre/FastGenericNew.SourceGenerator?label=SourceGenerator)](https://www.nuget.org/packages/FastGenericNew.SourceGenerator/)
 
 The ultimate fast alternative to `Activator.CreateInstance<T>` / `new T()`
 
@@ -15,7 +15,7 @@ The ultimate fast alternative to `Activator.CreateInstance<T>` / `new T()`
 
 - Modern Compiler Integration
   - Source Generator v2 (Incremental Generator)
-  - Highly Configurable
+  - Highly Configurable ([Props](https://github.com/Nyerst/FastGenericNew/blob/main/FastGenericNew.SourceGenerator/FastGenericNew.SourceGenerator.props))
   - Multi-threaded Generation
 
 - Lastest C# Features Support
@@ -50,16 +50,18 @@ dotnet add package FastGenericNew.SourceGenerator --version 3.0.0-preview1
 </ItemGroup>
 ```
 
+> .NET Standard 2.0 & C# 8.0 or above is required for SourceGenerator version
+
 ## Examples
 
 ```cs
 using FastGenericNew;
 
-FastNew.CreateInstance<T>();
+var obj = FastNew.CreateInstance<T>();
 
 // With parameter(s)
-FastNew.CreateInstance<T, string>("text");
-FastNew.CreateInstance<T, string, int>("text", 0);
+var obj2 = FastNew.CreateInstance<T, string>("text");
+var obj3 = FastNew.CreateInstance<T, string, int>("text", 0);
 
 // Try 
 if (FastNew.TryCreateInstance<T, string>("arg0", out T result));
@@ -70,9 +72,11 @@ if (FastNew.TryCreateInstance<T, string>("arg0", out T result));
 
 ### Notes
 
-> **With .NET Framework**, `Activator.CreateInstance<T>()` invokes the parameterless constructor of `ValueType` if the constraint is `where T : new()` but appears to **ignore the parameterless constructor if the constraint is `where T : struct`**.  
+> **With .NET Framework**, `Activator.CreateInstance<T>()` invokes the parameterless constructor of **ValueType** if  
+> the constraint is `where T : new()` but appears to **ignore the parameterless constructor if the constraint is `where T : struct`**.  
 > **But `FastNew.CreateInstance<T>()` will always invoke the parameterless constructor if it's available.**  
-> If you don't want to invoke the parameterless constructor of `ValueType`.  
+> 
+> If you don't want to invoke the parameterless constructor of **ValueType**.  
 > Consider to use `FastNew.NewOrDefault<T>()` which **will never invoke the parameterless constructor of `ValueType`**
 
 ## Benchmark  
@@ -91,11 +95,11 @@ AMD Ryzen 9 3900X, 1 CPU, 24 logical and 12 physical cores
 
 ### Reference Types
 
-![Benchmark Result of Reference Types](./Benchmark_ReferenceType.png)  
+![Benchmark Result of Reference Types](https://raw.githubusercontent.com/Nyerst/FastGenericNew/main/Benchmark_ReferenceType.png)  
 
 ### Value Types
 
-![Benchmark Result of Value Types](./Benchmark_ValueType.png)
+![Benchmark Result of Value Types](https://raw.githubusercontent.com/Nyerst/FastGenericNew/main/Benchmark_ValueType.png)
 
 ## License
 
