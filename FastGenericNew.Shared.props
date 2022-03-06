@@ -1,6 +1,6 @@
 <Project>
 	<PropertyGroup>
-		<Version>3.0.0-preview1</Version>
+		<Version>3.0.0-preview2</Version>
 		<AssemblyVersion>3.0.0</AssemblyVersion>
 	</PropertyGroup>
 
@@ -25,6 +25,7 @@ C# 10 Parameterless struct constructors Support (Both invokes or not)
 		<RepositoryType>git</RepositoryType>
 		<PackageProjectUrl>https://github.com/Nyerst/FastGenericNew</PackageProjectUrl>
 		<PackageTags>Performance, Fast, Generic, New, Expression, Optimization, CreateInstance, Activator, $(PackageTagsPostfix)</PackageTags>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<IsPackable>true</IsPackable>
 	</PropertyGroup>
 
