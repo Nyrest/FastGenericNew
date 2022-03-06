@@ -20,102 +20,102 @@ public static partial class FastNew	{
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
 #endif
 T>(Type type) =>
-			(Func<T>)typeof(FastNew<>).MakeGenericType(type).GetField("CompiledDelegate").GetValue(null);
+			(Func<T>)typeof(FastNew<>).MakeGenericType(type).GetField("CompiledDelegate")!.GetValue(null)!;
 		public static Func<TArg0, T> GetCreateInstance<
 #if NET5_0_OR_GREATER
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
 #endif
 T, TArg0>(Type type, Type p0) =>
-			(Func<TArg0, T>)typeof(FastNew<,>).MakeGenericType(type, p0).GetField("CompiledDelegate").GetValue(null);
+			(Func<TArg0, T>)typeof(FastNew<,>).MakeGenericType(type, p0).GetField("CompiledDelegate")!.GetValue(null)!;
 		public static Func<TArg0, TArg1, T> GetCreateInstance<
 #if NET5_0_OR_GREATER
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
 #endif
 T, TArg0, TArg1>(Type type, Type p0, Type p1) =>
-			(Func<TArg0, TArg1, T>)typeof(FastNew<,,>).MakeGenericType(type, p0, p1).GetField("CompiledDelegate").GetValue(null);
+			(Func<TArg0, TArg1, T>)typeof(FastNew<,,>).MakeGenericType(type, p0, p1).GetField("CompiledDelegate")!.GetValue(null)!;
 		public static Func<TArg0, TArg1, TArg2, T> GetCreateInstance<
 #if NET5_0_OR_GREATER
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
 #endif
 T, TArg0, TArg1, TArg2>(Type type, Type p0, Type p1, Type p2) =>
-			(Func<TArg0, TArg1, TArg2, T>)typeof(FastNew<,,,>).MakeGenericType(type, p0, p1, p2).GetField("CompiledDelegate").GetValue(null);
+			(Func<TArg0, TArg1, TArg2, T>)typeof(FastNew<,,,>).MakeGenericType(type, p0, p1, p2).GetField("CompiledDelegate")!.GetValue(null)!;
 		public static Func<TArg0, TArg1, TArg2, TArg3, T> GetCreateInstance<
 #if NET5_0_OR_GREATER
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
 #endif
 T, TArg0, TArg1, TArg2, TArg3>(Type type, Type p0, Type p1, Type p2, Type p3) =>
-			(Func<TArg0, TArg1, TArg2, TArg3, T>)typeof(FastNew<,,,,>).MakeGenericType(type, p0, p1, p2, p3).GetField("CompiledDelegate").GetValue(null);
+			(Func<TArg0, TArg1, TArg2, TArg3, T>)typeof(FastNew<,,,,>).MakeGenericType(type, p0, p1, p2, p3).GetField("CompiledDelegate")!.GetValue(null)!;
 		public static Func<TArg0, TArg1, TArg2, TArg3, TArg4, T> GetCreateInstance<
 #if NET5_0_OR_GREATER
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
 #endif
 T, TArg0, TArg1, TArg2, TArg3, TArg4>(Type type, Type p0, Type p1, Type p2, Type p3, Type p4) =>
-			(Func<TArg0, TArg1, TArg2, TArg3, TArg4, T>)typeof(FastNew<,,,,,>).MakeGenericType(type, p0, p1, p2, p3, p4).GetField("CompiledDelegate").GetValue(null);
+			(Func<TArg0, TArg1, TArg2, TArg3, TArg4, T>)typeof(FastNew<,,,,,>).MakeGenericType(type, p0, p1, p2, p3, p4).GetField("CompiledDelegate")!.GetValue(null)!;
 		public static Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, T> GetCreateInstance<
 #if NET5_0_OR_GREATER
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
 #endif
 T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5>(Type type, Type p0, Type p1, Type p2, Type p3, Type p4, Type p5) =>
-			(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, T>)typeof(FastNew<,,,,,,>).MakeGenericType(type, p0, p1, p2, p3, p4, p5).GetField("CompiledDelegate").GetValue(null);
+			(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, T>)typeof(FastNew<,,,,,,>).MakeGenericType(type, p0, p1, p2, p3, p4, p5).GetField("CompiledDelegate")!.GetValue(null)!;
 		public static Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, T> GetCreateInstance<
 #if NET5_0_OR_GREATER
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
 #endif
 T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6>(Type type, Type p0, Type p1, Type p2, Type p3, Type p4, Type p5, Type p6) =>
-			(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, T>)typeof(FastNew<,,,,,,,>).MakeGenericType(type, p0, p1, p2, p3, p4, p5, p6).GetField("CompiledDelegate").GetValue(null);
+			(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, T>)typeof(FastNew<,,,,,,,>).MakeGenericType(type, p0, p1, p2, p3, p4, p5, p6).GetField("CompiledDelegate")!.GetValue(null)!;
 		public static Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, T> GetCreateInstance<
 #if NET5_0_OR_GREATER
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
 #endif
 T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7>(Type type, Type p0, Type p1, Type p2, Type p3, Type p4, Type p5, Type p6, Type p7) =>
-			(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, T>)typeof(FastNew<,,,,,,,,>).MakeGenericType(type, p0, p1, p2, p3, p4, p5, p6, p7).GetField("CompiledDelegate").GetValue(null);
+			(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, T>)typeof(FastNew<,,,,,,,,>).MakeGenericType(type, p0, p1, p2, p3, p4, p5, p6, p7).GetField("CompiledDelegate")!.GetValue(null)!;
 		public static Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, T> GetCreateInstance<
 #if NET5_0_OR_GREATER
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
 #endif
 T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8>(Type type, Type p0, Type p1, Type p2, Type p3, Type p4, Type p5, Type p6, Type p7, Type p8) =>
-			(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, T>)typeof(FastNew<,,,,,,,,,>).MakeGenericType(type, p0, p1, p2, p3, p4, p5, p6, p7, p8).GetField("CompiledDelegate").GetValue(null);
+			(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, T>)typeof(FastNew<,,,,,,,,,>).MakeGenericType(type, p0, p1, p2, p3, p4, p5, p6, p7, p8).GetField("CompiledDelegate")!.GetValue(null)!;
 		public static Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, T> GetCreateInstance<
 #if NET5_0_OR_GREATER
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
 #endif
 T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9>(Type type, Type p0, Type p1, Type p2, Type p3, Type p4, Type p5, Type p6, Type p7, Type p8, Type p9) =>
-			(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, T>)typeof(FastNew<,,,,,,,,,,>).MakeGenericType(type, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9).GetField("CompiledDelegate").GetValue(null);
+			(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, T>)typeof(FastNew<,,,,,,,,,,>).MakeGenericType(type, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9).GetField("CompiledDelegate")!.GetValue(null)!;
 		public static Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, T> GetCreateInstance<
 #if NET5_0_OR_GREATER
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
 #endif
 T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10>(Type type, Type p0, Type p1, Type p2, Type p3, Type p4, Type p5, Type p6, Type p7, Type p8, Type p9, Type p10) =>
-			(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, T>)typeof(FastNew<,,,,,,,,,,,>).MakeGenericType(type, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10).GetField("CompiledDelegate").GetValue(null);
+			(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, T>)typeof(FastNew<,,,,,,,,,,,>).MakeGenericType(type, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10).GetField("CompiledDelegate")!.GetValue(null)!;
 		public static Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, T> GetCreateInstance<
 #if NET5_0_OR_GREATER
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
 #endif
 T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11>(Type type, Type p0, Type p1, Type p2, Type p3, Type p4, Type p5, Type p6, Type p7, Type p8, Type p9, Type p10, Type p11) =>
-			(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, T>)typeof(FastNew<,,,,,,,,,,,,>).MakeGenericType(type, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11).GetField("CompiledDelegate").GetValue(null);
+			(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, T>)typeof(FastNew<,,,,,,,,,,,,>).MakeGenericType(type, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11).GetField("CompiledDelegate")!.GetValue(null)!;
 		public static Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, T> GetCreateInstance<
 #if NET5_0_OR_GREATER
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
 #endif
 T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12>(Type type, Type p0, Type p1, Type p2, Type p3, Type p4, Type p5, Type p6, Type p7, Type p8, Type p9, Type p10, Type p11, Type p12) =>
-			(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, T>)typeof(FastNew<,,,,,,,,,,,,,>).MakeGenericType(type, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12).GetField("CompiledDelegate").GetValue(null);
+			(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, T>)typeof(FastNew<,,,,,,,,,,,,,>).MakeGenericType(type, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12).GetField("CompiledDelegate")!.GetValue(null)!;
 		public static Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, T> GetCreateInstance<
 #if NET5_0_OR_GREATER
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
 #endif
 T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13>(Type type, Type p0, Type p1, Type p2, Type p3, Type p4, Type p5, Type p6, Type p7, Type p8, Type p9, Type p10, Type p11, Type p12, Type p13) =>
-			(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, T>)typeof(FastNew<,,,,,,,,,,,,,,>).MakeGenericType(type, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13).GetField("CompiledDelegate").GetValue(null);
+			(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, T>)typeof(FastNew<,,,,,,,,,,,,,,>).MakeGenericType(type, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13).GetField("CompiledDelegate")!.GetValue(null)!;
 		public static Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, T> GetCreateInstance<
 #if NET5_0_OR_GREATER
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
 #endif
 T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14>(Type type, Type p0, Type p1, Type p2, Type p3, Type p4, Type p5, Type p6, Type p7, Type p8, Type p9, Type p10, Type p11, Type p12, Type p13, Type p14) =>
-			(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, T>)typeof(FastNew<,,,,,,,,,,,,,,,>).MakeGenericType(type, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14).GetField("CompiledDelegate").GetValue(null);
+			(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, T>)typeof(FastNew<,,,,,,,,,,,,,,,>).MakeGenericType(type, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14).GetField("CompiledDelegate")!.GetValue(null)!;
 		public static Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TArg15, T> GetCreateInstance<
 #if NET5_0_OR_GREATER
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
 #endif
 T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TArg15>(Type type, Type p0, Type p1, Type p2, Type p3, Type p4, Type p5, Type p6, Type p7, Type p8, Type p9, Type p10, Type p11, Type p12, Type p13, Type p14, Type p15) =>
-			(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TArg15, T>)typeof(FastNew<,,,,,,,,,,,,,,,,>).MakeGenericType(type, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15).GetField("CompiledDelegate").GetValue(null);
+			(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TArg15, T>)typeof(FastNew<,,,,,,,,,,,,,,,,>).MakeGenericType(type, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15).GetField("CompiledDelegate")!.GetValue(null)!;
 	}
 }
