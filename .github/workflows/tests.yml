@@ -13,7 +13,6 @@ on:
 
 jobs:
   Tests:
-  
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -34,6 +33,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build -c ${{ matrix.configuration }} --no-restore
+      run: dotnet build -c ${{ matrix.configuration }} --no-restore -p:NoWarn=CS1591
     - name: Test
-      run: dotnet test -c ${{ matrix.configuration }} --no-build --verbosity normal
+      run: dotnet test -c ${{ matrix.configuration }} --no-build --no-restore --verbosity normal
