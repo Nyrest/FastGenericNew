@@ -46,7 +46,7 @@ public class TypeNewGenerator : CodeGenerator<TypeNewGenerator>
                 builder.Append(',', ' ');
                 builder.AppendGenericMethodArgumentName(i);
             }
-            builder.Append($").GetField(\"{FastNewCoreGenerator.CompiledDelegateName}\").GetValue(null);");
+            builder.Append($").GetField(\"{FastNewCoreGenerator.CompiledDelegateName}\")!.GetValue(null)!;");
             #endregion
             builder.PrettyNewLine();
         }
