@@ -35,7 +35,7 @@ T>(out T result)
                 return true;
             }
 	        //Unsafe.SkipInit<T>(out result);
-            result = default;
+            result = default!;
 	        return false;
 	    }
 
@@ -58,7 +58,7 @@ T>(out T result)
                     return true;
             }
 	        //Unsafe.SkipInit<T>(out result);
-            result = default;
+            result = default!;
 	        return false;
 	    }
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -73,8 +73,7 @@ T, TArg0>(TArg0 p0, out T result)
 				result = global::@FastGenericNew.FastNew<T, TArg0>.CompiledDelegate(p0);
 				return true;
 			}
-			Unsafe.SkipInit(out result);
-			return false;
+			result = default!;			return false;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -89,8 +88,7 @@ T, TArg0, TArg1>(TArg0 p0, TArg1 p1, out T result)
 				result = global::@FastGenericNew.FastNew<T, TArg0, TArg1>.CompiledDelegate(p0, p1);
 				return true;
 			}
-			Unsafe.SkipInit(out result);
-			return false;
+			result = default!;			return false;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -105,8 +103,7 @@ T, TArg0, TArg1, TArg2>(TArg0 p0, TArg1 p1, TArg2 p2, out T result)
 				result = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2>.CompiledDelegate(p0, p1, p2);
 				return true;
 			}
-			Unsafe.SkipInit(out result);
-			return false;
+			result = default!;			return false;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -121,8 +118,7 @@ T, TArg0, TArg1, TArg2, TArg3>(TArg0 p0, TArg1 p1, TArg2 p2, TArg3 p3, out T res
 				result = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3>.CompiledDelegate(p0, p1, p2, p3);
 				return true;
 			}
-			Unsafe.SkipInit(out result);
-			return false;
+			result = default!;			return false;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -137,8 +133,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4>(TArg0 p0, TArg1 p1, TArg2 p2, TArg3 p3, TA
 				result = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4>.CompiledDelegate(p0, p1, p2, p3, p4);
 				return true;
 			}
-			Unsafe.SkipInit(out result);
-			return false;
+			result = default!;			return false;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -153,8 +148,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5>(TArg0 p0, TArg1 p1, TArg2 p2, TArg3
 				result = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5>.CompiledDelegate(p0, p1, p2, p3, p4, p5);
 				return true;
 			}
-			Unsafe.SkipInit(out result);
-			return false;
+			result = default!;			return false;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -169,8 +163,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6>(TArg0 p0, TArg1 p1, TArg2 p2
 				result = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6>.CompiledDelegate(p0, p1, p2, p3, p4, p5, p6);
 				return true;
 			}
-			Unsafe.SkipInit(out result);
-			return false;
+			result = default!;			return false;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -185,8 +178,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7>(TArg0 p0, TArg1 p1, T
 				result = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7>.CompiledDelegate(p0, p1, p2, p3, p4, p5, p6, p7);
 				return true;
 			}
-			Unsafe.SkipInit(out result);
-			return false;
+			result = default!;			return false;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -201,8 +193,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8>(TArg0 p0, TArg
 				result = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8>.CompiledDelegate(p0, p1, p2, p3, p4, p5, p6, p7, p8);
 				return true;
 			}
-			Unsafe.SkipInit(out result);
-			return false;
+			result = default!;			return false;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -217,8 +208,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9>(TArg0 p
 				result = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9>.CompiledDelegate(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9);
 				return true;
 			}
-			Unsafe.SkipInit(out result);
-			return false;
+			result = default!;			return false;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -233,8 +223,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10>
 				result = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10>.CompiledDelegate(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
 				return true;
 			}
-			Unsafe.SkipInit(out result);
-			return false;
+			result = default!;			return false;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -249,8 +238,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 				result = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11>.CompiledDelegate(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11);
 				return true;
 			}
-			Unsafe.SkipInit(out result);
-			return false;
+			result = default!;			return false;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -265,8 +253,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 				result = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12>.CompiledDelegate(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12);
 				return true;
 			}
-			Unsafe.SkipInit(out result);
-			return false;
+			result = default!;			return false;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -281,8 +268,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 				result = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13>.CompiledDelegate(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13);
 				return true;
 			}
-			Unsafe.SkipInit(out result);
-			return false;
+			result = default!;			return false;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -297,8 +283,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 				result = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14>.CompiledDelegate(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14);
 				return true;
 			}
-			Unsafe.SkipInit(out result);
-			return false;
+			result = default!;			return false;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -313,8 +298,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 				result = global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TArg15>.CompiledDelegate(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15);
 				return true;
 			}
-			Unsafe.SkipInit(out result);
-			return false;
+			result = default!;			return false;
 		}
 
 	}
