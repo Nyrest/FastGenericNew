@@ -126,6 +126,7 @@ T>
             builder.AppendLine("static FastNew()");
             builder.StartBlock(2);
 
+            /*
             #region Var constructor
             builder.Indent(3);
             builder.Append("var constructor = ");
@@ -134,10 +135,11 @@ T>
             builder.UseGenericMember(parameterIndex);
             builder.AppendLine($".{ConsructorName};");
             #endregion
+            */
 
             #region IsValid
             builder.Indent(3);
-            builder.AppendLine("IsValid = constructor != null && !typeof(T).IsAbstract;");
+            builder.AppendLine($"IsValid = {ConsructorName} != null && !typeof(T).IsAbstract;");
             #endregion
 
             #region Parameters
@@ -159,7 +161,7 @@ T>
             builder.AppendLine($">({IsValidName}");
 
             builder.Indent(4);
-            builder.Append("? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(constructor!");
+            builder.Append($"? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New({ConsructorName}!");
             /*
             builder.GlobalNamespaceDot();
             builder.Append(ConstructorOfGenerator.ClassName);
@@ -177,7 +179,7 @@ T>
             builder.Append(": (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(");
             builder.GlobalNamespaceDot();
             builder.Append($"{ThrowHelperGenerator.ClassName}.GetSmartThrow<T>(), ");
-            builder.Append($"System.Linq.Expressions.Expression.Constant({options.GlobalNSDot()}{ClassName}<T>.{ConsructorName}, typeof(ConstructorInfo))");
+            builder.Append($"System.Linq.Expressions.Expression.Constant({ConsructorName}, typeof(ConstructorInfo))");
             builder.AppendLine(')');
 
             builder.Indent(3);
