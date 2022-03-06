@@ -36,9 +36,9 @@ public readonly record struct GeneratorOptions
 
     public bool OutputGenerationInfo { get; }
 
-    public GeneratorOptions(AnalyzerConfigOptionsProvider provider)
+    public GeneratorOptions(AnalyzerConfigOptionsProvider? provider)
     {
-        var options = provider.GlobalOptions;
+        var options = provider?.GlobalOptions;
         MaxParameterCount = options.GetOrDefault(nameof(MaxParameterCount), 16);
         PublicFastNewCore = options.GetOrDefault(nameof(PublicFastNewCore), false);
         GenerateTryCreateInstance = options.GetOrDefault(nameof(GenerateTryCreateInstance), true);
