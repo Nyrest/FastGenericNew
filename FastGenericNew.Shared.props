@@ -1,6 +1,6 @@
 <Project>
 	<PropertyGroup>
-		<Version>3.0.0-preview1</Version>
+		<Version>3.0.0-preview2</Version>
 		<AssemblyVersion>3.0.0</AssemblyVersion>
 	</PropertyGroup>
 
@@ -30,6 +30,7 @@ C# 10 Parameterless struct constructors Support (Both invokes or not)
 
 	<!-- Nuget Package README -->
 	<ItemGroup>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<None Include="..\README.md">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
