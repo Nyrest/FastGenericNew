@@ -8,6 +8,23 @@ namespace FastGenericNew.Tests
 {
     public class TypeNewTest
     {
+        #region Exceptions should happen
+
+        [Test]
+        public void ExceptionTypeNewVoid()
+        {
+            try
+            {
+                FastNew.GetCreateInstance<object>(typeof(void));
+                Assert.Fail();
+            }
+            catch (ArgumentException)
+            {
+                Assert.Pass();
+            }
+        }
+        #endregion
+
         #region ValueTypes
 
         [Test(Description = "Check is FastNew works on primary types")]
