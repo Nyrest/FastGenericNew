@@ -30,9 +30,9 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build -c ${{ matrix.configuration }} --no-restore
+      run: dotnet build -c ${{ matrix.configuration }} --no-restore -p:NoWarn=CS1591
     - name: Test
-      run: dotnet test -c ${{ matrix.configuration }} --no-build --verbosity normal
+      run: dotnet test -c ${{ matrix.configuration }} --no-build --no-restore --verbosity normal
 
   Publish:
     runs-on: windows-latest
@@ -51,7 +51,7 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore
       - name: Build
-        run: dotnet build -c Release --no-restore
+        run: dotnet build -c Release --no-restore -p:NoWarn=CS1591
       - name: Pack
         run: dotnet pack -o publishOutput -c Release --no-restore --no-build --verbosity normal
       # Runs a set of commands using the runners shell
