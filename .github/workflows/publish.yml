@@ -9,42 +9,51 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  publish:
-    # The type of runner that the job will run on
-    runs-on: windows-latest
+  Tests:
+    runs-on: ${{ matrix.os }}
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+        configuration: [Debug, Release]
+
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: | 
+          3.1.x
+          5.0.x
+          6.0.x
+        include-prerelease: true
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build -c ${{ matrix.configuration }} --no-restore
+    - name: Test
+      run: dotnet test -c ${{ matrix.configuration }} --no-build --verbosity normal
 
+  Publish:
+    runs-on: windows-latest
+    needs: [Tests]
+    
+    steps:
+      - uses: actions/checkout@v3
       - name: Setup .NET
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: | 
+            3.1.x
             5.0.x
             6.0.x
           include-prerelease: true
-          
       - name: Restore dependencies
         run: dotnet restore
-        
-      - name: Build (Debug)
-        run: dotnet build -c Debug --no-restore
-        
-      - name: Test (Debug)
-        run: dotnet test -c Debug --no-build --verbosity normal
-        
-      - name: Build (Release)
+      - name: Build
         run: dotnet build -c Release --no-restore
-        
-      - name: Test (Release)
-        run: dotnet test -c Release --no-build --verbosity normal
-
       - name: Pack
-        run: dotnet pack -o publishOutput --no-restore --no-build --verbosity normal
-
+        run: dotnet pack -o publishOutput -c Release --no-restore --no-build --verbosity normal
       # Runs a set of commands using the runners shell
       - name: Push to Nuget
         run: dotnet nuget push publishOutput\*.nupkg -k ${{ secrets.NUGET_UPDATEKEY }} -s https://api.nuget.org/v3/index.json
