@@ -9,8 +9,9 @@ internal static class SourceGeneratorExtensions
         return options.TryGetValue($"build_property.{prefix}{name}", out value);
     }
 
-    public static TValue GetOrDefault<TValue>(this AnalyzerConfigOptions options, string name, TValue defaultValue)
+    public static TValue GetOrDefault<TValue>(this AnalyzerConfigOptions? options, string name, TValue defaultValue)
     {
+        if (options is null) return defaultValue;
         Unsafe.SkipInit(out TValue result);
 
         if (TryGetProperty(options, name, out var rawValue))
@@ -33,7 +34,7 @@ internal static class SourceGeneratorExtensions
                     return result;
 
                 #region Fallback
-                
+
                 return rawValue.Trim().ToLower() switch
                 {
                     "enable" or
