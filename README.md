@@ -24,29 +24,29 @@ The ultimate fast alternative to `Activator.CreateInstance<T>` / `new T()`
 
 ## Installation
 
-> You can only use one of them
+> You should only use one of them
 
 ### Pre-Compiled Version
 
 ```powershell
-dotnet add package FastGenericNew --version 3.0.0-preview1
+dotnet add package FastGenericNew --version 3.0.0-preview2
 ```
 
 ```xml
 <ItemGroup>
-  <PackageReference Include="FastGenericNew" Version="3.0.0-preview1" />
+  <PackageReference Include="FastGenericNew" Version="3.0.0-preview2" />
 </ItemGroup>
 ```
 
 ### SourceGenerator Version
 
 ```powershell
-dotnet add package FastGenericNew.SourceGenerator --version 3.0.0-preview1
+dotnet add package FastGenericNew.SourceGenerator --version 3.0.0-preview2
 ```
 
 ```xml
 <ItemGroup>
-  <PackageReference Include="FastGenericNew.SourceGenerator" Version="3.0.0-preview1" />
+  <PackageReference Include="FastGenericNew.SourceGenerator" Version="3.0.0-preview2" />
 </ItemGroup>
 ```
 
