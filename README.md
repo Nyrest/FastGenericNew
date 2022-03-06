@@ -24,7 +24,7 @@ The ultimate fast alternative to `Activator.CreateInstance<T>` / `new T()`
 
 ## Installation
 
-> You can only use one of them
+> You should only use one of them
 
 ### Pre-Compiled Version
 
