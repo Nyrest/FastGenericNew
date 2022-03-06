@@ -38,7 +38,7 @@ T>(out T result)
                 return true;
             }}
 	        //Unsafe.SkipInit<T>(out result);
-            result = default;
+            result = default!;
 	        return false;
 	    }}
 
@@ -61,7 +61,7 @@ T>(out T result)
                     return true;
             }}
 	        //Unsafe.SkipInit<T>(out result);
-            result = default;
+            result = default!;
 	        return false;
 	    }}");
 
@@ -107,7 +107,8 @@ T>(out T result)
             builder.EndBlock(3);
 
             builder.Indent(3);
-            builder.AppendLine("Unsafe.SkipInit(out result);");
+            //builder.AppendLine("Unsafe.SkipInit(out result);");
+            builder.Append("result = default!;");
             builder.Indent(3);
             builder.AppendLine("return false;");
             builder.EndBlock(2);
