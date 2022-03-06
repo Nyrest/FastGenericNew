@@ -25,12 +25,12 @@ C# 10 Parameterless struct constructors Support (Both invokes or not)
 		<RepositoryType>git</RepositoryType>
 		<PackageProjectUrl>https://github.com/Nyerst/FastGenericNew</PackageProjectUrl>
 		<PackageTags>Performance, Fast, Generic, New, Expression, Optimization, CreateInstance, Activator, $(PackageTagsPostfix)</PackageTags>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<IsPackable>true</IsPackable>
 	</PropertyGroup>
 
 	<!-- Nuget Package README -->
 	<ItemGroup>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<None Include="..\README.md">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
