@@ -14,10 +14,11 @@ on:
 jobs:
   Tests:
   
-    runs-on: windows-latest
+    runs-on: ${{ matrix.os }}
 
     strategy:
       matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
         configuration: [Debug, Release]
 
     steps:
@@ -26,6 +27,7 @@ jobs:
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: | 
+          3.1.x
           5.0.x
           6.0.x
         include-prerelease: true
