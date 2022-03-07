@@ -4,14 +4,15 @@ The ultimate fast alternative to `Activator.CreateInstance<T>` / `new T()`
 
 ## Features
 
-- A way better CreateInstance
+- The best `CreateInstance` ever
   - Up to 50x faster than `Activator.CreateInstance<T>`
   - Generic Parameters Support
-  - Non-Public Constructor Support
   - Zero boxing/unboxing
-  - No Generic Constraints
   - TryGetValue-like TryFastNew API
   - Link Mode PublishTrimmed Support
+  - Non-Public Constructor Support
+  - No Generic Constraints
+  - Compatible with .NET Standard 2.0
 
 - Modern Compiler Integration
   - Source Generator v2 (Incremental Generator)
@@ -63,7 +64,7 @@ var obj = FastNew.CreateInstance<T>();
 var obj2 = FastNew.CreateInstance<T, string>("text");
 var obj3 = FastNew.CreateInstance<T, string, int>("text", 0);
 
-// Try 
+// Try
 if (FastNew.TryCreateInstance<T, string>("arg0", out T result));
 {
     // ...
