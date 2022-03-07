@@ -24,7 +24,7 @@ public readonly record struct GeneratorOptions
 
     public bool ForceFastNewDelegate { get; }
 
-    public bool IsGeneratedHeader { get; }
+    public bool AlertGeneratedFile { get; }
 
     public bool DisableGeneratorCache { get; }
 
@@ -51,7 +51,7 @@ public readonly record struct GeneratorOptions
         ForceFastNewDelegate = options.GetOrDefault(nameof(ForceFastNewDelegate), false);
         Trimmable = options.GetOrDefault(nameof(Trimmable), true);
 
-        IsGeneratedHeader = options.GetOrDefault(nameof(IsGeneratedHeader), true);
+        AlertGeneratedFile = options.GetOrDefault(nameof(AlertGeneratedFile), true);
         DisableGeneratorCache = options.GetOrDefault(nameof(DisableGeneratorCache), false);
         PrettyOutput = options.GetOrDefault(nameof(PrettyOutput), false);
         MultiThreadedGeneration = options.GetOrDefault(nameof(MultiThreadedGeneration), true);
