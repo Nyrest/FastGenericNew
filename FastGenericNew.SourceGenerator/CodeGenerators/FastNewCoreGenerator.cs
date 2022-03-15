@@ -59,7 +59,7 @@ T>
             if ({IsValidName})
             {{
                 if ({options.GlobalNSDot()}{ClassName}<T>.{ConsructorName} != null)
-                    il.Emit(OpCodes.Newobj, {ConsructorName});
+                    il.Emit(OpCodes.Newobj, {ConsructorName}!);
                 else
                 {{
                     il.DeclareLocal(typeof(T));
@@ -184,7 +184,7 @@ T>
                 builder.AppendLine();
             }
             #endregion
-            builder.AppendLine(4, $"il.Emit(OpCodes.Newobj, {ConsructorName});");
+            builder.AppendLine(4, $"il.Emit(OpCodes.Newobj, {ConsructorName}!);");
 
             builder.AppendLine(3, $"}}");
             builder.AppendLine(3, $"else");
