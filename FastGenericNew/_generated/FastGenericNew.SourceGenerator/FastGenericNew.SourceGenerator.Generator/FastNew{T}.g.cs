@@ -42,7 +42,15 @@ T>
             var il = dm.GetILGenerator(6);
             if (IsValid)
             {
-                il.Emit(OpCodes.Newobj, CachedConstructor);
+                if (global::@FastGenericNew.FastNew<T>.CachedConstructor != null)
+                    il.Emit(OpCodes.Newobj, CachedConstructor);
+                else
+                {
+                    il.DeclareLocal(typeof(T));
+                    //il.Emit(OpCodes.Ldloca_S, (short)0)
+                    //il.Emit(OpCodes.Initobj, typeof(T));
+                    il.Emit(OpCodes.Ldloc_0);
+                }
             }
             else
             {
