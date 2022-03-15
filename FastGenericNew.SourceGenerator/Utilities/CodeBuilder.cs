@@ -163,6 +163,12 @@ internal unsafe ref partial struct CodeBuilder
         _length += 2;
     }
 
+    public void Append(int indent, string value)
+    {
+        Indent(indent);
+        Append(value.AsSpan());
+    }
+
     public void Append(string value) => Append(value.AsSpan());
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -185,6 +191,12 @@ internal unsafe ref partial struct CodeBuilder
         _buffer[_length] = value;
         _buffer[_length + 1] = '\n';
         _length += 2;
+    }
+
+    public void AppendLine(int indent, string value)
+    {
+        Indent(indent);
+        AppendLine(value.AsSpan());
     }
 
     public void AppendLine(string value) => AppendLine(value.AsSpan());
