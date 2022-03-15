@@ -21,37 +21,52 @@ public class FastNewCoreGenerator : CodeGenerator<FastNewCoreGenerator>
         builder.StartNamespace();
         builder.Indent(1);
         builder.AppendAccessibility(options.PublicFastNewCore);
-        builder.AppendLine(@$"static partial class FastNew<
+
+        #region Get CompiledDelegateName Type
+        string compiledDelegateTypeNoParam;
+        {
+            CodeBuilder internalBuilder = new(32, in options);
+            internalBuilder.UseGenericDelegate(0);
+            compiledDelegateTypeNoParam = internalBuilder.ToString();
+        }
+        #endregion
+
+        builder.AppendLine(@$"static partial class {ClassName}<
 #if NET5_0_OR_GREATER
 {options.DynamicallyAccessedMembers(0)}
 #endif
 T>
     {{
+		/// <summary>
+		/// The constructor of <typeparamref name=""T"" /> with given arguments. <br/>
+		/// Could be <see langword=""null"" /> if the constructor couldn't be found.
+		/// </summary>
+		public static readonly ConstructorInfo? {ConsructorName} = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, Type.EmptyTypes, null);
+
 #if NETFRAMEWORK
         [EditorBrowsable(EditorBrowsableState.Never)]
         internal static readonly bool _isValueTypeT = typeof(T).IsValueType;
 #endif
 
-		/// <summary>
-		/// The constructor of <typeparamref name=""T"" /> with given arguments. <br/>
-		/// Could be <see langword=""null"" /> if the constructor couldn't be found.
-		/// </summary>
-		public static readonly ConstructorInfo? {ConsructorName} = typeof(T).GetConstructor({(options.NonPublicConstructorSupport
-                ? "BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic"
-                : "BindingFlags.Instance | BindingFlags.Public")}, null, Type.EmptyTypes, null);
-
-        {(options.PublicSourceExpression ? "public" : "internal")} static readonly System.Linq.Expressions.Expression<Func<T>> SourceExpression = System.Linq.Expressions.Expression.Lambda<Func<T>>(typeof(T).IsValueType
-            ? ({options.GlobalNSDot()}{ClassName}<T>.{ConsructorName} != null
-                ? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New({options.GlobalNSDot()}{ClassName}<T>.{ConsructorName})
-                : (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(typeof(T)))
-            : (({options.GlobalNSDot()}{ClassName}<T>.{ConsructorName} != null && !typeof(T).IsAbstract)
-                ? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New({options.GlobalNSDot()}{ClassName}<T>.{ConsructorName})
-                : (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call({options.GlobalNSDot()}{ThrowHelperGenerator.ClassName}.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant({options.GlobalNSDot()}{ClassName}<T>.{ConsructorName}, typeof(ConstructorInfo))))
-            , Array.Empty<System.Linq.Expressions.ParameterExpression>());
-
-	    {(options.PublicCompiledDelegate ? "public" : "internal")} static readonly Func<T> {CompiledDelegateName} = SourceExpression.Compile();
+	    {(options.PublicCompiledDelegate ? "public" : "internal")} static readonly {compiledDelegateTypeNoParam} {CompiledDelegateName};
     
         public static readonly bool {IsValidName} = typeof(T).IsValueType || ({options.GlobalNSDot()}{ClassName}<T>.{ConsructorName} != null && !typeof(T).IsAbstract);
+    
+        static {ClassName}()
+        {{
+            var dm = new DynamicMethod("""", typeof(T), null, restrictedSkipVisibility: true);
+            var il = dm.GetILGenerator(6);
+            if ({IsValidName})
+            {{
+                il.Emit(OpCodes.Newobj, {ConsructorName});
+            }}
+            else
+            {{
+                il.Emit(OpCodes.Call, {options.GlobalNSDot()}{ThrowHelperGenerator.ClassName}.GetSmartThrow<T>());
+            }}
+            il.Emit(OpCodes.Ret);
+            {CompiledDelegateName} = ({compiledDelegateTypeNoParam})dm.CreateDelegate(typeof({compiledDelegateTypeNoParam}));
+        }}
     }}");
 
         for (int parameterIndex = 1; parameterIndex <= options.MaxParameterCount; parameterIndex++)
@@ -104,13 +119,6 @@ T>
             #endregion
 
             builder.Indent(2);
-            builder.AppendAccessibility(options.PublicSourceExpression);
-            builder.Append("static readonly System.Linq.Expressions.Expression<");
-            builder.UseGenericDelegate(parameterIndex);
-            builder.AppendLine("> SourceExpression;");
-            builder.PrettyNewLine();
-
-            builder.Indent(2);
             builder.AppendAccessibility(options.PublicCompiledDelegate);
             builder.Append("static readonly ");
             builder.UseGenericDelegate(parameterIndex);
@@ -123,77 +131,58 @@ T>
 
             #region Constructor
             builder.Indent(2);
-            builder.AppendLine("static FastNew()");
+            builder.AppendLine($"static {ClassName}()");
             builder.StartBlock(2);
 
-            /*
-            #region Var constructor
-            builder.Indent(3);
-            builder.Append("var constructor = ");
-            builder.GlobalNamespaceDot();
-            builder.Append(ClassName);
-            builder.UseGenericMember(parameterIndex);
-            builder.AppendLine($".{ConsructorName};");
-            #endregion
-            */
-
             #region IsValid
-            builder.Indent(3);
-            builder.AppendLine($"IsValid = {ConsructorName} != null && !typeof(T).IsAbstract;");
-            #endregion
-
-            #region Parameters
-            for (int i = 0; i < parameterIndex; i++)
-            {
-                builder.Indent(3);
-                builder.Append("var ");
-                builder.AppendGenericMethodArgumentName(i);
-                builder.Append(" = System.Linq.Expressions.Expression.Parameter(typeof(");
-                builder.AppendGenericArgumentName(i);
-                builder.Append("));\n");
-            }
+            builder.AppendLine(3, $"IsValid = {ConsructorName} != null && !typeof(T).IsAbstract;");
             #endregion
 
             #region Final
-            builder.Indent(3);
-            builder.Append($"{CompiledDelegateName} = (SourceExpression = System.Linq.Expressions.Expression.Lambda<");
-            builder.UseGenericDelegate(parameterIndex);
-            builder.AppendLine($">({IsValidName}");
-
-            builder.Indent(4);
-            builder.Append($"? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New({ConsructorName}!");
-            /*
-            builder.GlobalNamespaceDot();
-            builder.Append(ConstructorOfGenerator.ClassName);
-            builder.UseGenericMember(parameterIndex);
-            builder.Append($".{ConstructorOfGenerator.ValueName}");
-            */
-            for (int i = 0; i < parameterIndex; i++)
-            {
-                builder.Append(',', ' ');
-                builder.AppendGenericMethodArgumentName(i);
-            }
-            builder.AppendLine(')');
-
-            builder.Indent(4);
-            builder.Append(": (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(");
-            builder.GlobalNamespaceDot();
-            builder.Append($"{ThrowHelperGenerator.ClassName}.GetSmartThrow<T>(), ");
-            builder.Append($"System.Linq.Expressions.Expression.Constant({ConsructorName}, typeof(ConstructorInfo))");
-            builder.AppendLine(')');
-
-            builder.Indent(3);
-            builder.Append(", new System.Linq.Expressions.ParameterExpression[] { ");
+            builder.Append(3, "var dm = new DynamicMethod(\"\", typeof(T), new Type[] { ");
             for (int i = 0; i < parameterIndex; i++)
             {
                 if (i != 0)
                 {
                     builder.Append(',', ' ');
                 }
-                builder.AppendGenericMethodArgumentName(i);
+                builder.Append("typeof(");
+                builder.AppendGenericArgumentName(i);
+                builder.Append(')');
             }
-            builder.AppendLine(" })).Compile();");
+            builder.Append(' ', '}');
+            builder.AppendLine(@", restrictedSkipVisibility: true);");
+            // 5 = Newobj + Ret
+            // +4 is required because EnsureCapacity() in il.Emit needs at least 3 bytes more available in buffer.
+            // TODO: more optimization is needed here.
+            builder.AppendLine(3, $"var il = dm.GetILGenerator({5 + parameterIndex + 4});");
 
+            #region Parameters
+            for (int i = 0; i < parameterIndex; i++)
+            {
+                builder.Append(3, "il.Emit(");
+                builder.Append(i switch
+                {
+                    0 => "OpCodes.Ldarg_0",
+                    1 => "OpCodes.Ldarg_1",
+                    2 => "OpCodes.Ldarg_2",
+                    3 => "OpCodes.Ldarg_3",
+                    _ when i <= 255 => $"OpCodes.Ldarg_S, (byte){i}",
+                    _ => $"OpCodes.Ldarg, (short){i}",
+                });
+                builder.Append(')', ';');
+                builder.AppendLine();
+            }
+            #endregion
+            builder.AppendLine(3, $"il.Emit(OpCodes.Newobj, {ConsructorName});");
+            builder.AppendLine(3, "il.Emit(OpCodes.Ret);");
+
+            builder.Append(3, CompiledDelegateName);
+            builder.Append(" = (");
+            builder.UseGenericDelegate(parameterIndex);
+            builder.Append(")dm.CreateDelegate(typeof(");
+            builder.UseGenericDelegate(parameterIndex);
+            builder.AppendLine("));");
             #endregion
 
             builder.EndBlock(2);
@@ -210,6 +199,5 @@ T>
     public override bool ShouldUpdate(in GeneratorOptions oldValue, in GeneratorOptions newValue) =>
         base.ShouldUpdate(oldValue, newValue)
         || oldValue.ForceFastNewDelegate != newValue.ForceFastNewDelegate
-        || oldValue.PublicSourceExpression != newValue.PublicSourceExpression
         || oldValue.PublicCompiledDelegate != newValue.PublicCompiledDelegate;
 }
