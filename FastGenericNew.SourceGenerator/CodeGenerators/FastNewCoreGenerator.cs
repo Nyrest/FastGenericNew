@@ -58,7 +58,15 @@ T>
             var il = dm.GetILGenerator(6);
             if ({IsValidName})
             {{
-                il.Emit(OpCodes.Newobj, {ConsructorName});
+                if ({options.GlobalNSDot()}{ClassName}<T>.{ConsructorName} != null)
+                    il.Emit(OpCodes.Newobj, {ConsructorName});
+                else
+                {{
+                    il.DeclareLocal(typeof(T));
+                    //il.Emit(OpCodes.Ldloca_S, (short)0)
+                    //il.Emit(OpCodes.Initobj, typeof(T));
+                    il.Emit(OpCodes.Ldloc_0);
+                }}
             }}
             else
             {{
