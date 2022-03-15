@@ -75,8 +75,15 @@ T, TArg0>
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
 			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(TArg0) }, restrictedSkipVisibility: true);
 			var il = dm.GetILGenerator(10);
-			il.Emit(OpCodes.Ldarg_0);
-			il.Emit(OpCodes.Newobj, CachedConstructor);
+			if (IsValid)
+			{
+				il.Emit(OpCodes.Ldarg_0);
+				il.Emit(OpCodes.Newobj, CachedConstructor);
+			}
+			else
+			{
+				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
+			}
 			il.Emit(OpCodes.Ret);
 			CompiledDelegate = (Func<TArg0, T>)dm.CreateDelegate(typeof(Func<TArg0, T>));
 		}
@@ -105,9 +112,16 @@ T, TArg0, TArg1>
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
 			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(TArg0), typeof(TArg1) }, restrictedSkipVisibility: true);
 			var il = dm.GetILGenerator(11);
-			il.Emit(OpCodes.Ldarg_0);
-			il.Emit(OpCodes.Ldarg_1);
-			il.Emit(OpCodes.Newobj, CachedConstructor);
+			if (IsValid)
+			{
+				il.Emit(OpCodes.Ldarg_0);
+				il.Emit(OpCodes.Ldarg_1);
+				il.Emit(OpCodes.Newobj, CachedConstructor);
+			}
+			else
+			{
+				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
+			}
 			il.Emit(OpCodes.Ret);
 			CompiledDelegate = (Func<TArg0, TArg1, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, T>));
 		}
@@ -137,10 +151,17 @@ T, TArg0, TArg1, TArg2>
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
 			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(TArg0), typeof(TArg1), typeof(TArg2) }, restrictedSkipVisibility: true);
 			var il = dm.GetILGenerator(12);
-			il.Emit(OpCodes.Ldarg_0);
-			il.Emit(OpCodes.Ldarg_1);
-			il.Emit(OpCodes.Ldarg_2);
-			il.Emit(OpCodes.Newobj, CachedConstructor);
+			if (IsValid)
+			{
+				il.Emit(OpCodes.Ldarg_0);
+				il.Emit(OpCodes.Ldarg_1);
+				il.Emit(OpCodes.Ldarg_2);
+				il.Emit(OpCodes.Newobj, CachedConstructor);
+			}
+			else
+			{
+				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
+			}
 			il.Emit(OpCodes.Ret);
 			CompiledDelegate = (Func<TArg0, TArg1, TArg2, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, T>));
 		}
@@ -171,11 +192,18 @@ T, TArg0, TArg1, TArg2, TArg3>
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
 			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3) }, restrictedSkipVisibility: true);
 			var il = dm.GetILGenerator(13);
-			il.Emit(OpCodes.Ldarg_0);
-			il.Emit(OpCodes.Ldarg_1);
-			il.Emit(OpCodes.Ldarg_2);
-			il.Emit(OpCodes.Ldarg_3);
-			il.Emit(OpCodes.Newobj, CachedConstructor);
+			if (IsValid)
+			{
+				il.Emit(OpCodes.Ldarg_0);
+				il.Emit(OpCodes.Ldarg_1);
+				il.Emit(OpCodes.Ldarg_2);
+				il.Emit(OpCodes.Ldarg_3);
+				il.Emit(OpCodes.Newobj, CachedConstructor);
+			}
+			else
+			{
+				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
+			}
 			il.Emit(OpCodes.Ret);
 			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, T>));
 		}
@@ -207,12 +235,19 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4>
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
 			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4) }, restrictedSkipVisibility: true);
 			var il = dm.GetILGenerator(14);
-			il.Emit(OpCodes.Ldarg_0);
-			il.Emit(OpCodes.Ldarg_1);
-			il.Emit(OpCodes.Ldarg_2);
-			il.Emit(OpCodes.Ldarg_3);
-			il.Emit(OpCodes.Ldarg_S, (byte)4);
-			il.Emit(OpCodes.Newobj, CachedConstructor);
+			if (IsValid)
+			{
+				il.Emit(OpCodes.Ldarg_0);
+				il.Emit(OpCodes.Ldarg_1);
+				il.Emit(OpCodes.Ldarg_2);
+				il.Emit(OpCodes.Ldarg_3);
+				il.Emit(OpCodes.Ldarg_S, (byte)4);
+				il.Emit(OpCodes.Newobj, CachedConstructor);
+			}
+			else
+			{
+				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
+			}
 			il.Emit(OpCodes.Ret);
 			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, T>));
 		}
@@ -245,13 +280,20 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5>
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
 			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5) }, restrictedSkipVisibility: true);
 			var il = dm.GetILGenerator(15);
-			il.Emit(OpCodes.Ldarg_0);
-			il.Emit(OpCodes.Ldarg_1);
-			il.Emit(OpCodes.Ldarg_2);
-			il.Emit(OpCodes.Ldarg_3);
-			il.Emit(OpCodes.Ldarg_S, (byte)4);
-			il.Emit(OpCodes.Ldarg_S, (byte)5);
-			il.Emit(OpCodes.Newobj, CachedConstructor);
+			if (IsValid)
+			{
+				il.Emit(OpCodes.Ldarg_0);
+				il.Emit(OpCodes.Ldarg_1);
+				il.Emit(OpCodes.Ldarg_2);
+				il.Emit(OpCodes.Ldarg_3);
+				il.Emit(OpCodes.Ldarg_S, (byte)4);
+				il.Emit(OpCodes.Ldarg_S, (byte)5);
+				il.Emit(OpCodes.Newobj, CachedConstructor);
+			}
+			else
+			{
+				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
+			}
 			il.Emit(OpCodes.Ret);
 			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, T>));
 		}
@@ -285,14 +327,21 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6>
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
 			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6) }, restrictedSkipVisibility: true);
 			var il = dm.GetILGenerator(16);
-			il.Emit(OpCodes.Ldarg_0);
-			il.Emit(OpCodes.Ldarg_1);
-			il.Emit(OpCodes.Ldarg_2);
-			il.Emit(OpCodes.Ldarg_3);
-			il.Emit(OpCodes.Ldarg_S, (byte)4);
-			il.Emit(OpCodes.Ldarg_S, (byte)5);
-			il.Emit(OpCodes.Ldarg_S, (byte)6);
-			il.Emit(OpCodes.Newobj, CachedConstructor);
+			if (IsValid)
+			{
+				il.Emit(OpCodes.Ldarg_0);
+				il.Emit(OpCodes.Ldarg_1);
+				il.Emit(OpCodes.Ldarg_2);
+				il.Emit(OpCodes.Ldarg_3);
+				il.Emit(OpCodes.Ldarg_S, (byte)4);
+				il.Emit(OpCodes.Ldarg_S, (byte)5);
+				il.Emit(OpCodes.Ldarg_S, (byte)6);
+				il.Emit(OpCodes.Newobj, CachedConstructor);
+			}
+			else
+			{
+				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
+			}
 			il.Emit(OpCodes.Ret);
 			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, T>));
 		}
@@ -327,15 +376,22 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7>
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
 			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6), typeof(TArg7) }, restrictedSkipVisibility: true);
 			var il = dm.GetILGenerator(17);
-			il.Emit(OpCodes.Ldarg_0);
-			il.Emit(OpCodes.Ldarg_1);
-			il.Emit(OpCodes.Ldarg_2);
-			il.Emit(OpCodes.Ldarg_3);
-			il.Emit(OpCodes.Ldarg_S, (byte)4);
-			il.Emit(OpCodes.Ldarg_S, (byte)5);
-			il.Emit(OpCodes.Ldarg_S, (byte)6);
-			il.Emit(OpCodes.Ldarg_S, (byte)7);
-			il.Emit(OpCodes.Newobj, CachedConstructor);
+			if (IsValid)
+			{
+				il.Emit(OpCodes.Ldarg_0);
+				il.Emit(OpCodes.Ldarg_1);
+				il.Emit(OpCodes.Ldarg_2);
+				il.Emit(OpCodes.Ldarg_3);
+				il.Emit(OpCodes.Ldarg_S, (byte)4);
+				il.Emit(OpCodes.Ldarg_S, (byte)5);
+				il.Emit(OpCodes.Ldarg_S, (byte)6);
+				il.Emit(OpCodes.Ldarg_S, (byte)7);
+				il.Emit(OpCodes.Newobj, CachedConstructor);
+			}
+			else
+			{
+				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
+			}
 			il.Emit(OpCodes.Ret);
 			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, T>));
 		}
@@ -371,16 +427,23 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8>
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
 			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6), typeof(TArg7), typeof(TArg8) }, restrictedSkipVisibility: true);
 			var il = dm.GetILGenerator(18);
-			il.Emit(OpCodes.Ldarg_0);
-			il.Emit(OpCodes.Ldarg_1);
-			il.Emit(OpCodes.Ldarg_2);
-			il.Emit(OpCodes.Ldarg_3);
-			il.Emit(OpCodes.Ldarg_S, (byte)4);
-			il.Emit(OpCodes.Ldarg_S, (byte)5);
-			il.Emit(OpCodes.Ldarg_S, (byte)6);
-			il.Emit(OpCodes.Ldarg_S, (byte)7);
-			il.Emit(OpCodes.Ldarg_S, (byte)8);
-			il.Emit(OpCodes.Newobj, CachedConstructor);
+			if (IsValid)
+			{
+				il.Emit(OpCodes.Ldarg_0);
+				il.Emit(OpCodes.Ldarg_1);
+				il.Emit(OpCodes.Ldarg_2);
+				il.Emit(OpCodes.Ldarg_3);
+				il.Emit(OpCodes.Ldarg_S, (byte)4);
+				il.Emit(OpCodes.Ldarg_S, (byte)5);
+				il.Emit(OpCodes.Ldarg_S, (byte)6);
+				il.Emit(OpCodes.Ldarg_S, (byte)7);
+				il.Emit(OpCodes.Ldarg_S, (byte)8);
+				il.Emit(OpCodes.Newobj, CachedConstructor);
+			}
+			else
+			{
+				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
+			}
 			il.Emit(OpCodes.Ret);
 			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, T>));
 		}
@@ -417,17 +480,24 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9>
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
 			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6), typeof(TArg7), typeof(TArg8), typeof(TArg9) }, restrictedSkipVisibility: true);
 			var il = dm.GetILGenerator(19);
-			il.Emit(OpCodes.Ldarg_0);
-			il.Emit(OpCodes.Ldarg_1);
-			il.Emit(OpCodes.Ldarg_2);
-			il.Emit(OpCodes.Ldarg_3);
-			il.Emit(OpCodes.Ldarg_S, (byte)4);
-			il.Emit(OpCodes.Ldarg_S, (byte)5);
-			il.Emit(OpCodes.Ldarg_S, (byte)6);
-			il.Emit(OpCodes.Ldarg_S, (byte)7);
-			il.Emit(OpCodes.Ldarg_S, (byte)8);
-			il.Emit(OpCodes.Ldarg_S, (byte)9);
-			il.Emit(OpCodes.Newobj, CachedConstructor);
+			if (IsValid)
+			{
+				il.Emit(OpCodes.Ldarg_0);
+				il.Emit(OpCodes.Ldarg_1);
+				il.Emit(OpCodes.Ldarg_2);
+				il.Emit(OpCodes.Ldarg_3);
+				il.Emit(OpCodes.Ldarg_S, (byte)4);
+				il.Emit(OpCodes.Ldarg_S, (byte)5);
+				il.Emit(OpCodes.Ldarg_S, (byte)6);
+				il.Emit(OpCodes.Ldarg_S, (byte)7);
+				il.Emit(OpCodes.Ldarg_S, (byte)8);
+				il.Emit(OpCodes.Ldarg_S, (byte)9);
+				il.Emit(OpCodes.Newobj, CachedConstructor);
+			}
+			else
+			{
+				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
+			}
 			il.Emit(OpCodes.Ret);
 			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, T>));
 		}
@@ -465,18 +535,25 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10>
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
 			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6), typeof(TArg7), typeof(TArg8), typeof(TArg9), typeof(TArg10) }, restrictedSkipVisibility: true);
 			var il = dm.GetILGenerator(20);
-			il.Emit(OpCodes.Ldarg_0);
-			il.Emit(OpCodes.Ldarg_1);
-			il.Emit(OpCodes.Ldarg_2);
-			il.Emit(OpCodes.Ldarg_3);
-			il.Emit(OpCodes.Ldarg_S, (byte)4);
-			il.Emit(OpCodes.Ldarg_S, (byte)5);
-			il.Emit(OpCodes.Ldarg_S, (byte)6);
-			il.Emit(OpCodes.Ldarg_S, (byte)7);
-			il.Emit(OpCodes.Ldarg_S, (byte)8);
-			il.Emit(OpCodes.Ldarg_S, (byte)9);
-			il.Emit(OpCodes.Ldarg_S, (byte)10);
-			il.Emit(OpCodes.Newobj, CachedConstructor);
+			if (IsValid)
+			{
+				il.Emit(OpCodes.Ldarg_0);
+				il.Emit(OpCodes.Ldarg_1);
+				il.Emit(OpCodes.Ldarg_2);
+				il.Emit(OpCodes.Ldarg_3);
+				il.Emit(OpCodes.Ldarg_S, (byte)4);
+				il.Emit(OpCodes.Ldarg_S, (byte)5);
+				il.Emit(OpCodes.Ldarg_S, (byte)6);
+				il.Emit(OpCodes.Ldarg_S, (byte)7);
+				il.Emit(OpCodes.Ldarg_S, (byte)8);
+				il.Emit(OpCodes.Ldarg_S, (byte)9);
+				il.Emit(OpCodes.Ldarg_S, (byte)10);
+				il.Emit(OpCodes.Newobj, CachedConstructor);
+			}
+			else
+			{
+				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
+			}
 			il.Emit(OpCodes.Ret);
 			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, T>));
 		}
@@ -515,19 +592,26 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
 			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6), typeof(TArg7), typeof(TArg8), typeof(TArg9), typeof(TArg10), typeof(TArg11) }, restrictedSkipVisibility: true);
 			var il = dm.GetILGenerator(21);
-			il.Emit(OpCodes.Ldarg_0);
-			il.Emit(OpCodes.Ldarg_1);
-			il.Emit(OpCodes.Ldarg_2);
-			il.Emit(OpCodes.Ldarg_3);
-			il.Emit(OpCodes.Ldarg_S, (byte)4);
-			il.Emit(OpCodes.Ldarg_S, (byte)5);
-			il.Emit(OpCodes.Ldarg_S, (byte)6);
-			il.Emit(OpCodes.Ldarg_S, (byte)7);
-			il.Emit(OpCodes.Ldarg_S, (byte)8);
-			il.Emit(OpCodes.Ldarg_S, (byte)9);
-			il.Emit(OpCodes.Ldarg_S, (byte)10);
-			il.Emit(OpCodes.Ldarg_S, (byte)11);
-			il.Emit(OpCodes.Newobj, CachedConstructor);
+			if (IsValid)
+			{
+				il.Emit(OpCodes.Ldarg_0);
+				il.Emit(OpCodes.Ldarg_1);
+				il.Emit(OpCodes.Ldarg_2);
+				il.Emit(OpCodes.Ldarg_3);
+				il.Emit(OpCodes.Ldarg_S, (byte)4);
+				il.Emit(OpCodes.Ldarg_S, (byte)5);
+				il.Emit(OpCodes.Ldarg_S, (byte)6);
+				il.Emit(OpCodes.Ldarg_S, (byte)7);
+				il.Emit(OpCodes.Ldarg_S, (byte)8);
+				il.Emit(OpCodes.Ldarg_S, (byte)9);
+				il.Emit(OpCodes.Ldarg_S, (byte)10);
+				il.Emit(OpCodes.Ldarg_S, (byte)11);
+				il.Emit(OpCodes.Newobj, CachedConstructor);
+			}
+			else
+			{
+				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
+			}
 			il.Emit(OpCodes.Ret);
 			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, T>));
 		}
@@ -567,20 +651,27 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
 			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6), typeof(TArg7), typeof(TArg8), typeof(TArg9), typeof(TArg10), typeof(TArg11), typeof(TArg12) }, restrictedSkipVisibility: true);
 			var il = dm.GetILGenerator(22);
-			il.Emit(OpCodes.Ldarg_0);
-			il.Emit(OpCodes.Ldarg_1);
-			il.Emit(OpCodes.Ldarg_2);
-			il.Emit(OpCodes.Ldarg_3);
-			il.Emit(OpCodes.Ldarg_S, (byte)4);
-			il.Emit(OpCodes.Ldarg_S, (byte)5);
-			il.Emit(OpCodes.Ldarg_S, (byte)6);
-			il.Emit(OpCodes.Ldarg_S, (byte)7);
-			il.Emit(OpCodes.Ldarg_S, (byte)8);
-			il.Emit(OpCodes.Ldarg_S, (byte)9);
-			il.Emit(OpCodes.Ldarg_S, (byte)10);
-			il.Emit(OpCodes.Ldarg_S, (byte)11);
-			il.Emit(OpCodes.Ldarg_S, (byte)12);
-			il.Emit(OpCodes.Newobj, CachedConstructor);
+			if (IsValid)
+			{
+				il.Emit(OpCodes.Ldarg_0);
+				il.Emit(OpCodes.Ldarg_1);
+				il.Emit(OpCodes.Ldarg_2);
+				il.Emit(OpCodes.Ldarg_3);
+				il.Emit(OpCodes.Ldarg_S, (byte)4);
+				il.Emit(OpCodes.Ldarg_S, (byte)5);
+				il.Emit(OpCodes.Ldarg_S, (byte)6);
+				il.Emit(OpCodes.Ldarg_S, (byte)7);
+				il.Emit(OpCodes.Ldarg_S, (byte)8);
+				il.Emit(OpCodes.Ldarg_S, (byte)9);
+				il.Emit(OpCodes.Ldarg_S, (byte)10);
+				il.Emit(OpCodes.Ldarg_S, (byte)11);
+				il.Emit(OpCodes.Ldarg_S, (byte)12);
+				il.Emit(OpCodes.Newobj, CachedConstructor);
+			}
+			else
+			{
+				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
+			}
 			il.Emit(OpCodes.Ret);
 			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, T>));
 		}
@@ -621,21 +712,28 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
 			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6), typeof(TArg7), typeof(TArg8), typeof(TArg9), typeof(TArg10), typeof(TArg11), typeof(TArg12), typeof(TArg13) }, restrictedSkipVisibility: true);
 			var il = dm.GetILGenerator(23);
-			il.Emit(OpCodes.Ldarg_0);
-			il.Emit(OpCodes.Ldarg_1);
-			il.Emit(OpCodes.Ldarg_2);
-			il.Emit(OpCodes.Ldarg_3);
-			il.Emit(OpCodes.Ldarg_S, (byte)4);
-			il.Emit(OpCodes.Ldarg_S, (byte)5);
-			il.Emit(OpCodes.Ldarg_S, (byte)6);
-			il.Emit(OpCodes.Ldarg_S, (byte)7);
-			il.Emit(OpCodes.Ldarg_S, (byte)8);
-			il.Emit(OpCodes.Ldarg_S, (byte)9);
-			il.Emit(OpCodes.Ldarg_S, (byte)10);
-			il.Emit(OpCodes.Ldarg_S, (byte)11);
-			il.Emit(OpCodes.Ldarg_S, (byte)12);
-			il.Emit(OpCodes.Ldarg_S, (byte)13);
-			il.Emit(OpCodes.Newobj, CachedConstructor);
+			if (IsValid)
+			{
+				il.Emit(OpCodes.Ldarg_0);
+				il.Emit(OpCodes.Ldarg_1);
+				il.Emit(OpCodes.Ldarg_2);
+				il.Emit(OpCodes.Ldarg_3);
+				il.Emit(OpCodes.Ldarg_S, (byte)4);
+				il.Emit(OpCodes.Ldarg_S, (byte)5);
+				il.Emit(OpCodes.Ldarg_S, (byte)6);
+				il.Emit(OpCodes.Ldarg_S, (byte)7);
+				il.Emit(OpCodes.Ldarg_S, (byte)8);
+				il.Emit(OpCodes.Ldarg_S, (byte)9);
+				il.Emit(OpCodes.Ldarg_S, (byte)10);
+				il.Emit(OpCodes.Ldarg_S, (byte)11);
+				il.Emit(OpCodes.Ldarg_S, (byte)12);
+				il.Emit(OpCodes.Ldarg_S, (byte)13);
+				il.Emit(OpCodes.Newobj, CachedConstructor);
+			}
+			else
+			{
+				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
+			}
 			il.Emit(OpCodes.Ret);
 			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, T>));
 		}
@@ -677,22 +775,29 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
 			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6), typeof(TArg7), typeof(TArg8), typeof(TArg9), typeof(TArg10), typeof(TArg11), typeof(TArg12), typeof(TArg13), typeof(TArg14) }, restrictedSkipVisibility: true);
 			var il = dm.GetILGenerator(24);
-			il.Emit(OpCodes.Ldarg_0);
-			il.Emit(OpCodes.Ldarg_1);
-			il.Emit(OpCodes.Ldarg_2);
-			il.Emit(OpCodes.Ldarg_3);
-			il.Emit(OpCodes.Ldarg_S, (byte)4);
-			il.Emit(OpCodes.Ldarg_S, (byte)5);
-			il.Emit(OpCodes.Ldarg_S, (byte)6);
-			il.Emit(OpCodes.Ldarg_S, (byte)7);
-			il.Emit(OpCodes.Ldarg_S, (byte)8);
-			il.Emit(OpCodes.Ldarg_S, (byte)9);
-			il.Emit(OpCodes.Ldarg_S, (byte)10);
-			il.Emit(OpCodes.Ldarg_S, (byte)11);
-			il.Emit(OpCodes.Ldarg_S, (byte)12);
-			il.Emit(OpCodes.Ldarg_S, (byte)13);
-			il.Emit(OpCodes.Ldarg_S, (byte)14);
-			il.Emit(OpCodes.Newobj, CachedConstructor);
+			if (IsValid)
+			{
+				il.Emit(OpCodes.Ldarg_0);
+				il.Emit(OpCodes.Ldarg_1);
+				il.Emit(OpCodes.Ldarg_2);
+				il.Emit(OpCodes.Ldarg_3);
+				il.Emit(OpCodes.Ldarg_S, (byte)4);
+				il.Emit(OpCodes.Ldarg_S, (byte)5);
+				il.Emit(OpCodes.Ldarg_S, (byte)6);
+				il.Emit(OpCodes.Ldarg_S, (byte)7);
+				il.Emit(OpCodes.Ldarg_S, (byte)8);
+				il.Emit(OpCodes.Ldarg_S, (byte)9);
+				il.Emit(OpCodes.Ldarg_S, (byte)10);
+				il.Emit(OpCodes.Ldarg_S, (byte)11);
+				il.Emit(OpCodes.Ldarg_S, (byte)12);
+				il.Emit(OpCodes.Ldarg_S, (byte)13);
+				il.Emit(OpCodes.Ldarg_S, (byte)14);
+				il.Emit(OpCodes.Newobj, CachedConstructor);
+			}
+			else
+			{
+				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
+			}
 			il.Emit(OpCodes.Ret);
 			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, T>));
 		}
@@ -735,23 +840,30 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
 			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6), typeof(TArg7), typeof(TArg8), typeof(TArg9), typeof(TArg10), typeof(TArg11), typeof(TArg12), typeof(TArg13), typeof(TArg14), typeof(TArg15) }, restrictedSkipVisibility: true);
 			var il = dm.GetILGenerator(25);
-			il.Emit(OpCodes.Ldarg_0);
-			il.Emit(OpCodes.Ldarg_1);
-			il.Emit(OpCodes.Ldarg_2);
-			il.Emit(OpCodes.Ldarg_3);
-			il.Emit(OpCodes.Ldarg_S, (byte)4);
-			il.Emit(OpCodes.Ldarg_S, (byte)5);
-			il.Emit(OpCodes.Ldarg_S, (byte)6);
-			il.Emit(OpCodes.Ldarg_S, (byte)7);
-			il.Emit(OpCodes.Ldarg_S, (byte)8);
-			il.Emit(OpCodes.Ldarg_S, (byte)9);
-			il.Emit(OpCodes.Ldarg_S, (byte)10);
-			il.Emit(OpCodes.Ldarg_S, (byte)11);
-			il.Emit(OpCodes.Ldarg_S, (byte)12);
-			il.Emit(OpCodes.Ldarg_S, (byte)13);
-			il.Emit(OpCodes.Ldarg_S, (byte)14);
-			il.Emit(OpCodes.Ldarg_S, (byte)15);
-			il.Emit(OpCodes.Newobj, CachedConstructor);
+			if (IsValid)
+			{
+				il.Emit(OpCodes.Ldarg_0);
+				il.Emit(OpCodes.Ldarg_1);
+				il.Emit(OpCodes.Ldarg_2);
+				il.Emit(OpCodes.Ldarg_3);
+				il.Emit(OpCodes.Ldarg_S, (byte)4);
+				il.Emit(OpCodes.Ldarg_S, (byte)5);
+				il.Emit(OpCodes.Ldarg_S, (byte)6);
+				il.Emit(OpCodes.Ldarg_S, (byte)7);
+				il.Emit(OpCodes.Ldarg_S, (byte)8);
+				il.Emit(OpCodes.Ldarg_S, (byte)9);
+				il.Emit(OpCodes.Ldarg_S, (byte)10);
+				il.Emit(OpCodes.Ldarg_S, (byte)11);
+				il.Emit(OpCodes.Ldarg_S, (byte)12);
+				il.Emit(OpCodes.Ldarg_S, (byte)13);
+				il.Emit(OpCodes.Ldarg_S, (byte)14);
+				il.Emit(OpCodes.Ldarg_S, (byte)15);
+				il.Emit(OpCodes.Newobj, CachedConstructor);
+			}
+			else
+			{
+				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
+			}
 			il.Emit(OpCodes.Ret);
 			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TArg15, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TArg15, T>));
 		}

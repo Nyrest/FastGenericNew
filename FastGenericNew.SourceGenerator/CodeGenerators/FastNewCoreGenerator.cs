@@ -157,10 +157,12 @@ T>
             // TODO: more optimization is needed here.
             builder.AppendLine(3, $"var il = dm.GetILGenerator({5 + parameterIndex + 4});");
 
+            builder.AppendLine(3, $"if ({IsValidName})");
+            builder.AppendLine(3, $"{{");
             #region Parameters
             for (int i = 0; i < parameterIndex; i++)
             {
-                builder.Append(3, "il.Emit(");
+                builder.Append(4, "il.Emit(");
                 builder.Append(i switch
                 {
                     0 => "OpCodes.Ldarg_0",
@@ -174,7 +176,14 @@ T>
                 builder.AppendLine();
             }
             #endregion
-            builder.AppendLine(3, $"il.Emit(OpCodes.Newobj, {ConsructorName});");
+            builder.AppendLine(4, $"il.Emit(OpCodes.Newobj, {ConsructorName});");
+
+            builder.AppendLine(3, $"}}");
+            builder.AppendLine(3, $"else");
+            builder.AppendLine(3, $"{{");
+            builder.AppendLine(4, $"il.Emit(OpCodes.Call, {options.GlobalNSDot()}{ThrowHelperGenerator.ClassName}.GetSmartThrow<T>());");
+            builder.AppendLine(3, $"}}");
+
             builder.AppendLine(3, "il.Emit(OpCodes.Ret);");
 
             builder.Append(3, CompiledDelegateName);
