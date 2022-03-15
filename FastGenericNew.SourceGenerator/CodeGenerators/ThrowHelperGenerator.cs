@@ -6,6 +6,8 @@ public class ThrowHelperGenerator : CodeGenerator<ThrowHelperGenerator>
 
     internal const string ClassName = "ThrowHelper";
 
+    internal const string SmartThrowName = "SmartThrowImpl";
+
     public override CodeGenerationResult Generate(in GeneratorOptions options)
     {
         CodeBuilder builder = new(2048, in options);
@@ -24,7 +26,7 @@ public class ThrowHelperGenerator : CodeGenerator<ThrowHelperGenerator>
         builder.AppendLine(@$"
         public static System.Reflection.MethodInfo GetSmartThrow<T>() => typeof({options.GlobalNSDot()}ThrowHelper).GetMethod(""SmartThrowImpl"", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static)!.MakeGenericMethod(typeof(T));
 
-        public static T SmartThrowImpl<T>(ConstructorInfo? constructor)
+        public static T SmartThrowImpl<T>()
         {{
             if (typeof(T).IsInterface)
                 throw new System.MissingMethodException($""Cannot create an instance of an interface: '{{typeof(T).AssemblyQualifiedName}}'"");
@@ -32,10 +34,7 @@ public class ThrowHelperGenerator : CodeGenerator<ThrowHelperGenerator>
             if (typeof(T).IsAbstract)
                 throw new System.MissingMethodException($""Cannot create an abstract class: '{{typeof(T).AssemblyQualifiedName}}'"");
 
-            if (constructor == null && !typeof(T).IsValueType)
-                throw new System.MissingMethodException($""No match constructor found in type: '{{typeof(T).AssemblyQualifiedName}}'"");
-
-            throw new System.MissingMethodException($""Unknown Error"");
+            throw new System.MissingMethodException($""No match constructor found in type: '{{typeof(T).AssemblyQualifiedName}}'"");
         }}
     }}");
         builder.EndNamespace();

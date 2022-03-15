@@ -9,7 +9,6 @@
 
     MaxParameterCount = 16
     PublicFastNewCore = False
-    PublicSourceExpression = True  (default: False)
     GenerateTryCreateInstance = True
     GenerateCreateInstance = True
     GenerateTypeCreateInstance = True
@@ -17,7 +16,7 @@
     NonPublicConstructorSupport = True
     Namespace = FastGenericNew
     ForceFastNewDelegate = False
-    IsGeneratedHeader = True
+    AlertGeneratedFile = True
     DisableGeneratorCache = False
     Trimmable = True
     PrettyOutput = True  (default: False)
@@ -29,7 +28,6 @@
 
     <FastNew_MaxParameterCount>16<FastNew_MaxParameterCount />
     <FastNew_PublicFastNewCore>False<FastNew_PublicFastNewCore />
-    <FastNew_PublicSourceExpression>True<FastNew_PublicSourceExpression />
     <FastNew_GenerateTryCreateInstance>True<FastNew_GenerateTryCreateInstance />
     <FastNew_GenerateCreateInstance>True<FastNew_GenerateCreateInstance />
     <FastNew_GenerateTypeCreateInstance>True<FastNew_GenerateTypeCreateInstance />
@@ -37,7 +35,7 @@
     <FastNew_NonPublicConstructorSupport>True<FastNew_NonPublicConstructorSupport />
     <FastNew_Namespace>FastGenericNew<FastNew_Namespace />
     <FastNew_ForceFastNewDelegate>False<FastNew_ForceFastNewDelegate />
-    <FastNew_IsGeneratedHeader>True<FastNew_IsGeneratedHeader />
+    <FastNew_AlertGeneratedFile>True<FastNew_AlertGeneratedFile />
     <FastNew_DisableGeneratorCache>False<FastNew_DisableGeneratorCache />
     <FastNew_Trimmable>True<FastNew_Trimmable />
     <FastNew_PrettyOutput>True<FastNew_PrettyOutput />
