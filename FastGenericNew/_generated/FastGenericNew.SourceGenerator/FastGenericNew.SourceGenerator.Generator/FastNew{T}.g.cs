@@ -43,7 +43,7 @@ T>
             if (IsValid)
             {
                 if (global::@FastGenericNew.FastNew<T>.CachedConstructor != null)
-                    il.Emit(OpCodes.Newobj, CachedConstructor);
+                    il.Emit(OpCodes.Newobj, CachedConstructor!);
                 else
                 {
                     il.DeclareLocal(typeof(T));
@@ -86,7 +86,7 @@ T, TArg0>
 			if (IsValid)
 			{
 				il.Emit(OpCodes.Ldarg_0);
-				il.Emit(OpCodes.Newobj, CachedConstructor);
+				il.Emit(OpCodes.Newobj, CachedConstructor!);
 			}
 			else
 			{
@@ -124,7 +124,7 @@ T, TArg0, TArg1>
 			{
 				il.Emit(OpCodes.Ldarg_0);
 				il.Emit(OpCodes.Ldarg_1);
-				il.Emit(OpCodes.Newobj, CachedConstructor);
+				il.Emit(OpCodes.Newobj, CachedConstructor!);
 			}
 			else
 			{
@@ -164,7 +164,7 @@ T, TArg0, TArg1, TArg2>
 				il.Emit(OpCodes.Ldarg_0);
 				il.Emit(OpCodes.Ldarg_1);
 				il.Emit(OpCodes.Ldarg_2);
-				il.Emit(OpCodes.Newobj, CachedConstructor);
+				il.Emit(OpCodes.Newobj, CachedConstructor!);
 			}
 			else
 			{
@@ -206,7 +206,7 @@ T, TArg0, TArg1, TArg2, TArg3>
 				il.Emit(OpCodes.Ldarg_1);
 				il.Emit(OpCodes.Ldarg_2);
 				il.Emit(OpCodes.Ldarg_3);
-				il.Emit(OpCodes.Newobj, CachedConstructor);
+				il.Emit(OpCodes.Newobj, CachedConstructor!);
 			}
 			else
 			{
@@ -250,7 +250,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4>
 				il.Emit(OpCodes.Ldarg_2);
 				il.Emit(OpCodes.Ldarg_3);
 				il.Emit(OpCodes.Ldarg_S, (byte)4);
-				il.Emit(OpCodes.Newobj, CachedConstructor);
+				il.Emit(OpCodes.Newobj, CachedConstructor!);
 			}
 			else
 			{
@@ -296,7 +296,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5>
 				il.Emit(OpCodes.Ldarg_3);
 				il.Emit(OpCodes.Ldarg_S, (byte)4);
 				il.Emit(OpCodes.Ldarg_S, (byte)5);
-				il.Emit(OpCodes.Newobj, CachedConstructor);
+				il.Emit(OpCodes.Newobj, CachedConstructor!);
 			}
 			else
 			{
@@ -344,7 +344,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6>
 				il.Emit(OpCodes.Ldarg_S, (byte)4);
 				il.Emit(OpCodes.Ldarg_S, (byte)5);
 				il.Emit(OpCodes.Ldarg_S, (byte)6);
-				il.Emit(OpCodes.Newobj, CachedConstructor);
+				il.Emit(OpCodes.Newobj, CachedConstructor!);
 			}
 			else
 			{
@@ -394,7 +394,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7>
 				il.Emit(OpCodes.Ldarg_S, (byte)5);
 				il.Emit(OpCodes.Ldarg_S, (byte)6);
 				il.Emit(OpCodes.Ldarg_S, (byte)7);
-				il.Emit(OpCodes.Newobj, CachedConstructor);
+				il.Emit(OpCodes.Newobj, CachedConstructor!);
 			}
 			else
 			{
@@ -446,7 +446,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8>
 				il.Emit(OpCodes.Ldarg_S, (byte)6);
 				il.Emit(OpCodes.Ldarg_S, (byte)7);
 				il.Emit(OpCodes.Ldarg_S, (byte)8);
-				il.Emit(OpCodes.Newobj, CachedConstructor);
+				il.Emit(OpCodes.Newobj, CachedConstructor!);
 			}
 			else
 			{
@@ -500,7 +500,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9>
 				il.Emit(OpCodes.Ldarg_S, (byte)7);
 				il.Emit(OpCodes.Ldarg_S, (byte)8);
 				il.Emit(OpCodes.Ldarg_S, (byte)9);
-				il.Emit(OpCodes.Newobj, CachedConstructor);
+				il.Emit(OpCodes.Newobj, CachedConstructor!);
 			}
 			else
 			{
@@ -556,7 +556,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10>
 				il.Emit(OpCodes.Ldarg_S, (byte)8);
 				il.Emit(OpCodes.Ldarg_S, (byte)9);
 				il.Emit(OpCodes.Ldarg_S, (byte)10);
-				il.Emit(OpCodes.Newobj, CachedConstructor);
+				il.Emit(OpCodes.Newobj, CachedConstructor!);
 			}
 			else
 			{
@@ -614,7 +614,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 				il.Emit(OpCodes.Ldarg_S, (byte)9);
 				il.Emit(OpCodes.Ldarg_S, (byte)10);
 				il.Emit(OpCodes.Ldarg_S, (byte)11);
-				il.Emit(OpCodes.Newobj, CachedConstructor);
+				il.Emit(OpCodes.Newobj, CachedConstructor!);
 			}
 			else
 			{
@@ -674,7 +674,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 				il.Emit(OpCodes.Ldarg_S, (byte)10);
 				il.Emit(OpCodes.Ldarg_S, (byte)11);
 				il.Emit(OpCodes.Ldarg_S, (byte)12);
-				il.Emit(OpCodes.Newobj, CachedConstructor);
+				il.Emit(OpCodes.Newobj, CachedConstructor!);
 			}
 			else
 			{
@@ -736,7 +736,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 				il.Emit(OpCodes.Ldarg_S, (byte)11);
 				il.Emit(OpCodes.Ldarg_S, (byte)12);
 				il.Emit(OpCodes.Ldarg_S, (byte)13);
-				il.Emit(OpCodes.Newobj, CachedConstructor);
+				il.Emit(OpCodes.Newobj, CachedConstructor!);
 			}
 			else
 			{
@@ -800,7 +800,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 				il.Emit(OpCodes.Ldarg_S, (byte)12);
 				il.Emit(OpCodes.Ldarg_S, (byte)13);
 				il.Emit(OpCodes.Ldarg_S, (byte)14);
-				il.Emit(OpCodes.Newobj, CachedConstructor);
+				il.Emit(OpCodes.Newobj, CachedConstructor!);
 			}
 			else
 			{
@@ -866,7 +866,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 				il.Emit(OpCodes.Ldarg_S, (byte)13);
 				il.Emit(OpCodes.Ldarg_S, (byte)14);
 				il.Emit(OpCodes.Ldarg_S, (byte)15);
-				il.Emit(OpCodes.Newobj, CachedConstructor);
+				il.Emit(OpCodes.Newobj, CachedConstructor!);
 			}
 			else
 			{
