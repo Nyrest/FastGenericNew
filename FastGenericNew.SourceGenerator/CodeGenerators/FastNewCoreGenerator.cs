@@ -55,7 +55,7 @@ T>
         static {ClassName}()
         {{
             var dm = new DynamicMethod("""", typeof(T), {options.GlobalNSDot()}{DynMetClosureGenerator.ClassName}.{DynMetClosureGenerator.InstanceOnlyArrayName}, restrictedSkipVisibility: true);
-            var il = dm.GetILGenerator(6);
+            var il = dm.GetILGenerator();
             if ({IsValidName})
             {{
                 if ({options.GlobalNSDot()}{ClassName}<T>.{ConsructorName} != null)
