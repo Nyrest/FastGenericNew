@@ -17,7 +17,7 @@ public class ThrowHelperGenerator : CodeGenerator<ThrowHelperGenerator>
     [EditorBrowsable(EditorBrowsableState.Never)]
     internal static partial class ThrowHelper
     {{
-        [MethodImpl(MethodImplOptions.NoInlining)]");
+        [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]");
         if (options.Trimmable)
             builder.AppendLine(@$"
 #if NET5_0_OR_GREATER
@@ -28,13 +28,15 @@ public class ThrowHelperGenerator : CodeGenerator<ThrowHelperGenerator>
 
         public static T SmartThrowImpl<T>()
         {{
+            var qualifiedName = typeof(T).AssemblyQualifiedName;
+
             if (typeof(T).IsInterface)
-                throw new System.MissingMethodException($""Cannot create an instance of an interface: '{{typeof(T).AssemblyQualifiedName}}'"");
+                throw new System.MissingMethodException($""Cannot create an instance of an interface: '{{ qualifiedName }}'"");
 
             if (typeof(T).IsAbstract)
-                throw new System.MissingMethodException($""Cannot create an abstract class: '{{typeof(T).AssemblyQualifiedName}}'"");
+                throw new System.MissingMethodException($""Cannot create an abstract class: '{{ qualifiedName }}'"");
 
-            throw new System.MissingMethodException($""No match constructor found in type: '{{typeof(T).AssemblyQualifiedName}}'"");
+            throw new System.MissingMethodException($""No match constructor found in type: '{{ qualifiedName }}'"");
         }}
     }}");
         builder.EndNamespace();
