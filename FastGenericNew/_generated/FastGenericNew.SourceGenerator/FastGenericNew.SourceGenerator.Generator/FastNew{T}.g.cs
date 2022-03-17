@@ -38,7 +38,7 @@ T>
     
         static FastNew()
         {
-            var dm = new DynamicMethod("", typeof(T), null, restrictedSkipVisibility: true);
+            var dm = new DynamicMethod("", typeof(T), global::@FastGenericNew._FastNewDynMetClosure.InstanceOnlyArray, restrictedSkipVisibility: true);
             var il = dm.GetILGenerator(6);
             if (IsValid)
             {
@@ -57,7 +57,7 @@ T>
                 il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
             }
             il.Emit(OpCodes.Ret);
-            CompiledDelegate = (Func<T>)dm.CreateDelegate(typeof(Func<T>));
+            CompiledDelegate = (Func<T>)dm.CreateDelegate(typeof(Func<T>), global::@FastGenericNew._FastNewDynMetClosure.Instance);
         }
     }
 	internal static partial class FastNew<
@@ -81,11 +81,11 @@ T, TArg0>
 		static FastNew()
 		{
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
-			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(TArg0) }, restrictedSkipVisibility: true);
+			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(global::@FastGenericNew._FastNewDynMetClosure), typeof(TArg0) }, restrictedSkipVisibility: true);
 			var il = dm.GetILGenerator(10);
 			if (IsValid)
 			{
-				il.Emit(OpCodes.Ldarg_0);
+				il.Emit(OpCodes.Ldarg_1);
 				il.Emit(OpCodes.Newobj, CachedConstructor!);
 			}
 			else
@@ -93,7 +93,7 @@ T, TArg0>
 				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
 			}
 			il.Emit(OpCodes.Ret);
-			CompiledDelegate = (Func<TArg0, T>)dm.CreateDelegate(typeof(Func<TArg0, T>));
+			CompiledDelegate = (Func<TArg0, T>)dm.CreateDelegate(typeof(Func<TArg0, T>), global::@FastGenericNew._FastNewDynMetClosure.Instance);
 		}
 	}
 	internal static partial class FastNew<
@@ -118,12 +118,12 @@ T, TArg0, TArg1>
 		static FastNew()
 		{
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
-			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(TArg0), typeof(TArg1) }, restrictedSkipVisibility: true);
+			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(global::@FastGenericNew._FastNewDynMetClosure), typeof(TArg0), typeof(TArg1) }, restrictedSkipVisibility: true);
 			var il = dm.GetILGenerator(11);
 			if (IsValid)
 			{
-				il.Emit(OpCodes.Ldarg_0);
 				il.Emit(OpCodes.Ldarg_1);
+				il.Emit(OpCodes.Ldarg_2);
 				il.Emit(OpCodes.Newobj, CachedConstructor!);
 			}
 			else
@@ -131,7 +131,7 @@ T, TArg0, TArg1>
 				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
 			}
 			il.Emit(OpCodes.Ret);
-			CompiledDelegate = (Func<TArg0, TArg1, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, T>));
+			CompiledDelegate = (Func<TArg0, TArg1, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, T>), global::@FastGenericNew._FastNewDynMetClosure.Instance);
 		}
 	}
 	internal static partial class FastNew<
@@ -157,13 +157,13 @@ T, TArg0, TArg1, TArg2>
 		static FastNew()
 		{
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
-			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(TArg0), typeof(TArg1), typeof(TArg2) }, restrictedSkipVisibility: true);
+			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(global::@FastGenericNew._FastNewDynMetClosure), typeof(TArg0), typeof(TArg1), typeof(TArg2) }, restrictedSkipVisibility: true);
 			var il = dm.GetILGenerator(12);
 			if (IsValid)
 			{
-				il.Emit(OpCodes.Ldarg_0);
 				il.Emit(OpCodes.Ldarg_1);
 				il.Emit(OpCodes.Ldarg_2);
+				il.Emit(OpCodes.Ldarg_3);
 				il.Emit(OpCodes.Newobj, CachedConstructor!);
 			}
 			else
@@ -171,7 +171,7 @@ T, TArg0, TArg1, TArg2>
 				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
 			}
 			il.Emit(OpCodes.Ret);
-			CompiledDelegate = (Func<TArg0, TArg1, TArg2, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, T>));
+			CompiledDelegate = (Func<TArg0, TArg1, TArg2, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, T>), global::@FastGenericNew._FastNewDynMetClosure.Instance);
 		}
 	}
 	internal static partial class FastNew<
@@ -198,14 +198,14 @@ T, TArg0, TArg1, TArg2, TArg3>
 		static FastNew()
 		{
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
-			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3) }, restrictedSkipVisibility: true);
+			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(global::@FastGenericNew._FastNewDynMetClosure), typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3) }, restrictedSkipVisibility: true);
 			var il = dm.GetILGenerator(13);
 			if (IsValid)
 			{
-				il.Emit(OpCodes.Ldarg_0);
 				il.Emit(OpCodes.Ldarg_1);
 				il.Emit(OpCodes.Ldarg_2);
 				il.Emit(OpCodes.Ldarg_3);
+				il.Emit(OpCodes.Ldarg_S, (byte)4);
 				il.Emit(OpCodes.Newobj, CachedConstructor!);
 			}
 			else
@@ -213,7 +213,7 @@ T, TArg0, TArg1, TArg2, TArg3>
 				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
 			}
 			il.Emit(OpCodes.Ret);
-			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, T>));
+			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, T>), global::@FastGenericNew._FastNewDynMetClosure.Instance);
 		}
 	}
 	internal static partial class FastNew<
@@ -241,15 +241,15 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4>
 		static FastNew()
 		{
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
-			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4) }, restrictedSkipVisibility: true);
+			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(global::@FastGenericNew._FastNewDynMetClosure), typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4) }, restrictedSkipVisibility: true);
 			var il = dm.GetILGenerator(14);
 			if (IsValid)
 			{
-				il.Emit(OpCodes.Ldarg_0);
 				il.Emit(OpCodes.Ldarg_1);
 				il.Emit(OpCodes.Ldarg_2);
 				il.Emit(OpCodes.Ldarg_3);
 				il.Emit(OpCodes.Ldarg_S, (byte)4);
+				il.Emit(OpCodes.Ldarg_S, (byte)5);
 				il.Emit(OpCodes.Newobj, CachedConstructor!);
 			}
 			else
@@ -257,7 +257,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4>
 				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
 			}
 			il.Emit(OpCodes.Ret);
-			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, T>));
+			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, T>), global::@FastGenericNew._FastNewDynMetClosure.Instance);
 		}
 	}
 	internal static partial class FastNew<
@@ -286,16 +286,16 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5>
 		static FastNew()
 		{
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
-			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5) }, restrictedSkipVisibility: true);
+			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(global::@FastGenericNew._FastNewDynMetClosure), typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5) }, restrictedSkipVisibility: true);
 			var il = dm.GetILGenerator(15);
 			if (IsValid)
 			{
-				il.Emit(OpCodes.Ldarg_0);
 				il.Emit(OpCodes.Ldarg_1);
 				il.Emit(OpCodes.Ldarg_2);
 				il.Emit(OpCodes.Ldarg_3);
 				il.Emit(OpCodes.Ldarg_S, (byte)4);
 				il.Emit(OpCodes.Ldarg_S, (byte)5);
+				il.Emit(OpCodes.Ldarg_S, (byte)6);
 				il.Emit(OpCodes.Newobj, CachedConstructor!);
 			}
 			else
@@ -303,7 +303,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5>
 				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
 			}
 			il.Emit(OpCodes.Ret);
-			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, T>));
+			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, T>), global::@FastGenericNew._FastNewDynMetClosure.Instance);
 		}
 	}
 	internal static partial class FastNew<
@@ -333,17 +333,17 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6>
 		static FastNew()
 		{
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
-			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6) }, restrictedSkipVisibility: true);
+			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(global::@FastGenericNew._FastNewDynMetClosure), typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6) }, restrictedSkipVisibility: true);
 			var il = dm.GetILGenerator(16);
 			if (IsValid)
 			{
-				il.Emit(OpCodes.Ldarg_0);
 				il.Emit(OpCodes.Ldarg_1);
 				il.Emit(OpCodes.Ldarg_2);
 				il.Emit(OpCodes.Ldarg_3);
 				il.Emit(OpCodes.Ldarg_S, (byte)4);
 				il.Emit(OpCodes.Ldarg_S, (byte)5);
 				il.Emit(OpCodes.Ldarg_S, (byte)6);
+				il.Emit(OpCodes.Ldarg_S, (byte)7);
 				il.Emit(OpCodes.Newobj, CachedConstructor!);
 			}
 			else
@@ -351,7 +351,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6>
 				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
 			}
 			il.Emit(OpCodes.Ret);
-			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, T>));
+			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, T>), global::@FastGenericNew._FastNewDynMetClosure.Instance);
 		}
 	}
 	internal static partial class FastNew<
@@ -382,11 +382,10 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7>
 		static FastNew()
 		{
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
-			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6), typeof(TArg7) }, restrictedSkipVisibility: true);
+			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(global::@FastGenericNew._FastNewDynMetClosure), typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6), typeof(TArg7) }, restrictedSkipVisibility: true);
 			var il = dm.GetILGenerator(17);
 			if (IsValid)
 			{
-				il.Emit(OpCodes.Ldarg_0);
 				il.Emit(OpCodes.Ldarg_1);
 				il.Emit(OpCodes.Ldarg_2);
 				il.Emit(OpCodes.Ldarg_3);
@@ -394,6 +393,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7>
 				il.Emit(OpCodes.Ldarg_S, (byte)5);
 				il.Emit(OpCodes.Ldarg_S, (byte)6);
 				il.Emit(OpCodes.Ldarg_S, (byte)7);
+				il.Emit(OpCodes.Ldarg_S, (byte)8);
 				il.Emit(OpCodes.Newobj, CachedConstructor!);
 			}
 			else
@@ -401,7 +401,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7>
 				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
 			}
 			il.Emit(OpCodes.Ret);
-			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, T>));
+			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, T>), global::@FastGenericNew._FastNewDynMetClosure.Instance);
 		}
 	}
 	internal static partial class FastNew<
@@ -433,11 +433,10 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8>
 		static FastNew()
 		{
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
-			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6), typeof(TArg7), typeof(TArg8) }, restrictedSkipVisibility: true);
+			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(global::@FastGenericNew._FastNewDynMetClosure), typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6), typeof(TArg7), typeof(TArg8) }, restrictedSkipVisibility: true);
 			var il = dm.GetILGenerator(18);
 			if (IsValid)
 			{
-				il.Emit(OpCodes.Ldarg_0);
 				il.Emit(OpCodes.Ldarg_1);
 				il.Emit(OpCodes.Ldarg_2);
 				il.Emit(OpCodes.Ldarg_3);
@@ -446,6 +445,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8>
 				il.Emit(OpCodes.Ldarg_S, (byte)6);
 				il.Emit(OpCodes.Ldarg_S, (byte)7);
 				il.Emit(OpCodes.Ldarg_S, (byte)8);
+				il.Emit(OpCodes.Ldarg_S, (byte)9);
 				il.Emit(OpCodes.Newobj, CachedConstructor!);
 			}
 			else
@@ -453,7 +453,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8>
 				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
 			}
 			il.Emit(OpCodes.Ret);
-			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, T>));
+			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, T>), global::@FastGenericNew._FastNewDynMetClosure.Instance);
 		}
 	}
 	internal static partial class FastNew<
@@ -486,11 +486,10 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9>
 		static FastNew()
 		{
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
-			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6), typeof(TArg7), typeof(TArg8), typeof(TArg9) }, restrictedSkipVisibility: true);
+			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(global::@FastGenericNew._FastNewDynMetClosure), typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6), typeof(TArg7), typeof(TArg8), typeof(TArg9) }, restrictedSkipVisibility: true);
 			var il = dm.GetILGenerator(19);
 			if (IsValid)
 			{
-				il.Emit(OpCodes.Ldarg_0);
 				il.Emit(OpCodes.Ldarg_1);
 				il.Emit(OpCodes.Ldarg_2);
 				il.Emit(OpCodes.Ldarg_3);
@@ -500,6 +499,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9>
 				il.Emit(OpCodes.Ldarg_S, (byte)7);
 				il.Emit(OpCodes.Ldarg_S, (byte)8);
 				il.Emit(OpCodes.Ldarg_S, (byte)9);
+				il.Emit(OpCodes.Ldarg_S, (byte)10);
 				il.Emit(OpCodes.Newobj, CachedConstructor!);
 			}
 			else
@@ -507,7 +507,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9>
 				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
 			}
 			il.Emit(OpCodes.Ret);
-			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, T>));
+			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, T>), global::@FastGenericNew._FastNewDynMetClosure.Instance);
 		}
 	}
 	internal static partial class FastNew<
@@ -541,11 +541,10 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10>
 		static FastNew()
 		{
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
-			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6), typeof(TArg7), typeof(TArg8), typeof(TArg9), typeof(TArg10) }, restrictedSkipVisibility: true);
+			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(global::@FastGenericNew._FastNewDynMetClosure), typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6), typeof(TArg7), typeof(TArg8), typeof(TArg9), typeof(TArg10) }, restrictedSkipVisibility: true);
 			var il = dm.GetILGenerator(20);
 			if (IsValid)
 			{
-				il.Emit(OpCodes.Ldarg_0);
 				il.Emit(OpCodes.Ldarg_1);
 				il.Emit(OpCodes.Ldarg_2);
 				il.Emit(OpCodes.Ldarg_3);
@@ -556,6 +555,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10>
 				il.Emit(OpCodes.Ldarg_S, (byte)8);
 				il.Emit(OpCodes.Ldarg_S, (byte)9);
 				il.Emit(OpCodes.Ldarg_S, (byte)10);
+				il.Emit(OpCodes.Ldarg_S, (byte)11);
 				il.Emit(OpCodes.Newobj, CachedConstructor!);
 			}
 			else
@@ -563,7 +563,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10>
 				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
 			}
 			il.Emit(OpCodes.Ret);
-			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, T>));
+			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, T>), global::@FastGenericNew._FastNewDynMetClosure.Instance);
 		}
 	}
 	internal static partial class FastNew<
@@ -598,11 +598,10 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 		static FastNew()
 		{
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
-			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6), typeof(TArg7), typeof(TArg8), typeof(TArg9), typeof(TArg10), typeof(TArg11) }, restrictedSkipVisibility: true);
+			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(global::@FastGenericNew._FastNewDynMetClosure), typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6), typeof(TArg7), typeof(TArg8), typeof(TArg9), typeof(TArg10), typeof(TArg11) }, restrictedSkipVisibility: true);
 			var il = dm.GetILGenerator(21);
 			if (IsValid)
 			{
-				il.Emit(OpCodes.Ldarg_0);
 				il.Emit(OpCodes.Ldarg_1);
 				il.Emit(OpCodes.Ldarg_2);
 				il.Emit(OpCodes.Ldarg_3);
@@ -614,6 +613,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 				il.Emit(OpCodes.Ldarg_S, (byte)9);
 				il.Emit(OpCodes.Ldarg_S, (byte)10);
 				il.Emit(OpCodes.Ldarg_S, (byte)11);
+				il.Emit(OpCodes.Ldarg_S, (byte)12);
 				il.Emit(OpCodes.Newobj, CachedConstructor!);
 			}
 			else
@@ -621,7 +621,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
 			}
 			il.Emit(OpCodes.Ret);
-			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, T>));
+			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, T>), global::@FastGenericNew._FastNewDynMetClosure.Instance);
 		}
 	}
 	internal static partial class FastNew<
@@ -657,11 +657,10 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 		static FastNew()
 		{
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
-			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6), typeof(TArg7), typeof(TArg8), typeof(TArg9), typeof(TArg10), typeof(TArg11), typeof(TArg12) }, restrictedSkipVisibility: true);
+			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(global::@FastGenericNew._FastNewDynMetClosure), typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6), typeof(TArg7), typeof(TArg8), typeof(TArg9), typeof(TArg10), typeof(TArg11), typeof(TArg12) }, restrictedSkipVisibility: true);
 			var il = dm.GetILGenerator(22);
 			if (IsValid)
 			{
-				il.Emit(OpCodes.Ldarg_0);
 				il.Emit(OpCodes.Ldarg_1);
 				il.Emit(OpCodes.Ldarg_2);
 				il.Emit(OpCodes.Ldarg_3);
@@ -674,6 +673,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 				il.Emit(OpCodes.Ldarg_S, (byte)10);
 				il.Emit(OpCodes.Ldarg_S, (byte)11);
 				il.Emit(OpCodes.Ldarg_S, (byte)12);
+				il.Emit(OpCodes.Ldarg_S, (byte)13);
 				il.Emit(OpCodes.Newobj, CachedConstructor!);
 			}
 			else
@@ -681,7 +681,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
 			}
 			il.Emit(OpCodes.Ret);
-			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, T>));
+			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, T>), global::@FastGenericNew._FastNewDynMetClosure.Instance);
 		}
 	}
 	internal static partial class FastNew<
@@ -718,11 +718,10 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 		static FastNew()
 		{
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
-			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6), typeof(TArg7), typeof(TArg8), typeof(TArg9), typeof(TArg10), typeof(TArg11), typeof(TArg12), typeof(TArg13) }, restrictedSkipVisibility: true);
+			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(global::@FastGenericNew._FastNewDynMetClosure), typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6), typeof(TArg7), typeof(TArg8), typeof(TArg9), typeof(TArg10), typeof(TArg11), typeof(TArg12), typeof(TArg13) }, restrictedSkipVisibility: true);
 			var il = dm.GetILGenerator(23);
 			if (IsValid)
 			{
-				il.Emit(OpCodes.Ldarg_0);
 				il.Emit(OpCodes.Ldarg_1);
 				il.Emit(OpCodes.Ldarg_2);
 				il.Emit(OpCodes.Ldarg_3);
@@ -736,6 +735,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 				il.Emit(OpCodes.Ldarg_S, (byte)11);
 				il.Emit(OpCodes.Ldarg_S, (byte)12);
 				il.Emit(OpCodes.Ldarg_S, (byte)13);
+				il.Emit(OpCodes.Ldarg_S, (byte)14);
 				il.Emit(OpCodes.Newobj, CachedConstructor!);
 			}
 			else
@@ -743,7 +743,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
 			}
 			il.Emit(OpCodes.Ret);
-			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, T>));
+			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, T>), global::@FastGenericNew._FastNewDynMetClosure.Instance);
 		}
 	}
 	internal static partial class FastNew<
@@ -781,11 +781,10 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 		static FastNew()
 		{
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
-			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6), typeof(TArg7), typeof(TArg8), typeof(TArg9), typeof(TArg10), typeof(TArg11), typeof(TArg12), typeof(TArg13), typeof(TArg14) }, restrictedSkipVisibility: true);
+			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(global::@FastGenericNew._FastNewDynMetClosure), typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6), typeof(TArg7), typeof(TArg8), typeof(TArg9), typeof(TArg10), typeof(TArg11), typeof(TArg12), typeof(TArg13), typeof(TArg14) }, restrictedSkipVisibility: true);
 			var il = dm.GetILGenerator(24);
 			if (IsValid)
 			{
-				il.Emit(OpCodes.Ldarg_0);
 				il.Emit(OpCodes.Ldarg_1);
 				il.Emit(OpCodes.Ldarg_2);
 				il.Emit(OpCodes.Ldarg_3);
@@ -800,6 +799,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 				il.Emit(OpCodes.Ldarg_S, (byte)12);
 				il.Emit(OpCodes.Ldarg_S, (byte)13);
 				il.Emit(OpCodes.Ldarg_S, (byte)14);
+				il.Emit(OpCodes.Ldarg_S, (byte)15);
 				il.Emit(OpCodes.Newobj, CachedConstructor!);
 			}
 			else
@@ -807,7 +807,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
 			}
 			il.Emit(OpCodes.Ret);
-			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, T>));
+			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, T>), global::@FastGenericNew._FastNewDynMetClosure.Instance);
 		}
 	}
 	internal static partial class FastNew<
@@ -846,11 +846,10 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 		static FastNew()
 		{
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
-			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6), typeof(TArg7), typeof(TArg8), typeof(TArg9), typeof(TArg10), typeof(TArg11), typeof(TArg12), typeof(TArg13), typeof(TArg14), typeof(TArg15) }, restrictedSkipVisibility: true);
+			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(global::@FastGenericNew._FastNewDynMetClosure), typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6), typeof(TArg7), typeof(TArg8), typeof(TArg9), typeof(TArg10), typeof(TArg11), typeof(TArg12), typeof(TArg13), typeof(TArg14), typeof(TArg15) }, restrictedSkipVisibility: true);
 			var il = dm.GetILGenerator(25);
 			if (IsValid)
 			{
-				il.Emit(OpCodes.Ldarg_0);
 				il.Emit(OpCodes.Ldarg_1);
 				il.Emit(OpCodes.Ldarg_2);
 				il.Emit(OpCodes.Ldarg_3);
@@ -866,6 +865,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 				il.Emit(OpCodes.Ldarg_S, (byte)13);
 				il.Emit(OpCodes.Ldarg_S, (byte)14);
 				il.Emit(OpCodes.Ldarg_S, (byte)15);
+				il.Emit(OpCodes.Ldarg_S, (byte)16);
 				il.Emit(OpCodes.Newobj, CachedConstructor!);
 			}
 			else
@@ -873,7 +873,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
 			}
 			il.Emit(OpCodes.Ret);
-			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TArg15, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TArg15, T>));
+			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TArg15, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TArg15, T>), global::@FastGenericNew._FastNewDynMetClosure.Instance);
 		}
 	}
 }

@@ -54,7 +54,7 @@ T>
     
         static {ClassName}()
         {{
-            var dm = new DynamicMethod("""", typeof(T), null, restrictedSkipVisibility: true);
+            var dm = new DynamicMethod("""", typeof(T), {options.GlobalNSDot()}{DynMetClosureGenerator.ClassName}.{DynMetClosureGenerator.InstanceOnlyArrayName}, restrictedSkipVisibility: true);
             var il = dm.GetILGenerator(6);
             if ({IsValidName})
             {{
@@ -73,7 +73,7 @@ T>
                 il.Emit(OpCodes.Call, {options.GlobalNSDot()}{ThrowHelperGenerator.ClassName}.GetSmartThrow<T>());
             }}
             il.Emit(OpCodes.Ret);
-            {CompiledDelegateName} = ({compiledDelegateTypeNoParam})dm.CreateDelegate(typeof({compiledDelegateTypeNoParam}));
+            {CompiledDelegateName} = ({compiledDelegateTypeNoParam})dm.CreateDelegate(typeof({compiledDelegateTypeNoParam}), {options.GlobalNSDot()}{DynMetClosureGenerator.ClassName}.{DynMetClosureGenerator.InstanceName});
         }}
     }}");
 
@@ -147,7 +147,7 @@ T>
             #endregion
 
             #region Final
-            builder.Append(3, "var dm = new DynamicMethod(\"\", typeof(T), new Type[] { ");
+            builder.Append(3, $@"var dm = new DynamicMethod("""", typeof(T), new Type[] {{ typeof({options.GlobalNSDot()}{DynMetClosureGenerator.ClassName}), ");
             for (int i = 0; i < parameterIndex; i++)
             {
                 if (i != 0)
@@ -170,15 +170,16 @@ T>
             #region Parameters
             for (int i = 0; i < parameterIndex; i++)
             {
+                var actual = i + 1;
                 builder.Append(4, "il.Emit(");
-                builder.Append(i switch
+                builder.Append(actual switch
                 {
                     0 => "OpCodes.Ldarg_0",
                     1 => "OpCodes.Ldarg_1",
                     2 => "OpCodes.Ldarg_2",
                     3 => "OpCodes.Ldarg_3",
-                    _ when i <= 255 => $"OpCodes.Ldarg_S, (byte){i}",
-                    _ => $"OpCodes.Ldarg, (short){i}",
+                    _ when actual <= 255 => $"OpCodes.Ldarg_S, (byte){actual}",
+                    _ => $"OpCodes.Ldarg, (short){actual}",
                 });
                 builder.Append(')', ';');
                 builder.AppendLine();
@@ -199,7 +200,7 @@ T>
             builder.UseGenericDelegate(parameterIndex);
             builder.Append(")dm.CreateDelegate(typeof(");
             builder.UseGenericDelegate(parameterIndex);
-            builder.AppendLine("));");
+            builder.AppendLine($"), {options.GlobalNSDot()}{DynMetClosureGenerator.ClassName}.{DynMetClosureGenerator.InstanceName});");
             #endregion
 
             builder.EndBlock(2);
