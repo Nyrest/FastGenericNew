@@ -41,7 +41,7 @@ T>
 		/// The constructor of <typeparamref name=""T"" /> with given arguments. <br/>
 		/// Could be <see langword=""null"" /> if the constructor couldn't be found.
 		/// </summary>
-		public static readonly ConstructorInfo? {ConsructorName} = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, Type.EmptyTypes, null);
+		public static readonly ConstructorInfo? {ConsructorName} = typeof(T).GetConstructor({(options.NonPublicConstructorSupport ? "BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic" : "BindingFlags.Instance | BindingFlags.Public")}, null, Type.EmptyTypes, null);
 
 #if NETFRAMEWORK
         [EditorBrowsable(EditorBrowsableState.Never)]
