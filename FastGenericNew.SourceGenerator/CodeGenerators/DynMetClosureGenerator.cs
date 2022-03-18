@@ -2,7 +2,7 @@
 
 public class DynMetClosureGenerator : CodeGenerator<TypeNewGenerator>
 {
-    public override string Filename => "DynMetClosure.g.cs";
+    public override string Filename => "_DynMetClosure.g.cs";
 
     internal const string ClassName = "_FastNewDynMetClosure";
 
@@ -12,7 +12,7 @@ public class DynMetClosureGenerator : CodeGenerator<TypeNewGenerator>
 
     public override CodeGenerationResult Generate(in GeneratorOptions options)
     {
-        CodeBuilder builder = new(512, in options);
+        CodeBuilder builder = new(1536, in options);
         builder.WriteFileHeader();
         builder.StartNamespace();
         builder.AppendLine(@$"
