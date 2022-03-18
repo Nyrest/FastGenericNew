@@ -9,7 +9,7 @@ The ultimate fast alternative to `Activator.CreateInstance<T>` / `new T()`
   - Generic Parameters Support
   - Zero boxing/unboxing
   - TryGetValue-like TryFastNew API
-  - Link Mode PublishTrimmed Support
+  - Link Mode `PublishTrimmed` Support
   - Non-Public Constructor Support
   - No Generic Constraints
   - Compatible with .NET Standard 2.0
@@ -22,6 +22,7 @@ The ultimate fast alternative to `Activator.CreateInstance<T>` / `new T()`
 - Lastest C# Features Support
   - [C# 8 Nullable](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nullable-reference-types) Support
   - [C# 10 Parameterless struct constructors](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-10.0/parameterless-struct-constructors) Support (Both invokes or not)
+  - WebAssembly Support
 
 ## Installation
 
