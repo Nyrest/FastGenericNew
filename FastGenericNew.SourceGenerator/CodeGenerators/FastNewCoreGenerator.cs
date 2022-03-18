@@ -60,7 +60,7 @@ T>
                 : (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(typeof(T)))
             : (({options.GlobalNSDot()}{ClassName}<T>.{ConsructorName} != null && !typeof(T).IsAbstract)
                 ? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New({options.GlobalNSDot()}{ClassName}<T>.{ConsructorName})
-                : (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call({options.GlobalNSDot()}{ThrowHelperGenerator.ClassName}.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant({options.GlobalNSDot()}{ClassName}<T>.{ConsructorName}, typeof(ConstructorInfo))))
+                : (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call({options.GlobalNSDot()}{ThrowHelperGenerator.ClassName}.GetSmartThrow<T>()))
             , Array.Empty<System.Linq.Expressions.ParameterExpression>()).Compile();
     
         public static readonly bool {IsValidName} = typeof(T).IsValueType || ({options.GlobalNSDot()}{ClassName}<T>.{ConsructorName} != null && !typeof(T).IsAbstract);

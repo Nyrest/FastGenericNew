@@ -39,7 +39,7 @@ T>
                 : (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(typeof(T)))
             : ((global::@FastGenericNew.FastNew<T>.CachedConstructor != null && !typeof(T).IsAbstract)
                 ? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(global::@FastGenericNew.FastNew<T>.CachedConstructor)
-                : (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(global::@FastGenericNew.FastNew<T>.CachedConstructor, typeof(ConstructorInfo))))
+                : (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>()))
             , Array.Empty<System.Linq.Expressions.ParameterExpression>()).Compile();
     
         public static readonly bool IsValid = typeof(T).IsValueType || (global::@FastGenericNew.FastNew<T>.CachedConstructor != null && !typeof(T).IsAbstract);
