@@ -22,6 +22,10 @@ public class FastNewCoreGenerator : CodeGenerator<FastNewCoreGenerator>
         builder.Indent(1);
         builder.AppendAccessibility(options.PublicFastNewCore);
 
+        // Use Expression on .NET Framework
+        // Use ILGenerator on .NET Core
+        const string UseExpressionCondition = "NETFRAMEWORK";
+
         #region Get CompiledDelegateName Type
         string compiledDelegateTypeNoParam;
         {
@@ -30,7 +34,40 @@ public class FastNewCoreGenerator : CodeGenerator<FastNewCoreGenerator>
             compiledDelegateTypeNoParam = internalBuilder.ToString();
         }
         #endregion
+        builder.Pre_If(UseExpressionCondition);
+        #region Expression
+        builder.AppendLine(@$"static partial class {ClassName}<
+#if NET5_0_OR_GREATER
+{options.DynamicallyAccessedMembers(0)}
+#endif
+T>
+    {{
+#if NETFRAMEWORK
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        internal static readonly bool _isValueTypeT = typeof(T).IsValueType;
+#endif
+		/// <summary>
+		/// The constructor of <typeparamref name=""T"" /> with given arguments. <br/>
+		/// Could be <see langword=""null"" /> if the constructor couldn't be found.
+		/// </summary>
+		public static readonly ConstructorInfo? {ConsructorName} = typeof(T).GetConstructor({(options.NonPublicConstructorSupport
+? "BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic"
+: "BindingFlags.Instance | BindingFlags.Public")}, null, Type.EmptyTypes, null);
 
+	    {(options.PublicCompiledDelegate ? "public" : "internal")} static readonly Func<T> {CompiledDelegateName} = System.Linq.Expressions.Expression.Lambda<Func<T>>(typeof(T).IsValueType
+            ? ({options.GlobalNSDot()}{ClassName}<T>.{ConsructorName} != null
+                ? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New({options.GlobalNSDot()}{ClassName}<T>.{ConsructorName})
+                : (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(typeof(T)))
+            : (({options.GlobalNSDot()}{ClassName}<T>.{ConsructorName} != null && !typeof(T).IsAbstract)
+                ? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New({options.GlobalNSDot()}{ClassName}<T>.{ConsructorName})
+                : (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call({options.GlobalNSDot()}{ThrowHelperGenerator.ClassName}.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant({options.GlobalNSDot()}{ClassName}<T>.{ConsructorName}, typeof(ConstructorInfo))))
+            , Array.Empty<System.Linq.Expressions.ParameterExpression>()).Compile();
+    
+        public static readonly bool {IsValidName} = typeof(T).IsValueType || ({options.GlobalNSDot()}{ClassName}<T>.{ConsructorName} != null && !typeof(T).IsAbstract);
+    }}");
+        #endregion
+        builder.Pre_Else();
+        #region IL
         builder.AppendLine(@$"static partial class {ClassName}<
 #if NET5_0_OR_GREATER
 {options.DynamicallyAccessedMembers(0)}
@@ -76,6 +113,8 @@ T>
             {CompiledDelegateName} = ({compiledDelegateTypeNoParam})dm.CreateDelegate(typeof({compiledDelegateTypeNoParam}), {options.GlobalNSDot()}{DynMetClosureGenerator.ClassName}.{DynMetClosureGenerator.InstanceName});
         }}
     }}");
+        #endregion
+        builder.Pre_EndIf();
 
         for (int parameterIndex = 1; parameterIndex <= options.MaxParameterCount; parameterIndex++)
         {
@@ -89,7 +128,7 @@ T>
 
             builder.StartBlock(1);
 
-            #region MyRegion
+            #region CachedConstructor
             builder.XmlDoc(2, @"
 /// <summary>
 /// The constructor of <typeparamref name=""T"" /> with given arguments. <br/>
@@ -146,6 +185,56 @@ T>
             builder.AppendLine(3, $"IsValid = {ConsructorName} != null && !typeof(T).IsAbstract;");
             #endregion
 
+            builder.Pre_If(UseExpressionCondition);
+            #region Expression
+
+            #region Parameters
+            for (int i = 0; i < parameterIndex; i++)
+            {
+                builder.Indent(3);
+                builder.Append("var ");
+                builder.AppendGenericMethodArgumentName(i);
+                builder.Append(" = System.Linq.Expressions.Expression.Parameter(typeof(");
+                builder.AppendGenericArgumentName(i);
+                builder.Append("));\n");
+            }
+            #endregion
+
+            builder.Indent(3);
+            builder.Append($"{CompiledDelegateName} = (System.Linq.Expressions.Expression.Lambda<");
+            builder.UseGenericDelegate(parameterIndex);
+            builder.AppendLine($">({IsValidName}");
+
+            builder.Indent(4);
+            builder.Append($"? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New({ConsructorName}!");
+            for (int i = 0; i < parameterIndex; i++)
+            {
+                builder.Append(',', ' ');
+                builder.AppendGenericMethodArgumentName(i);
+            }
+            builder.AppendLine(')');
+
+            builder.Indent(4);
+            builder.Append(": (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(");
+            builder.GlobalNamespaceDot();
+            builder.Append($"{ThrowHelperGenerator.ClassName}.GetSmartThrow<T>(), ");
+            builder.Append($"System.Linq.Expressions.Expression.Constant({ConsructorName}, typeof(ConstructorInfo))");
+            builder.AppendLine(')');
+
+            builder.Indent(3);
+            builder.Append(", new System.Linq.Expressions.ParameterExpression[] { ");
+            for (int i = 0; i < parameterIndex; i++)
+            {
+                if (i != 0)
+                {
+                    builder.Append(',', ' ');
+                }
+                builder.AppendGenericMethodArgumentName(i);
+            }
+            builder.AppendLine(" })).Compile();");
+            #endregion
+            builder.Pre_Else();
+            #region IL
             #region Final
             builder.Append(3, $@"var dm = new DynamicMethod("""", typeof(T), new Type[] {{ typeof({options.GlobalNSDot()}{DynMetClosureGenerator.ClassName}), ");
             for (int i = 0; i < parameterIndex; i++)
@@ -202,6 +291,8 @@ T>
             builder.UseGenericDelegate(parameterIndex);
             builder.AppendLine($"), {options.GlobalNSDot()}{DynMetClosureGenerator.ClassName}.{DynMetClosureGenerator.InstanceName});");
             #endregion
+            #endregion
+            builder.Pre_EndIf();
 
             builder.EndBlock(2);
             #endregion
