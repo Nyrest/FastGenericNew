@@ -9,6 +9,7 @@
 		<LangVersion>10</LangVersion>
 		<NoWarn>$(NoWarn);CA1822</NoWarn>
 		<IsPackable>false</IsPackable>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 	</PropertyGroup>
 
 	<ItemGroup>
