@@ -5,7 +5,7 @@
 		<TargetFrameworks>net6.0;netstandard2.0;netstandard2.1;net5.0</TargetFrameworks>
 		<TargetFrameworks Condition="'$(OS)' == 'Windows_NT'">$(TargetFrameworks);net461</TargetFrameworks>
 		<LangVersion>8.0</LangVersion>
-		<ImplicitUsings>enabled</ImplicitUsings>
+		<ImplicitUsings>disabled</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<IsTrimmable>true</IsTrimmable>
 		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
@@ -39,8 +39,12 @@
 	</PropertyGroup>
 
 	<!-- Dependencies for TargetFrameworks doesn't compatible to 'NET 5.0' -->
-	<ItemGroup Condition="!$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net5.0'))">
+	<ItemGroup Condition=" !$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net5.0')) ">
 		<PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
+	</ItemGroup>
+	<!-- Dependencies for .NET Standard 2.0 -->
+	<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+	  <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.3.0" />
 	</ItemGroup>
 
 	<!-- Reference to Source Generator-->

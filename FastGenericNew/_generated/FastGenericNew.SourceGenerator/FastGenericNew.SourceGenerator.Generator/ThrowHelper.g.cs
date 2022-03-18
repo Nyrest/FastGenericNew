@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using System.Reflection.Emit;
 using System.ComponentModel;
 
 namespace @FastGenericNew
@@ -18,7 +19,7 @@ namespace @FastGenericNew
     [EditorBrowsable(EditorBrowsableState.Never)]
     internal static partial class ThrowHelper
     {
-        [MethodImpl(MethodImplOptions.NoInlining)]
+        [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
 
 #if NET5_0_OR_GREATER
         [DynamicDependency("SmartThrowImpl``1()", typeof(global::@FastGenericNew.ThrowHelper))]
@@ -26,18 +27,17 @@ namespace @FastGenericNew
 
         public static System.Reflection.MethodInfo GetSmartThrow<T>() => typeof(global::@FastGenericNew.ThrowHelper).GetMethod("SmartThrowImpl", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static)!.MakeGenericMethod(typeof(T));
 
-        public static T SmartThrowImpl<T>(ConstructorInfo? constructor)
+        public static T SmartThrowImpl<T>()
         {
+            var qualifiedName = typeof(T).AssemblyQualifiedName;
+
             if (typeof(T).IsInterface)
-                throw new System.MissingMethodException($"Cannot create an instance of an interface: '{typeof(T).AssemblyQualifiedName}'");
+                throw new System.MissingMethodException($"Cannot create an instance of an interface: '{ qualifiedName }'");
 
             if (typeof(T).IsAbstract)
-                throw new System.MissingMethodException($"Cannot create an abstract class: '{typeof(T).AssemblyQualifiedName}'");
+                throw new System.MissingMethodException($"Cannot create an abstract class: '{ qualifiedName }'");
 
-            if (constructor == null && !typeof(T).IsValueType)
-                throw new System.MissingMethodException($"No match constructor found in type: '{typeof(T).AssemblyQualifiedName}'");
-
-            throw new System.MissingMethodException($"Unknown Error");
+            throw new System.MissingMethodException($"No match constructor found in type: '{ qualifiedName }'");
         }
     }
 }
