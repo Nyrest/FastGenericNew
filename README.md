@@ -97,11 +97,11 @@ AMD Ryzen 9 3900X, 1 CPU, 24 logical and 12 physical cores
 
 ### Reference Types
 
-![Benchmark Result of Reference Types](https://raw.githubusercontent.com/Nyerst/FastGenericNew/main/Benchmark_ReferenceType.png)  
+[![Benchmark Result of Reference Types](https://raw.githubusercontent.com/Nyerst/FastGenericNew/main/Benchmark_ReferenceType.png)](https://github.com/Nyerst/FastGenericNew/blob/main/FastGenericNew.Benchmarks/Benchmarks/ReferenceTypeBenchmark.cs)
 
 ### Value Types
 
-![Benchmark Result of Value Types](https://raw.githubusercontent.com/Nyerst/FastGenericNew/main/Benchmark_ValueType.png)
+[![Benchmark Result of Value Types](https://raw.githubusercontent.com/Nyerst/FastGenericNew/main/Benchmark_ValueType.png)](https://github.com/Nyerst/FastGenericNew/blob/main/FastGenericNew.Benchmarks/Benchmarks/ValueTypeBenchmark.cs)
 
 ## License
 
