@@ -9,13 +9,13 @@ namespace FastGenericNew.Benchmarks.Benchmarks;
 public class CtorExprILBenchmark
 {
     [Benchmark]
-    public void CCtorIL()
+    public void After()
     {
         FastNewIL<DemoClass>.cctor();
     }
 
     [Benchmark(Baseline = true)]
-    public void CCtorExpr()
+    public void Before()
     {
         FastNewExpr<DemoClass>.cctor();
     }
@@ -84,7 +84,7 @@ static partial class FastNewIL<
                 : (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(typeof(T)))
             : ((FastNewIL<T>.CachedConstructor != null && !typeof(T).IsAbstract)
                 ? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(FastNewIL<T>.CachedConstructor)
-                : (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(FastNewIL<T>.CachedConstructor, typeof(ConstructorInfo))))
+                : (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(ThrowHelper.GetSmartThrow<T>()))
             , Array.Empty<System.Linq.Expressions.ParameterExpression>()).Compile();
         }
     }
