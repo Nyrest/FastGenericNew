@@ -19,7 +19,7 @@ The ultimate fast alternative to `Activator.CreateInstance<T>` / `new T()`
   - Highly Configurable ([Props](https://github.com/Nyerst/FastGenericNew/blob/main/FastGenericNew.SourceGenerator/FastGenericNew.SourceGenerator.props))
   - Multi-threaded Generation
 
-- Lastest C# Features Support
+- Lastest C#/.NET Features Support
   - [C# 8 Nullable](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nullable-reference-types) Support
   - [C# 10 Parameterless struct constructors](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-10.0/parameterless-struct-constructors) Support (Both invokes or not)
   - WebAssembly Support
