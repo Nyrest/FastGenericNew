@@ -217,9 +217,7 @@ T>
             builder.Indent(4);
             builder.Append(": (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(");
             builder.GlobalNamespaceDot();
-            builder.Append($"{ThrowHelperGenerator.ClassName}.GetSmartThrow<T>(), ");
-            builder.Append($"System.Linq.Expressions.Expression.Constant({ConsructorName}, typeof(ConstructorInfo))");
-            builder.AppendLine(')');
+            builder.AppendLine($"{ThrowHelperGenerator.ClassName}.GetSmartThrow<T>())");
 
             builder.Indent(3);
             builder.Append(", new System.Linq.Expressions.ParameterExpression[] { ");
