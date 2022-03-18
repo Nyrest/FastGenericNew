@@ -6,8 +6,6 @@ public readonly record struct GeneratorOptions
 
     public bool PublicFastNewCore { get; }
 
-    public bool PublicSourceExpression { get; }
-
     public bool GenerateTryCreateInstance { get; }
 
     //public bool GenerateTypeTryCreateInstance { get; }
@@ -44,7 +42,6 @@ public readonly record struct GeneratorOptions
         GenerateTryCreateInstance = options.GetOrDefault(nameof(GenerateTryCreateInstance), true);
         GenerateCreateInstance = options.GetOrDefault(nameof(GenerateCreateInstance), true);
 
-        PublicSourceExpression = options.GetOrDefault(nameof(PublicSourceExpression), false);
         PublicCompiledDelegate = options.GetOrDefault(nameof(PublicCompiledDelegate), true);
         NonPublicConstructorSupport = options.GetOrDefault(nameof(NonPublicConstructorSupport), true);
         Namespace = options.GetOrDefault(nameof(Namespace), "FastGenericNew");

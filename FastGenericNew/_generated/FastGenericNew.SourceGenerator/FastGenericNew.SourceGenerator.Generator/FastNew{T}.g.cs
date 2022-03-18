@@ -10,11 +10,14 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using System.Reflection.Emit;
 using System.ComponentModel;
 
 namespace @FastGenericNew
 {
-	internal static partial class FastNew<
+	internal 
+#if NETFRAMEWORK
+static partial class FastNew<
 #if NET5_0_OR_GREATER
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
 #endif
@@ -24,26 +27,70 @@ T>
         [EditorBrowsable(EditorBrowsableState.Never)]
         internal static readonly bool _isValueTypeT = typeof(T).IsValueType;
 #endif
-
 		/// <summary>
 		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
 		/// Could be <see langword="null" /> if the constructor couldn't be found.
 		/// </summary>
 		public static readonly ConstructorInfo? CachedConstructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, Type.EmptyTypes, null);
 
-        public static readonly System.Linq.Expressions.Expression<Func<T>> SourceExpression = System.Linq.Expressions.Expression.Lambda<Func<T>>(typeof(T).IsValueType
+	    public static readonly Func<T> CompiledDelegate = System.Linq.Expressions.Expression.Lambda<Func<T>>(typeof(T).IsValueType
             ? (global::@FastGenericNew.FastNew<T>.CachedConstructor != null
                 ? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(global::@FastGenericNew.FastNew<T>.CachedConstructor)
                 : (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(typeof(T)))
             : ((global::@FastGenericNew.FastNew<T>.CachedConstructor != null && !typeof(T).IsAbstract)
                 ? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(global::@FastGenericNew.FastNew<T>.CachedConstructor)
-                : (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(global::@FastGenericNew.FastNew<T>.CachedConstructor, typeof(ConstructorInfo))))
-            , Array.Empty<System.Linq.Expressions.ParameterExpression>());
-
-	    public static readonly Func<T> CompiledDelegate = SourceExpression.Compile();
+                : (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>()))
+            , Array.Empty<System.Linq.Expressions.ParameterExpression>()).Compile();
     
         public static readonly bool IsValid = typeof(T).IsValueType || (global::@FastGenericNew.FastNew<T>.CachedConstructor != null && !typeof(T).IsAbstract);
     }
+#else
+static partial class FastNew<
+#if NET5_0_OR_GREATER
+[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
+#endif
+T>
+    {
+		/// <summary>
+		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
+		/// Could be <see langword="null" /> if the constructor couldn't be found.
+		/// </summary>
+		public static readonly ConstructorInfo? CachedConstructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, Type.EmptyTypes, null);
+
+#if NETFRAMEWORK
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        internal static readonly bool _isValueTypeT = typeof(T).IsValueType;
+#endif
+
+	    public static readonly Func<T> CompiledDelegate;
+    
+        public static readonly bool IsValid = typeof(T).IsValueType || (global::@FastGenericNew.FastNew<T>.CachedConstructor != null && !typeof(T).IsAbstract);
+    
+        static FastNew()
+        {
+            var dm = new DynamicMethod("", typeof(T), global::@FastGenericNew._FastNewDynMetClosure.InstanceOnlyArray, restrictedSkipVisibility: true);
+            var il = dm.GetILGenerator();
+            if (IsValid)
+            {
+                if (global::@FastGenericNew.FastNew<T>.CachedConstructor != null)
+                    il.Emit(OpCodes.Newobj, CachedConstructor!);
+                else
+                {
+                    il.DeclareLocal(typeof(T));
+                    //il.Emit(OpCodes.Ldloca_S, (short)0)
+                    //il.Emit(OpCodes.Initobj, typeof(T));
+                    il.Emit(OpCodes.Ldloc_0);
+                }
+            }
+            else
+            {
+                il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
+            }
+            il.Emit(OpCodes.Ret);
+            CompiledDelegate = (Func<T>)dm.CreateDelegate(typeof(Func<T>), global::@FastGenericNew._FastNewDynMetClosure.Instance);
+        }
+    }
+#endif
 	internal static partial class FastNew<
 #if NET5_0_OR_GREATER
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
@@ -58,8 +105,6 @@ T, TArg0>
 		{
 			typeof(TArg0),
 		}, null);
-		public static readonly System.Linq.Expressions.Expression<Func<TArg0, T>> SourceExpression;
-
 		public static readonly Func<TArg0, T> CompiledDelegate;
 
 		public static readonly bool IsValid;
@@ -67,11 +112,27 @@ T, TArg0>
 		static FastNew()
 		{
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
+#if NETFRAMEWORK
 			var p0 = System.Linq.Expressions.Expression.Parameter(typeof(TArg0));
-			CompiledDelegate = (SourceExpression = System.Linq.Expressions.Expression.Lambda<Func<TArg0, T>>(IsValid
+			CompiledDelegate = (System.Linq.Expressions.Expression.Lambda<Func<TArg0, T>>(IsValid
 				? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(CachedConstructor!, p0)
-				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(CachedConstructor, typeof(ConstructorInfo)))
+				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>())
 			, new System.Linq.Expressions.ParameterExpression[] { p0 })).Compile();
+#else
+			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(global::@FastGenericNew._FastNewDynMetClosure), typeof(TArg0) }, restrictedSkipVisibility: true);
+			var il = dm.GetILGenerator(10);
+			if (IsValid)
+			{
+				il.Emit(OpCodes.Ldarg_1);
+				il.Emit(OpCodes.Newobj, CachedConstructor!);
+			}
+			else
+			{
+				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
+			}
+			il.Emit(OpCodes.Ret);
+			CompiledDelegate = (Func<TArg0, T>)dm.CreateDelegate(typeof(Func<TArg0, T>), global::@FastGenericNew._FastNewDynMetClosure.Instance);
+#endif
 		}
 	}
 	internal static partial class FastNew<
@@ -89,8 +150,6 @@ T, TArg0, TArg1>
 			typeof(TArg0),
 			typeof(TArg1),
 		}, null);
-		public static readonly System.Linq.Expressions.Expression<Func<TArg0, TArg1, T>> SourceExpression;
-
 		public static readonly Func<TArg0, TArg1, T> CompiledDelegate;
 
 		public static readonly bool IsValid;
@@ -98,12 +157,29 @@ T, TArg0, TArg1>
 		static FastNew()
 		{
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
+#if NETFRAMEWORK
 			var p0 = System.Linq.Expressions.Expression.Parameter(typeof(TArg0));
 			var p1 = System.Linq.Expressions.Expression.Parameter(typeof(TArg1));
-			CompiledDelegate = (SourceExpression = System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, T>>(IsValid
+			CompiledDelegate = (System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, T>>(IsValid
 				? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(CachedConstructor!, p0, p1)
-				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(CachedConstructor, typeof(ConstructorInfo)))
+				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>())
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1 })).Compile();
+#else
+			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(global::@FastGenericNew._FastNewDynMetClosure), typeof(TArg0), typeof(TArg1) }, restrictedSkipVisibility: true);
+			var il = dm.GetILGenerator(11);
+			if (IsValid)
+			{
+				il.Emit(OpCodes.Ldarg_1);
+				il.Emit(OpCodes.Ldarg_2);
+				il.Emit(OpCodes.Newobj, CachedConstructor!);
+			}
+			else
+			{
+				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
+			}
+			il.Emit(OpCodes.Ret);
+			CompiledDelegate = (Func<TArg0, TArg1, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, T>), global::@FastGenericNew._FastNewDynMetClosure.Instance);
+#endif
 		}
 	}
 	internal static partial class FastNew<
@@ -122,8 +198,6 @@ T, TArg0, TArg1, TArg2>
 			typeof(TArg1),
 			typeof(TArg2),
 		}, null);
-		public static readonly System.Linq.Expressions.Expression<Func<TArg0, TArg1, TArg2, T>> SourceExpression;
-
 		public static readonly Func<TArg0, TArg1, TArg2, T> CompiledDelegate;
 
 		public static readonly bool IsValid;
@@ -131,13 +205,31 @@ T, TArg0, TArg1, TArg2>
 		static FastNew()
 		{
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
+#if NETFRAMEWORK
 			var p0 = System.Linq.Expressions.Expression.Parameter(typeof(TArg0));
 			var p1 = System.Linq.Expressions.Expression.Parameter(typeof(TArg1));
 			var p2 = System.Linq.Expressions.Expression.Parameter(typeof(TArg2));
-			CompiledDelegate = (SourceExpression = System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, T>>(IsValid
+			CompiledDelegate = (System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, T>>(IsValid
 				? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(CachedConstructor!, p0, p1, p2)
-				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(CachedConstructor, typeof(ConstructorInfo)))
+				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>())
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2 })).Compile();
+#else
+			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(global::@FastGenericNew._FastNewDynMetClosure), typeof(TArg0), typeof(TArg1), typeof(TArg2) }, restrictedSkipVisibility: true);
+			var il = dm.GetILGenerator(12);
+			if (IsValid)
+			{
+				il.Emit(OpCodes.Ldarg_1);
+				il.Emit(OpCodes.Ldarg_2);
+				il.Emit(OpCodes.Ldarg_3);
+				il.Emit(OpCodes.Newobj, CachedConstructor!);
+			}
+			else
+			{
+				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
+			}
+			il.Emit(OpCodes.Ret);
+			CompiledDelegate = (Func<TArg0, TArg1, TArg2, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, T>), global::@FastGenericNew._FastNewDynMetClosure.Instance);
+#endif
 		}
 	}
 	internal static partial class FastNew<
@@ -157,8 +249,6 @@ T, TArg0, TArg1, TArg2, TArg3>
 			typeof(TArg2),
 			typeof(TArg3),
 		}, null);
-		public static readonly System.Linq.Expressions.Expression<Func<TArg0, TArg1, TArg2, TArg3, T>> SourceExpression;
-
 		public static readonly Func<TArg0, TArg1, TArg2, TArg3, T> CompiledDelegate;
 
 		public static readonly bool IsValid;
@@ -166,14 +256,33 @@ T, TArg0, TArg1, TArg2, TArg3>
 		static FastNew()
 		{
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
+#if NETFRAMEWORK
 			var p0 = System.Linq.Expressions.Expression.Parameter(typeof(TArg0));
 			var p1 = System.Linq.Expressions.Expression.Parameter(typeof(TArg1));
 			var p2 = System.Linq.Expressions.Expression.Parameter(typeof(TArg2));
 			var p3 = System.Linq.Expressions.Expression.Parameter(typeof(TArg3));
-			CompiledDelegate = (SourceExpression = System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, TArg3, T>>(IsValid
+			CompiledDelegate = (System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, TArg3, T>>(IsValid
 				? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(CachedConstructor!, p0, p1, p2, p3)
-				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(CachedConstructor, typeof(ConstructorInfo)))
+				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>())
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2, p3 })).Compile();
+#else
+			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(global::@FastGenericNew._FastNewDynMetClosure), typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3) }, restrictedSkipVisibility: true);
+			var il = dm.GetILGenerator(13);
+			if (IsValid)
+			{
+				il.Emit(OpCodes.Ldarg_1);
+				il.Emit(OpCodes.Ldarg_2);
+				il.Emit(OpCodes.Ldarg_3);
+				il.Emit(OpCodes.Ldarg_S, (byte)4);
+				il.Emit(OpCodes.Newobj, CachedConstructor!);
+			}
+			else
+			{
+				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
+			}
+			il.Emit(OpCodes.Ret);
+			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, T>), global::@FastGenericNew._FastNewDynMetClosure.Instance);
+#endif
 		}
 	}
 	internal static partial class FastNew<
@@ -194,8 +303,6 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4>
 			typeof(TArg3),
 			typeof(TArg4),
 		}, null);
-		public static readonly System.Linq.Expressions.Expression<Func<TArg0, TArg1, TArg2, TArg3, TArg4, T>> SourceExpression;
-
 		public static readonly Func<TArg0, TArg1, TArg2, TArg3, TArg4, T> CompiledDelegate;
 
 		public static readonly bool IsValid;
@@ -203,15 +310,35 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4>
 		static FastNew()
 		{
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
+#if NETFRAMEWORK
 			var p0 = System.Linq.Expressions.Expression.Parameter(typeof(TArg0));
 			var p1 = System.Linq.Expressions.Expression.Parameter(typeof(TArg1));
 			var p2 = System.Linq.Expressions.Expression.Parameter(typeof(TArg2));
 			var p3 = System.Linq.Expressions.Expression.Parameter(typeof(TArg3));
 			var p4 = System.Linq.Expressions.Expression.Parameter(typeof(TArg4));
-			CompiledDelegate = (SourceExpression = System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, TArg3, TArg4, T>>(IsValid
+			CompiledDelegate = (System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, TArg3, TArg4, T>>(IsValid
 				? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(CachedConstructor!, p0, p1, p2, p3, p4)
-				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(CachedConstructor, typeof(ConstructorInfo)))
+				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>())
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2, p3, p4 })).Compile();
+#else
+			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(global::@FastGenericNew._FastNewDynMetClosure), typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4) }, restrictedSkipVisibility: true);
+			var il = dm.GetILGenerator(14);
+			if (IsValid)
+			{
+				il.Emit(OpCodes.Ldarg_1);
+				il.Emit(OpCodes.Ldarg_2);
+				il.Emit(OpCodes.Ldarg_3);
+				il.Emit(OpCodes.Ldarg_S, (byte)4);
+				il.Emit(OpCodes.Ldarg_S, (byte)5);
+				il.Emit(OpCodes.Newobj, CachedConstructor!);
+			}
+			else
+			{
+				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
+			}
+			il.Emit(OpCodes.Ret);
+			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, T>), global::@FastGenericNew._FastNewDynMetClosure.Instance);
+#endif
 		}
 	}
 	internal static partial class FastNew<
@@ -233,8 +360,6 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5>
 			typeof(TArg4),
 			typeof(TArg5),
 		}, null);
-		public static readonly System.Linq.Expressions.Expression<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, T>> SourceExpression;
-
 		public static readonly Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, T> CompiledDelegate;
 
 		public static readonly bool IsValid;
@@ -242,16 +367,37 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5>
 		static FastNew()
 		{
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
+#if NETFRAMEWORK
 			var p0 = System.Linq.Expressions.Expression.Parameter(typeof(TArg0));
 			var p1 = System.Linq.Expressions.Expression.Parameter(typeof(TArg1));
 			var p2 = System.Linq.Expressions.Expression.Parameter(typeof(TArg2));
 			var p3 = System.Linq.Expressions.Expression.Parameter(typeof(TArg3));
 			var p4 = System.Linq.Expressions.Expression.Parameter(typeof(TArg4));
 			var p5 = System.Linq.Expressions.Expression.Parameter(typeof(TArg5));
-			CompiledDelegate = (SourceExpression = System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, T>>(IsValid
+			CompiledDelegate = (System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, T>>(IsValid
 				? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(CachedConstructor!, p0, p1, p2, p3, p4, p5)
-				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(CachedConstructor, typeof(ConstructorInfo)))
+				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>())
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2, p3, p4, p5 })).Compile();
+#else
+			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(global::@FastGenericNew._FastNewDynMetClosure), typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5) }, restrictedSkipVisibility: true);
+			var il = dm.GetILGenerator(15);
+			if (IsValid)
+			{
+				il.Emit(OpCodes.Ldarg_1);
+				il.Emit(OpCodes.Ldarg_2);
+				il.Emit(OpCodes.Ldarg_3);
+				il.Emit(OpCodes.Ldarg_S, (byte)4);
+				il.Emit(OpCodes.Ldarg_S, (byte)5);
+				il.Emit(OpCodes.Ldarg_S, (byte)6);
+				il.Emit(OpCodes.Newobj, CachedConstructor!);
+			}
+			else
+			{
+				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
+			}
+			il.Emit(OpCodes.Ret);
+			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, T>), global::@FastGenericNew._FastNewDynMetClosure.Instance);
+#endif
 		}
 	}
 	internal static partial class FastNew<
@@ -274,8 +420,6 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6>
 			typeof(TArg5),
 			typeof(TArg6),
 		}, null);
-		public static readonly System.Linq.Expressions.Expression<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, T>> SourceExpression;
-
 		public static readonly Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, T> CompiledDelegate;
 
 		public static readonly bool IsValid;
@@ -283,6 +427,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6>
 		static FastNew()
 		{
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
+#if NETFRAMEWORK
 			var p0 = System.Linq.Expressions.Expression.Parameter(typeof(TArg0));
 			var p1 = System.Linq.Expressions.Expression.Parameter(typeof(TArg1));
 			var p2 = System.Linq.Expressions.Expression.Parameter(typeof(TArg2));
@@ -290,10 +435,31 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6>
 			var p4 = System.Linq.Expressions.Expression.Parameter(typeof(TArg4));
 			var p5 = System.Linq.Expressions.Expression.Parameter(typeof(TArg5));
 			var p6 = System.Linq.Expressions.Expression.Parameter(typeof(TArg6));
-			CompiledDelegate = (SourceExpression = System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, T>>(IsValid
+			CompiledDelegate = (System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, T>>(IsValid
 				? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(CachedConstructor!, p0, p1, p2, p3, p4, p5, p6)
-				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(CachedConstructor, typeof(ConstructorInfo)))
+				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>())
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2, p3, p4, p5, p6 })).Compile();
+#else
+			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(global::@FastGenericNew._FastNewDynMetClosure), typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6) }, restrictedSkipVisibility: true);
+			var il = dm.GetILGenerator(16);
+			if (IsValid)
+			{
+				il.Emit(OpCodes.Ldarg_1);
+				il.Emit(OpCodes.Ldarg_2);
+				il.Emit(OpCodes.Ldarg_3);
+				il.Emit(OpCodes.Ldarg_S, (byte)4);
+				il.Emit(OpCodes.Ldarg_S, (byte)5);
+				il.Emit(OpCodes.Ldarg_S, (byte)6);
+				il.Emit(OpCodes.Ldarg_S, (byte)7);
+				il.Emit(OpCodes.Newobj, CachedConstructor!);
+			}
+			else
+			{
+				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
+			}
+			il.Emit(OpCodes.Ret);
+			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, T>), global::@FastGenericNew._FastNewDynMetClosure.Instance);
+#endif
 		}
 	}
 	internal static partial class FastNew<
@@ -317,8 +483,6 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7>
 			typeof(TArg6),
 			typeof(TArg7),
 		}, null);
-		public static readonly System.Linq.Expressions.Expression<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, T>> SourceExpression;
-
 		public static readonly Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, T> CompiledDelegate;
 
 		public static readonly bool IsValid;
@@ -326,6 +490,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7>
 		static FastNew()
 		{
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
+#if NETFRAMEWORK
 			var p0 = System.Linq.Expressions.Expression.Parameter(typeof(TArg0));
 			var p1 = System.Linq.Expressions.Expression.Parameter(typeof(TArg1));
 			var p2 = System.Linq.Expressions.Expression.Parameter(typeof(TArg2));
@@ -334,10 +499,32 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7>
 			var p5 = System.Linq.Expressions.Expression.Parameter(typeof(TArg5));
 			var p6 = System.Linq.Expressions.Expression.Parameter(typeof(TArg6));
 			var p7 = System.Linq.Expressions.Expression.Parameter(typeof(TArg7));
-			CompiledDelegate = (SourceExpression = System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, T>>(IsValid
+			CompiledDelegate = (System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, T>>(IsValid
 				? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(CachedConstructor!, p0, p1, p2, p3, p4, p5, p6, p7)
-				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(CachedConstructor, typeof(ConstructorInfo)))
+				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>())
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2, p3, p4, p5, p6, p7 })).Compile();
+#else
+			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(global::@FastGenericNew._FastNewDynMetClosure), typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6), typeof(TArg7) }, restrictedSkipVisibility: true);
+			var il = dm.GetILGenerator(17);
+			if (IsValid)
+			{
+				il.Emit(OpCodes.Ldarg_1);
+				il.Emit(OpCodes.Ldarg_2);
+				il.Emit(OpCodes.Ldarg_3);
+				il.Emit(OpCodes.Ldarg_S, (byte)4);
+				il.Emit(OpCodes.Ldarg_S, (byte)5);
+				il.Emit(OpCodes.Ldarg_S, (byte)6);
+				il.Emit(OpCodes.Ldarg_S, (byte)7);
+				il.Emit(OpCodes.Ldarg_S, (byte)8);
+				il.Emit(OpCodes.Newobj, CachedConstructor!);
+			}
+			else
+			{
+				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
+			}
+			il.Emit(OpCodes.Ret);
+			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, T>), global::@FastGenericNew._FastNewDynMetClosure.Instance);
+#endif
 		}
 	}
 	internal static partial class FastNew<
@@ -362,8 +549,6 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8>
 			typeof(TArg7),
 			typeof(TArg8),
 		}, null);
-		public static readonly System.Linq.Expressions.Expression<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, T>> SourceExpression;
-
 		public static readonly Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, T> CompiledDelegate;
 
 		public static readonly bool IsValid;
@@ -371,6 +556,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8>
 		static FastNew()
 		{
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
+#if NETFRAMEWORK
 			var p0 = System.Linq.Expressions.Expression.Parameter(typeof(TArg0));
 			var p1 = System.Linq.Expressions.Expression.Parameter(typeof(TArg1));
 			var p2 = System.Linq.Expressions.Expression.Parameter(typeof(TArg2));
@@ -380,10 +566,33 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8>
 			var p6 = System.Linq.Expressions.Expression.Parameter(typeof(TArg6));
 			var p7 = System.Linq.Expressions.Expression.Parameter(typeof(TArg7));
 			var p8 = System.Linq.Expressions.Expression.Parameter(typeof(TArg8));
-			CompiledDelegate = (SourceExpression = System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, T>>(IsValid
+			CompiledDelegate = (System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, T>>(IsValid
 				? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(CachedConstructor!, p0, p1, p2, p3, p4, p5, p6, p7, p8)
-				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(CachedConstructor, typeof(ConstructorInfo)))
+				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>())
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2, p3, p4, p5, p6, p7, p8 })).Compile();
+#else
+			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(global::@FastGenericNew._FastNewDynMetClosure), typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6), typeof(TArg7), typeof(TArg8) }, restrictedSkipVisibility: true);
+			var il = dm.GetILGenerator(18);
+			if (IsValid)
+			{
+				il.Emit(OpCodes.Ldarg_1);
+				il.Emit(OpCodes.Ldarg_2);
+				il.Emit(OpCodes.Ldarg_3);
+				il.Emit(OpCodes.Ldarg_S, (byte)4);
+				il.Emit(OpCodes.Ldarg_S, (byte)5);
+				il.Emit(OpCodes.Ldarg_S, (byte)6);
+				il.Emit(OpCodes.Ldarg_S, (byte)7);
+				il.Emit(OpCodes.Ldarg_S, (byte)8);
+				il.Emit(OpCodes.Ldarg_S, (byte)9);
+				il.Emit(OpCodes.Newobj, CachedConstructor!);
+			}
+			else
+			{
+				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
+			}
+			il.Emit(OpCodes.Ret);
+			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, T>), global::@FastGenericNew._FastNewDynMetClosure.Instance);
+#endif
 		}
 	}
 	internal static partial class FastNew<
@@ -409,8 +618,6 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9>
 			typeof(TArg8),
 			typeof(TArg9),
 		}, null);
-		public static readonly System.Linq.Expressions.Expression<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, T>> SourceExpression;
-
 		public static readonly Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, T> CompiledDelegate;
 
 		public static readonly bool IsValid;
@@ -418,6 +625,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9>
 		static FastNew()
 		{
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
+#if NETFRAMEWORK
 			var p0 = System.Linq.Expressions.Expression.Parameter(typeof(TArg0));
 			var p1 = System.Linq.Expressions.Expression.Parameter(typeof(TArg1));
 			var p2 = System.Linq.Expressions.Expression.Parameter(typeof(TArg2));
@@ -428,10 +636,34 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9>
 			var p7 = System.Linq.Expressions.Expression.Parameter(typeof(TArg7));
 			var p8 = System.Linq.Expressions.Expression.Parameter(typeof(TArg8));
 			var p9 = System.Linq.Expressions.Expression.Parameter(typeof(TArg9));
-			CompiledDelegate = (SourceExpression = System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, T>>(IsValid
+			CompiledDelegate = (System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, T>>(IsValid
 				? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(CachedConstructor!, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9)
-				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(CachedConstructor, typeof(ConstructorInfo)))
+				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>())
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2, p3, p4, p5, p6, p7, p8, p9 })).Compile();
+#else
+			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(global::@FastGenericNew._FastNewDynMetClosure), typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6), typeof(TArg7), typeof(TArg8), typeof(TArg9) }, restrictedSkipVisibility: true);
+			var il = dm.GetILGenerator(19);
+			if (IsValid)
+			{
+				il.Emit(OpCodes.Ldarg_1);
+				il.Emit(OpCodes.Ldarg_2);
+				il.Emit(OpCodes.Ldarg_3);
+				il.Emit(OpCodes.Ldarg_S, (byte)4);
+				il.Emit(OpCodes.Ldarg_S, (byte)5);
+				il.Emit(OpCodes.Ldarg_S, (byte)6);
+				il.Emit(OpCodes.Ldarg_S, (byte)7);
+				il.Emit(OpCodes.Ldarg_S, (byte)8);
+				il.Emit(OpCodes.Ldarg_S, (byte)9);
+				il.Emit(OpCodes.Ldarg_S, (byte)10);
+				il.Emit(OpCodes.Newobj, CachedConstructor!);
+			}
+			else
+			{
+				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
+			}
+			il.Emit(OpCodes.Ret);
+			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, T>), global::@FastGenericNew._FastNewDynMetClosure.Instance);
+#endif
 		}
 	}
 	internal static partial class FastNew<
@@ -458,8 +690,6 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10>
 			typeof(TArg9),
 			typeof(TArg10),
 		}, null);
-		public static readonly System.Linq.Expressions.Expression<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, T>> SourceExpression;
-
 		public static readonly Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, T> CompiledDelegate;
 
 		public static readonly bool IsValid;
@@ -467,6 +697,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10>
 		static FastNew()
 		{
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
+#if NETFRAMEWORK
 			var p0 = System.Linq.Expressions.Expression.Parameter(typeof(TArg0));
 			var p1 = System.Linq.Expressions.Expression.Parameter(typeof(TArg1));
 			var p2 = System.Linq.Expressions.Expression.Parameter(typeof(TArg2));
@@ -478,10 +709,35 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10>
 			var p8 = System.Linq.Expressions.Expression.Parameter(typeof(TArg8));
 			var p9 = System.Linq.Expressions.Expression.Parameter(typeof(TArg9));
 			var p10 = System.Linq.Expressions.Expression.Parameter(typeof(TArg10));
-			CompiledDelegate = (SourceExpression = System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, T>>(IsValid
+			CompiledDelegate = (System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, T>>(IsValid
 				? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(CachedConstructor!, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10)
-				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(CachedConstructor, typeof(ConstructorInfo)))
+				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>())
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10 })).Compile();
+#else
+			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(global::@FastGenericNew._FastNewDynMetClosure), typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6), typeof(TArg7), typeof(TArg8), typeof(TArg9), typeof(TArg10) }, restrictedSkipVisibility: true);
+			var il = dm.GetILGenerator(20);
+			if (IsValid)
+			{
+				il.Emit(OpCodes.Ldarg_1);
+				il.Emit(OpCodes.Ldarg_2);
+				il.Emit(OpCodes.Ldarg_3);
+				il.Emit(OpCodes.Ldarg_S, (byte)4);
+				il.Emit(OpCodes.Ldarg_S, (byte)5);
+				il.Emit(OpCodes.Ldarg_S, (byte)6);
+				il.Emit(OpCodes.Ldarg_S, (byte)7);
+				il.Emit(OpCodes.Ldarg_S, (byte)8);
+				il.Emit(OpCodes.Ldarg_S, (byte)9);
+				il.Emit(OpCodes.Ldarg_S, (byte)10);
+				il.Emit(OpCodes.Ldarg_S, (byte)11);
+				il.Emit(OpCodes.Newobj, CachedConstructor!);
+			}
+			else
+			{
+				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
+			}
+			il.Emit(OpCodes.Ret);
+			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, T>), global::@FastGenericNew._FastNewDynMetClosure.Instance);
+#endif
 		}
 	}
 	internal static partial class FastNew<
@@ -509,8 +765,6 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 			typeof(TArg10),
 			typeof(TArg11),
 		}, null);
-		public static readonly System.Linq.Expressions.Expression<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, T>> SourceExpression;
-
 		public static readonly Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, T> CompiledDelegate;
 
 		public static readonly bool IsValid;
@@ -518,6 +772,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 		static FastNew()
 		{
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
+#if NETFRAMEWORK
 			var p0 = System.Linq.Expressions.Expression.Parameter(typeof(TArg0));
 			var p1 = System.Linq.Expressions.Expression.Parameter(typeof(TArg1));
 			var p2 = System.Linq.Expressions.Expression.Parameter(typeof(TArg2));
@@ -530,10 +785,36 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 			var p9 = System.Linq.Expressions.Expression.Parameter(typeof(TArg9));
 			var p10 = System.Linq.Expressions.Expression.Parameter(typeof(TArg10));
 			var p11 = System.Linq.Expressions.Expression.Parameter(typeof(TArg11));
-			CompiledDelegate = (SourceExpression = System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, T>>(IsValid
+			CompiledDelegate = (System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, T>>(IsValid
 				? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(CachedConstructor!, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11)
-				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(CachedConstructor, typeof(ConstructorInfo)))
+				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>())
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11 })).Compile();
+#else
+			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(global::@FastGenericNew._FastNewDynMetClosure), typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6), typeof(TArg7), typeof(TArg8), typeof(TArg9), typeof(TArg10), typeof(TArg11) }, restrictedSkipVisibility: true);
+			var il = dm.GetILGenerator(21);
+			if (IsValid)
+			{
+				il.Emit(OpCodes.Ldarg_1);
+				il.Emit(OpCodes.Ldarg_2);
+				il.Emit(OpCodes.Ldarg_3);
+				il.Emit(OpCodes.Ldarg_S, (byte)4);
+				il.Emit(OpCodes.Ldarg_S, (byte)5);
+				il.Emit(OpCodes.Ldarg_S, (byte)6);
+				il.Emit(OpCodes.Ldarg_S, (byte)7);
+				il.Emit(OpCodes.Ldarg_S, (byte)8);
+				il.Emit(OpCodes.Ldarg_S, (byte)9);
+				il.Emit(OpCodes.Ldarg_S, (byte)10);
+				il.Emit(OpCodes.Ldarg_S, (byte)11);
+				il.Emit(OpCodes.Ldarg_S, (byte)12);
+				il.Emit(OpCodes.Newobj, CachedConstructor!);
+			}
+			else
+			{
+				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
+			}
+			il.Emit(OpCodes.Ret);
+			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, T>), global::@FastGenericNew._FastNewDynMetClosure.Instance);
+#endif
 		}
 	}
 	internal static partial class FastNew<
@@ -562,8 +843,6 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 			typeof(TArg11),
 			typeof(TArg12),
 		}, null);
-		public static readonly System.Linq.Expressions.Expression<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, T>> SourceExpression;
-
 		public static readonly Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, T> CompiledDelegate;
 
 		public static readonly bool IsValid;
@@ -571,6 +850,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 		static FastNew()
 		{
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
+#if NETFRAMEWORK
 			var p0 = System.Linq.Expressions.Expression.Parameter(typeof(TArg0));
 			var p1 = System.Linq.Expressions.Expression.Parameter(typeof(TArg1));
 			var p2 = System.Linq.Expressions.Expression.Parameter(typeof(TArg2));
@@ -584,10 +864,37 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 			var p10 = System.Linq.Expressions.Expression.Parameter(typeof(TArg10));
 			var p11 = System.Linq.Expressions.Expression.Parameter(typeof(TArg11));
 			var p12 = System.Linq.Expressions.Expression.Parameter(typeof(TArg12));
-			CompiledDelegate = (SourceExpression = System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, T>>(IsValid
+			CompiledDelegate = (System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, T>>(IsValid
 				? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(CachedConstructor!, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12)
-				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(CachedConstructor, typeof(ConstructorInfo)))
+				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>())
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12 })).Compile();
+#else
+			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(global::@FastGenericNew._FastNewDynMetClosure), typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6), typeof(TArg7), typeof(TArg8), typeof(TArg9), typeof(TArg10), typeof(TArg11), typeof(TArg12) }, restrictedSkipVisibility: true);
+			var il = dm.GetILGenerator(22);
+			if (IsValid)
+			{
+				il.Emit(OpCodes.Ldarg_1);
+				il.Emit(OpCodes.Ldarg_2);
+				il.Emit(OpCodes.Ldarg_3);
+				il.Emit(OpCodes.Ldarg_S, (byte)4);
+				il.Emit(OpCodes.Ldarg_S, (byte)5);
+				il.Emit(OpCodes.Ldarg_S, (byte)6);
+				il.Emit(OpCodes.Ldarg_S, (byte)7);
+				il.Emit(OpCodes.Ldarg_S, (byte)8);
+				il.Emit(OpCodes.Ldarg_S, (byte)9);
+				il.Emit(OpCodes.Ldarg_S, (byte)10);
+				il.Emit(OpCodes.Ldarg_S, (byte)11);
+				il.Emit(OpCodes.Ldarg_S, (byte)12);
+				il.Emit(OpCodes.Ldarg_S, (byte)13);
+				il.Emit(OpCodes.Newobj, CachedConstructor!);
+			}
+			else
+			{
+				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
+			}
+			il.Emit(OpCodes.Ret);
+			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, T>), global::@FastGenericNew._FastNewDynMetClosure.Instance);
+#endif
 		}
 	}
 	internal static partial class FastNew<
@@ -617,8 +924,6 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 			typeof(TArg12),
 			typeof(TArg13),
 		}, null);
-		public static readonly System.Linq.Expressions.Expression<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, T>> SourceExpression;
-
 		public static readonly Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, T> CompiledDelegate;
 
 		public static readonly bool IsValid;
@@ -626,6 +931,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 		static FastNew()
 		{
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
+#if NETFRAMEWORK
 			var p0 = System.Linq.Expressions.Expression.Parameter(typeof(TArg0));
 			var p1 = System.Linq.Expressions.Expression.Parameter(typeof(TArg1));
 			var p2 = System.Linq.Expressions.Expression.Parameter(typeof(TArg2));
@@ -640,10 +946,38 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 			var p11 = System.Linq.Expressions.Expression.Parameter(typeof(TArg11));
 			var p12 = System.Linq.Expressions.Expression.Parameter(typeof(TArg12));
 			var p13 = System.Linq.Expressions.Expression.Parameter(typeof(TArg13));
-			CompiledDelegate = (SourceExpression = System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, T>>(IsValid
+			CompiledDelegate = (System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, T>>(IsValid
 				? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(CachedConstructor!, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13)
-				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(CachedConstructor, typeof(ConstructorInfo)))
+				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>())
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13 })).Compile();
+#else
+			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(global::@FastGenericNew._FastNewDynMetClosure), typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6), typeof(TArg7), typeof(TArg8), typeof(TArg9), typeof(TArg10), typeof(TArg11), typeof(TArg12), typeof(TArg13) }, restrictedSkipVisibility: true);
+			var il = dm.GetILGenerator(23);
+			if (IsValid)
+			{
+				il.Emit(OpCodes.Ldarg_1);
+				il.Emit(OpCodes.Ldarg_2);
+				il.Emit(OpCodes.Ldarg_3);
+				il.Emit(OpCodes.Ldarg_S, (byte)4);
+				il.Emit(OpCodes.Ldarg_S, (byte)5);
+				il.Emit(OpCodes.Ldarg_S, (byte)6);
+				il.Emit(OpCodes.Ldarg_S, (byte)7);
+				il.Emit(OpCodes.Ldarg_S, (byte)8);
+				il.Emit(OpCodes.Ldarg_S, (byte)9);
+				il.Emit(OpCodes.Ldarg_S, (byte)10);
+				il.Emit(OpCodes.Ldarg_S, (byte)11);
+				il.Emit(OpCodes.Ldarg_S, (byte)12);
+				il.Emit(OpCodes.Ldarg_S, (byte)13);
+				il.Emit(OpCodes.Ldarg_S, (byte)14);
+				il.Emit(OpCodes.Newobj, CachedConstructor!);
+			}
+			else
+			{
+				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
+			}
+			il.Emit(OpCodes.Ret);
+			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, T>), global::@FastGenericNew._FastNewDynMetClosure.Instance);
+#endif
 		}
 	}
 	internal static partial class FastNew<
@@ -674,8 +1008,6 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 			typeof(TArg13),
 			typeof(TArg14),
 		}, null);
-		public static readonly System.Linq.Expressions.Expression<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, T>> SourceExpression;
-
 		public static readonly Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, T> CompiledDelegate;
 
 		public static readonly bool IsValid;
@@ -683,6 +1015,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 		static FastNew()
 		{
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
+#if NETFRAMEWORK
 			var p0 = System.Linq.Expressions.Expression.Parameter(typeof(TArg0));
 			var p1 = System.Linq.Expressions.Expression.Parameter(typeof(TArg1));
 			var p2 = System.Linq.Expressions.Expression.Parameter(typeof(TArg2));
@@ -698,10 +1031,39 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 			var p12 = System.Linq.Expressions.Expression.Parameter(typeof(TArg12));
 			var p13 = System.Linq.Expressions.Expression.Parameter(typeof(TArg13));
 			var p14 = System.Linq.Expressions.Expression.Parameter(typeof(TArg14));
-			CompiledDelegate = (SourceExpression = System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, T>>(IsValid
+			CompiledDelegate = (System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, T>>(IsValid
 				? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(CachedConstructor!, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14)
-				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(CachedConstructor, typeof(ConstructorInfo)))
+				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>())
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14 })).Compile();
+#else
+			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(global::@FastGenericNew._FastNewDynMetClosure), typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6), typeof(TArg7), typeof(TArg8), typeof(TArg9), typeof(TArg10), typeof(TArg11), typeof(TArg12), typeof(TArg13), typeof(TArg14) }, restrictedSkipVisibility: true);
+			var il = dm.GetILGenerator(24);
+			if (IsValid)
+			{
+				il.Emit(OpCodes.Ldarg_1);
+				il.Emit(OpCodes.Ldarg_2);
+				il.Emit(OpCodes.Ldarg_3);
+				il.Emit(OpCodes.Ldarg_S, (byte)4);
+				il.Emit(OpCodes.Ldarg_S, (byte)5);
+				il.Emit(OpCodes.Ldarg_S, (byte)6);
+				il.Emit(OpCodes.Ldarg_S, (byte)7);
+				il.Emit(OpCodes.Ldarg_S, (byte)8);
+				il.Emit(OpCodes.Ldarg_S, (byte)9);
+				il.Emit(OpCodes.Ldarg_S, (byte)10);
+				il.Emit(OpCodes.Ldarg_S, (byte)11);
+				il.Emit(OpCodes.Ldarg_S, (byte)12);
+				il.Emit(OpCodes.Ldarg_S, (byte)13);
+				il.Emit(OpCodes.Ldarg_S, (byte)14);
+				il.Emit(OpCodes.Ldarg_S, (byte)15);
+				il.Emit(OpCodes.Newobj, CachedConstructor!);
+			}
+			else
+			{
+				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
+			}
+			il.Emit(OpCodes.Ret);
+			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, T>), global::@FastGenericNew._FastNewDynMetClosure.Instance);
+#endif
 		}
 	}
 	internal static partial class FastNew<
@@ -733,8 +1095,6 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 			typeof(TArg14),
 			typeof(TArg15),
 		}, null);
-		public static readonly System.Linq.Expressions.Expression<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TArg15, T>> SourceExpression;
-
 		public static readonly Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TArg15, T> CompiledDelegate;
 
 		public static readonly bool IsValid;
@@ -742,6 +1102,7 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 		static FastNew()
 		{
 			IsValid = CachedConstructor != null && !typeof(T).IsAbstract;
+#if NETFRAMEWORK
 			var p0 = System.Linq.Expressions.Expression.Parameter(typeof(TArg0));
 			var p1 = System.Linq.Expressions.Expression.Parameter(typeof(TArg1));
 			var p2 = System.Linq.Expressions.Expression.Parameter(typeof(TArg2));
@@ -758,10 +1119,40 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 			var p13 = System.Linq.Expressions.Expression.Parameter(typeof(TArg13));
 			var p14 = System.Linq.Expressions.Expression.Parameter(typeof(TArg14));
 			var p15 = System.Linq.Expressions.Expression.Parameter(typeof(TArg15));
-			CompiledDelegate = (SourceExpression = System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TArg15, T>>(IsValid
+			CompiledDelegate = (System.Linq.Expressions.Expression.Lambda<Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TArg15, T>>(IsValid
 				? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(CachedConstructor!, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15)
-				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(CachedConstructor, typeof(ConstructorInfo)))
+				: (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>())
 			, new System.Linq.Expressions.ParameterExpression[] { p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15 })).Compile();
+#else
+			var dm = new DynamicMethod("", typeof(T), new Type[] { typeof(global::@FastGenericNew._FastNewDynMetClosure), typeof(TArg0), typeof(TArg1), typeof(TArg2), typeof(TArg3), typeof(TArg4), typeof(TArg5), typeof(TArg6), typeof(TArg7), typeof(TArg8), typeof(TArg9), typeof(TArg10), typeof(TArg11), typeof(TArg12), typeof(TArg13), typeof(TArg14), typeof(TArg15) }, restrictedSkipVisibility: true);
+			var il = dm.GetILGenerator(25);
+			if (IsValid)
+			{
+				il.Emit(OpCodes.Ldarg_1);
+				il.Emit(OpCodes.Ldarg_2);
+				il.Emit(OpCodes.Ldarg_3);
+				il.Emit(OpCodes.Ldarg_S, (byte)4);
+				il.Emit(OpCodes.Ldarg_S, (byte)5);
+				il.Emit(OpCodes.Ldarg_S, (byte)6);
+				il.Emit(OpCodes.Ldarg_S, (byte)7);
+				il.Emit(OpCodes.Ldarg_S, (byte)8);
+				il.Emit(OpCodes.Ldarg_S, (byte)9);
+				il.Emit(OpCodes.Ldarg_S, (byte)10);
+				il.Emit(OpCodes.Ldarg_S, (byte)11);
+				il.Emit(OpCodes.Ldarg_S, (byte)12);
+				il.Emit(OpCodes.Ldarg_S, (byte)13);
+				il.Emit(OpCodes.Ldarg_S, (byte)14);
+				il.Emit(OpCodes.Ldarg_S, (byte)15);
+				il.Emit(OpCodes.Ldarg_S, (byte)16);
+				il.Emit(OpCodes.Newobj, CachedConstructor!);
+			}
+			else
+			{
+				il.Emit(OpCodes.Call, global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>());
+			}
+			il.Emit(OpCodes.Ret);
+			CompiledDelegate = (Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TArg15, T>)dm.CreateDelegate(typeof(Func<TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TArg15, T>), global::@FastGenericNew._FastNewDynMetClosure.Instance);
+#endif
 		}
 	}
 }
