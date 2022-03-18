@@ -39,7 +39,7 @@ T>
         static FastNew()
         {
             var dm = new DynamicMethod("", typeof(T), global::@FastGenericNew._FastNewDynMetClosure.InstanceOnlyArray, restrictedSkipVisibility: true);
-            var il = dm.GetILGenerator(6);
+            var il = dm.GetILGenerator();
             if (IsValid)
             {
                 if (global::@FastGenericNew.FastNew<T>.CachedConstructor != null)
