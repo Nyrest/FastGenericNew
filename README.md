@@ -1,4 +1,4 @@
-# FastGenericNew 3.0.0 [![Tests](https://github.com/Nyerst/FastGenericNew/actions/workflows/tests.yml/badge.svg)](https://github.com/Nyerst/FastGenericNew/actions/workflows/tests.yml) [![](https://img.shields.io/nuget/vpre/FastGenericNew)](https://www.nuget.org/packages/FastGenericNew/) [![](https://img.shields.io/nuget/vpre/FastGenericNew.SourceGenerator?label=SourceGenerator)](https://www.nuget.org/packages/FastGenericNew.SourceGenerator/)
+# FastGenericNew V3 [![Tests](https://github.com/Nyerst/FastGenericNew/actions/workflows/tests.yml/badge.svg)](https://github.com/Nyerst/FastGenericNew/actions/workflows/tests.yml) [![](https://img.shields.io/nuget/vpre/FastGenericNew)](https://www.nuget.org/packages/FastGenericNew/) [![](https://img.shields.io/nuget/vpre/FastGenericNew.SourceGenerator?label=SourceGenerator)](https://www.nuget.org/packages/FastGenericNew.SourceGenerator/)
 
 The ultimate fast alternative to `Activator.CreateInstance<T>` / `new T()`
 
@@ -30,24 +30,24 @@ The ultimate fast alternative to `Activator.CreateInstance<T>` / `new T()`
 ### Pre-Compiled Version
 
 ```powershell
-dotnet add package FastGenericNew --version 3.0.0-preview2.1
+dotnet add package FastGenericNew --version 3.1.0-preview1
 ```
 
 ```xml
 <ItemGroup>
-  <PackageReference Include="FastGenericNew" Version="3.0.0-preview2.1" />
+  <PackageReference Include="FastGenericNew" Version="3.1.0-preview1" />
 </ItemGroup>
 ```
 
 ### SourceGenerator Version
 
 ```powershell
-dotnet add package FastGenericNew.SourceGenerator --version 3.0.0-preview2.1
+dotnet add package FastGenericNew.SourceGenerator --version 3.1.0-preview1
 ```
 
 ```xml
 <ItemGroup>
-  <PackageReference Include="FastGenericNew.SourceGenerator" Version="3.0.0-preview2.1" />
+  <PackageReference Include="FastGenericNew.SourceGenerator" Version="3.1.0-preview1" />
 </ItemGroup>
 ```
 
