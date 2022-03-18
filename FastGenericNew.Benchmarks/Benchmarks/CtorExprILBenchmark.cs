@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel;
-using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
@@ -44,16 +44,30 @@ public class CtorExprILBenchmark
 
     #region ILEmit
     [EditorBrowsable(EditorBrowsableState.Never)]
-    [DebuggerStepThrough]
-    internal sealed class Closure
+    internal sealed partial class _FastNewDynMetClosure
     {
-        public static readonly Type[] InstanceOnlyArray = new[] { typeof(Closure) };
+        public static readonly Type[] InstanceOnlyArray = new Type[] { typeof(_FastNewDynMetClosure) };
 
-        public static readonly Closure Instance = new();
+        public static readonly _FastNewDynMetClosure Instance = new _FastNewDynMetClosure();
     }
 
-    internal static partial class FastNewIL<T>
+
+    internal
+#if NETFRAMEWORK
+static partial class FastNewIL<
+#if NET5_0_OR_GREATER
+[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
+#endif
+    T>
     {
+#if NETFRAMEWORK
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        internal static readonly bool _isValueTypeT = typeof(T).IsValueType;
+#endif
+        /// <summary>
+        /// The constructor of <typeparamref name="T" /> with given arguments. <br/>
+        /// Could be <see langword="null" /> if the constructor couldn't be found.
+        /// </summary>
         public static ConstructorInfo? CachedConstructor;
 
         public static Func<T>? CompiledDelegate;
@@ -63,17 +77,55 @@ public class CtorExprILBenchmark
         public static void cctor()
         {
             CachedConstructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, Type.EmptyTypes, null);
-            IsValid = typeof(T).IsValueType || CachedConstructor != null && !typeof(T).IsAbstract;
-            var dm = new DynamicMethod("", typeof(T), Closure.InstanceOnlyArray, true);
+            IsValid = typeof(T).IsValueType || (FastNewIL<T>.CachedConstructor != null && !typeof(T).IsAbstract);
+            CompiledDelegate = System.Linq.Expressions.Expression.Lambda<Func<T>>(typeof(T).IsValueType
+            ? (FastNewIL<T>.CachedConstructor != null
+                ? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(FastNewIL<T>.CachedConstructor)
+                : (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(typeof(T)))
+            : ((FastNewIL<T>.CachedConstructor != null && !typeof(T).IsAbstract)
+                ? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(FastNewIL<T>.CachedConstructor)
+                : (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(ThrowHelper.GetSmartThrow<T>(), System.Linq.Expressions.Expression.Constant(FastNewIL<T>.CachedConstructor, typeof(ConstructorInfo))))
+            , Array.Empty<System.Linq.Expressions.ParameterExpression>()).Compile();
+        }
+    }
+#else
+static partial class FastNewIL<
+#if NET5_0_OR_GREATER
+[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
+#endif
+    T>
+    {
+        /// <summary>
+        /// The constructor of <typeparamref name="T" /> with given arguments. <br/>
+        /// Could be <see langword="null" /> if the constructor couldn't be found.
+        /// </summary>
+        public static ConstructorInfo? CachedConstructor;
 
+#if NETFRAMEWORK
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        internal static readonly bool _isValueTypeT = typeof(T).IsValueType;
+#endif
+
+        public static Func<T>? CompiledDelegate;
+
+        public static bool IsValid;
+
+        public static void cctor()
+        {
+            CachedConstructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, Type.EmptyTypes, null);
+            IsValid = typeof(T).IsValueType || (FastNewIL<T>.CachedConstructor != null && !typeof(T).IsAbstract);
+
+            var dm = new DynamicMethod("", typeof(T), _FastNewDynMetClosure.InstanceOnlyArray, restrictedSkipVisibility: true);
             var il = dm.GetILGenerator();
             if (IsValid)
             {
-                if (CachedConstructor != null)
+                if (FastNewIL<T>.CachedConstructor != null)
                     il.Emit(OpCodes.Newobj, CachedConstructor!);
                 else
                 {
                     il.DeclareLocal(typeof(T));
+                    //il.Emit(OpCodes.Ldloca_S, (short)0)
+                    //il.Emit(OpCodes.Initobj, typeof(T));
                     il.Emit(OpCodes.Ldloc_0);
                 }
             }
@@ -82,9 +134,10 @@ public class CtorExprILBenchmark
                 il.Emit(OpCodes.Call, ThrowHelper.GetSmartThrow<T>());
             }
             il.Emit(OpCodes.Ret);
-            CompiledDelegate = (Func<T>)dm.CreateDelegate(typeof(Func<T>), Closure.Instance);
+            CompiledDelegate = (Func<T>)dm.CreateDelegate(typeof(Func<T>), _FastNewDynMetClosure.Instance);
         }
     }
+#endif
     #endregion
 
     public class DemoClass { }
