@@ -3,6 +3,8 @@ using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Diagnosers;
 using BenchmarkDotNet.Environments;
 
+using FastGenericNew.Benchmarks.Benchmarks;
+
 ManualConfig config = ManualConfig.Create(DefaultConfig.Instance);
 config.AddJob(
     Job.Default.WithRuntime(ClrRuntime.Net48),
@@ -11,4 +13,5 @@ config.AddJob(
 
 config.AddDiagnoser(MemoryDiagnoser.Default);
 
-BenchmarkRunner.Run(Assembly.GetCallingAssembly(), config);
+//BenchmarkRunner.Run(Assembly.GetCallingAssembly(), config);
+BenchmarkRunner.Run<CtorExprILBenchmark>(config);
