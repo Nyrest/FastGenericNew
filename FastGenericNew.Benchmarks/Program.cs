@@ -1,15 +1,9 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-
 using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Diagnosers;
 using BenchmarkDotNet.Environments;
-using BenchmarkDotNet.Loggers;
 
-using FastGenericNew.Benchmarks;
 using FastGenericNew.Benchmarks.Benchmarks;
-
 
 ManualConfig config = ManualConfig.Create(DefaultConfig.Instance);
 config.AddJob(
@@ -20,4 +14,4 @@ config.AddJob(
 config.AddDiagnoser(MemoryDiagnoser.Default);
 
 //BenchmarkRunner.Run(Assembly.GetCallingAssembly(), config);
-BenchmarkRunner.Run<ClrAllocatorBenchmark>(config);
+BenchmarkRunner.Run<CtorClrAllocatorBenchmark>(config);
