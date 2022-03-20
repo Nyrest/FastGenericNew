@@ -24,22 +24,22 @@ static partial class FastNew<
 T>
     {
 #if NETFRAMEWORK
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         internal static readonly bool _isValueTypeT = typeof(T).IsValueType;
 #endif
 		/// <summary>
 		/// The constructor of <typeparamref name="T" /> with given arguments. <br/>
 		/// Could be <see langword="null" /> if the constructor couldn't be found.
 		/// </summary>
-		public static readonly ConstructorInfo? CachedConstructor = typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, Type.EmptyTypes, null);
+		public static readonly global::System.Reflection.ConstructorInfo? CachedConstructor = typeof(T).GetConstructor(global::System.Reflection.BindingFlags.Instance | global::System.Reflection.BindingFlags.Public | global::System.Reflection.BindingFlags.NonPublic, null, global::System.Type.EmptyTypes, null);
 
-	    public static readonly Func<T> CompiledDelegate = System.Linq.Expressions.Expression.Lambda<Func<T>>(typeof(T).IsValueType
+	    public static readonly global::System.Func<T> CompiledDelegate = global::System.Linq.Expressions.Expression.Lambda<Func<T>>(typeof(T).IsValueType
             ? (global::@FastGenericNew.FastNew<T>.CachedConstructor != null
-                ? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(global::@FastGenericNew.FastNew<T>.CachedConstructor)
-                : (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(typeof(T)))
+                ? (global::System.Linq.Expressions.Expression)global::System.Linq.Expressions.Expression.New(global::@FastGenericNew.FastNew<T>.CachedConstructor)
+                : (global::System.Linq.Expressions.Expression)global::System.Linq.Expressions.Expression.New(typeof(T)))
             : ((global::@FastGenericNew.FastNew<T>.CachedConstructor != null && !typeof(T).IsAbstract)
-                ? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(global::@FastGenericNew.FastNew<T>.CachedConstructor)
-                : (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>()))
+                ? (global::System.Linq.Expressions.Expression)global::System.Linq.Expressions.Expression.New(global::@FastGenericNew.FastNew<T>.CachedConstructor)
+                : (global::System.Linq.Expressions.Expression)global::System.Linq.Expressions.Expression.Call(global::@FastGenericNew.ThrowHelper.GetSmartThrow<T>()))
             , Array.Empty<System.Linq.Expressions.ParameterExpression>()).Compile();
     
         public static readonly bool IsValid = typeof(T).IsValueType || (global::@FastGenericNew.FastNew<T>.CachedConstructor != null && !typeof(T).IsAbstract);
