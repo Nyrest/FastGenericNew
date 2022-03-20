@@ -18,5 +18,6 @@
 		<CompilerVisibleProperty Include="FastNew_OutputGenerationInfo" />
 		<CompilerVisibleProperty Include="FastNew_GenerateTypeCreateInstance" />
 		<CompilerVisibleProperty Include="FastNew_GenerateTypeTryCreateInstance" />
+		<CompilerVisibleProperty Include="FastNew_AllowUnsafeImplementation" />
 	</ItemGroup>
 </Project>
