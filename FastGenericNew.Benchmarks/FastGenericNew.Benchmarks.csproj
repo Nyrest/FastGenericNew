@@ -12,12 +12,28 @@
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 	</PropertyGroup>
 
+	<!-- FastGenericNew Properties -->
+	<PropertyGroup>
+		<FastNew_MaxParameterCount>16</FastNew_MaxParameterCount>
+		<FastNew_ForceFastNewDelegate>false</FastNew_ForceFastNewDelegate>
+		<FastNew_MultiThreadedGeneration>true</FastNew_MultiThreadedGeneration>
+		<FastNew_PublicSourceExpression>true</FastNew_PublicSourceExpression>
+		<FastNew_PrettyOutput>true</FastNew_PrettyOutput>
+		<FastNew_OutputGenerationInfo>true</FastNew_OutputGenerationInfo>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<PackageReference Include="BenchmarkDotNet" Version="0.13.1" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\FastGenericNew\FastGenericNew.csproj" />
+		<ProjectReference Include="..\FastGenericNew.SourceGenerator\FastGenericNew.SourceGenerator.csproj">
+			<OutputItemType>Analyzer</OutputItemType>
+			<ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+		</ProjectReference>
 	</ItemGroup>
+
+	<!-- Imports -->
+	<Import Project="../FastGenericNew.SourceGenerator/FastGenericNew.SourceGenerator.props" />
 
 </Project>

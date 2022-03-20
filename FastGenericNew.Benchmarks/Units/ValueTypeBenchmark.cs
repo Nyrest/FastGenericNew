@@ -1,4 +1,4 @@
-﻿namespace FastGenericNew.Benchmarks.Benchmarks;
+﻿namespace FastGenericNew.Benchmarks.Units;
 
 public class ValueTypeBenchmark
 {
@@ -8,7 +8,7 @@ public class ValueTypeBenchmark
         return FastGenericNew.FastNew.CreateInstance<DemoStruct>();
     }
 
-    [Benchmark]
+    [Benchmark(Baseline = true)]
     public DemoStruct Activator()
     {
         return System.Activator.CreateInstance<DemoStruct>();

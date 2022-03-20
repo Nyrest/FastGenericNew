@@ -4,7 +4,7 @@ using BenchmarkDotNet.Diagnosers;
 using BenchmarkDotNet.Environments;
 
 using FastGenericNew.Benchmarks;
-using FastGenericNew.Benchmarks.Benchmarks;
+using FastGenericNew.Benchmarks.Units;
 
 ManualConfig config = ManualConfig.Create(DefaultConfig.Instance);
 config.AddJob(
@@ -14,7 +14,8 @@ config.AddJob(
 
 config.AddDiagnoser(MemoryDiagnoser.Default);
 
-var a = ClrAllocatorBenchmark.ClrAllocator<DemoClass>.CreateInstance();
-;
 //BenchmarkRunner.Run(Assembly.GetCallingAssembly(), config);
-BenchmarkRunner.Run<CtorClrAllocatorBenchmark>(config);
+#if NET6_0_OR_GREATER
+BenchmarkRunner.Run<ImplementationsInitBenchmark>(config);
+
+#endif
