@@ -34,6 +34,8 @@ public readonly record struct GeneratorOptions
 
     public bool OutputGenerationInfo { get; }
 
+    public bool AllowUnsafeImplementation { get; }
+
     public GeneratorOptions(AnalyzerConfigOptionsProvider? provider)
     {
         var options = provider?.GlobalOptions;
@@ -55,6 +57,7 @@ public readonly record struct GeneratorOptions
         OutputGenerationInfo = options.GetOrDefault(nameof(OutputGenerationInfo), false);
 
         GenerateTypeCreateInstance = options.GetOrDefault(nameof(GenerateTypeCreateInstance), true);
+        AllowUnsafeImplementation = options.GetOrDefault(nameof(AllowUnsafeImplementation), false);
         //GenerateTypeTryCreateInstance = options.GetOrDefault(nameof(GenerateTypeTryCreateInstance), true);
     }
 
