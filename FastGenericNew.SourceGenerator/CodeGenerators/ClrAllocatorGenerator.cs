@@ -10,26 +10,26 @@ internal class ClrAllocatorGenerator : CodeGenerator<ClrAllocatorGenerator>
 
     public override CodeGenerationResult Generate(in GeneratorOptions options)
     {
-        CodeBuilder builder = new(2048, in options);
+        CodeBuilder builder = new(6144, in options);
         builder.WriteFileHeader();
 
         builder.Pre_If(ppEnabled);
 
         builder.StartNamespace();
-
+        
         builder.AppendLine($$"""
-    [EditorBrowsable(EditorBrowsableState.Never)]
+    [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
     static unsafe class {{ClassName}}
     {
-        public static readonly delegate*<ObjectHandleOnStack, ref delegate*<void*, object>, ref void*, ref delegate*<object, void>, int*, void> GetActivationInfo;
+        public static readonly delegate*<void*, ref delegate*<void*, object>, ref void*, ref delegate*<object, void>, int*, void> GetActivationInfo;
 
         public static readonly bool IsSupported;
 
         static ClrAllocator()
         {
-            foreach (var met in typeof(RuntimeTypeHandle).GetMethods(BindingFlags.Static | BindingFlags.NonPublic))
+            foreach (var met in typeof(global::System.RuntimeTypeHandle).GetMethods(global::System.Reflection.BindingFlags.Static | global::System.Reflection.BindingFlags.NonPublic))
             {
-                if (met.Name == "GetActivationInfo" && (met.Attributes & MethodAttributes.PinvokeImpl) != 0)
+                if (met.Name == "GetActivationInfo" && (met.Attributes & global::System.Reflection.MethodAttributes.PinvokeImpl) != 0)
                 {
                     var parameters = met.GetParameters();
                     // TODO Consider to use list pattern when available
@@ -43,24 +43,17 @@ internal class ClrAllocatorGenerator : CodeGenerator<ClrAllocatorGenerator>
                         // && parameters[4].ParameterType == Type.GetType("Interop.BOOL", false)
                         )
                     {
-                        GetActivationInfo = (delegate*<ObjectHandleOnStack, ref delegate*<void*, object>, ref void*, ref delegate*<object, void>, int*, void>)
+                        GetActivationInfo = (delegate*<void*, ref delegate*<void*, object>, ref void*, ref delegate*<object, void>, int*, void>)
                             met.MethodHandle.GetFunctionPointer();
                         IsSupported = true;
                     }
                 }
             }
         }
-
-        internal ref struct ObjectHandleOnStack
-        {
-            private unsafe void* _ptr;
-
-            public unsafe ObjectHandleOnStack(void* pObject) => _ptr = pObject;
-        }
     }
 
-    [EditorBrowsable(EditorBrowsableState.Never)]
-    public static unsafe class ClrAllocator<T>
+    [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
+    static unsafe class ClrAllocator<T>
     {
         private static readonly delegate*<void*, T> _pfnAllocator;
 
@@ -73,9 +66,19 @@ internal class ClrAllocatorGenerator : CodeGenerator<ClrAllocatorGenerator>
             if (!ClrAllocator.IsSupported) return;
 
             var type = typeof(T);
+            if (type.IsAbstract) goto smartThrow;
+
             int _ctorIsPublic = default;
-            ((delegate*<ClrAllocator.ObjectHandleOnStack, ref delegate*<void*, T>, ref void*, ref delegate*<T, void>, int*, void>)ClrAllocator.GetActivationInfo)
-            (new ClrAllocator.ObjectHandleOnStack(Unsafe.AsPointer(ref type)), ref _pfnAllocator, ref _allocatorFirstArg, ref _pfnCtor, &_ctorIsPublic);
+            ((delegate*<void*, ref delegate*<void*, T>, ref void*, ref delegate*<T, void>, int*, void>){{options.GlobalNSDot()}}{{ClassName}}.GetActivationInfo)
+            (Unsafe.AsPointer(ref type), ref _pfnAllocator, ref _allocatorFirstArg, ref _pfnCtor, &_ctorIsPublic);
+            if (_pfnAllocator is null || _allocatorFirstArg is null || _pfnCtor is null)
+                goto smartThrow;
+            return;
+smartThrow:
+            _pfnAllocator = &SmartThrow;
+
+            [global::System.Runtime.CompilerServices.MethodImpl(global::System.Runtime.CompilerServices.MethodImplOptions.NoInlining | global::System.Runtime.CompilerServices.MethodImplOptions.NoOptimization)]
+            static T SmartThrow(void* _) => {{options.GlobalNSDot()}}{{ThrowHelperGenerator.ClassName}}.{{ThrowHelperGenerator.SmartThrowName}}<T>();
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
