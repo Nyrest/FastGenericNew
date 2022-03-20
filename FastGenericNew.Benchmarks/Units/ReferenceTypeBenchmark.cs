@@ -1,4 +1,4 @@
-﻿namespace FastGenericNew.Benchmarks.Benchmarks;
+﻿namespace FastGenericNew.Benchmarks.Units;
 
 public class ReferenceTypeBenchmark
 {
@@ -8,7 +8,8 @@ public class ReferenceTypeBenchmark
         return FastGenericNew.FastNew.CreateInstance<DemoClass>();
     }
 
-    [Benchmark]
+
+    [Benchmark(Baseline = true)]
     public DemoClass Activator()
     {
         return System.Activator.CreateInstance<DemoClass>();
