@@ -50,43 +50,81 @@ internal class ClrAllocatorGenerator : CodeGenerator<ClrAllocatorGenerator>
                 }
             }
         }
+
+		public static void CtorNoopStub(object _) { }
+        [global::System.Runtime.CompilerServices.MethodImpl(global::System.Runtime.CompilerServices.MethodImplOptions.NoInlining | global::System.Runtime.CompilerServices.MethodImplOptions.NoOptimization)]
+		public static object ThrowNotSupported(void* _) => throw new global::System.NotSupportedException();
+        [global::System.Runtime.CompilerServices.MethodImpl(global::System.Runtime.CompilerServices.MethodImplOptions.NoInlining | global::System.Runtime.CompilerServices.MethodImplOptions.NoOptimization)]
+        public static object SmartThrow<T>(void* _) => (object){{options.GlobalNSDot()}}{{ThrowHelperGenerator.ClassName}}.{{ThrowHelperGenerator.SmartThrowName}}<T>();
     }
 
     [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
     static unsafe class ClrAllocator<T>
     {
-        private static readonly delegate*<void*, T> _pfnAllocator;
+        private static readonly delegate*<void*, object> _pfnAllocator;
 
         private static readonly void* _allocatorFirstArg;
 
-        private static readonly delegate*<T, void> _pfnCtor;
+        private static readonly delegate*<object, void> _pfnCtor;
+
+        /// <summary>
+        /// TRUE means ClrAllocator<T> can replace to FastNewCore<br>
+        /// So this can be TRUE even the CreateInstance will throw an exception.
+        /// </summary>
+        public static readonly bool IsSupported;
 
         static ClrAllocator()
         {
-            if (!ClrAllocator.IsSupported) return;
-
+            if (!{{options.GlobalNSDot()}}{{ClassName}}.IsSupported) goto MarkUnsupported;
             var type = typeof(T);
-            if (type.IsAbstract) goto smartThrow;
+
+            // GetActivationInfo has many extra limits
+            // https://github.com/dotnet/runtime/blob/a5ec8aa173e4bc76b173a70aa7fa3be1867011eb/src/coreclr/vm/reflectioninvocation.cpp#L1942:25
+            
+            // Exceptions SmartThrow CAN NOT handle.
+            // Mark unsupported so FastGenericNew will use FastNewCore instead if hit any
+            // 
+            if (
+                type.IsArray // typeHandle.IsArray()
+                || type.IsByRefLike // pMT->IsByRefLike()
+                || type == typeof(string) // pMT->HasComponentSize()
+                || typeof(Delegate).IsAssignableFrom(type) // pMT->IsDelegate()
+                ) 
+                goto MarkUnsupported;
+
+            // Exceptions SmartThrow can handle.
+            if (type.IsAbstract) goto GoSmartThrow;
 
             int _ctorIsPublic = default;
-            ((delegate*<void*, ref delegate*<void*, T>, ref void*, ref delegate*<T, void>, int*, void>){{options.GlobalNSDot()}}{{ClassName}}.GetActivationInfo)
+            ((delegate*<void*, ref delegate*<void*, object>, ref void*, ref delegate*<object, void>, int*, void>){{options.GlobalNSDot()}}{{ClassName}}.GetActivationInfo)
             (Unsafe.AsPointer(ref type), ref _pfnAllocator, ref _allocatorFirstArg, ref _pfnCtor, &_ctorIsPublic);
-            if (_pfnAllocator is null || _allocatorFirstArg is null || _pfnCtor is null)
-                goto smartThrow;
-            return;
-smartThrow:
-            _pfnAllocator = &SmartThrow;
 
-            [global::System.Runtime.CompilerServices.MethodImpl(global::System.Runtime.CompilerServices.MethodImplOptions.NoInlining | global::System.Runtime.CompilerServices.MethodImplOptions.NoOptimization)]
-            static T SmartThrow(void* _) => {{options.GlobalNSDot()}}{{ThrowHelperGenerator.ClassName}}.{{ThrowHelperGenerator.SmartThrowName}}<T>();
+            if (_pfnAllocator is null)
+                goto GoSmartThrow;
+
+            if (_pfnCtor is null)
+                _pfnCtor = &{{options.GlobalNSDot()}}{{ClassName}}.CtorNoopStub;
+
+            IsSupported = true;
+            return;
+
+GoSmartThrow:
+            _pfnAllocator = &{{options.GlobalNSDot()}}{{ClassName}}.SmartThrow<T>;
+            IsSupported = true; // read the comment of IsSupported
+            return;
+
+MarkUnsupported:
+            _pfnAllocator = &{{options.GlobalNSDot()}}{{ClassName}}.ThrowNotSupported;
+            IsSupported = false;
+            return;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T CreateInstance()
         {
-            T result = _pfnAllocator(_allocatorFirstArg);
+            var result = _pfnAllocator(_allocatorFirstArg);
             _pfnCtor(result);
-            return result;
+            return (T)result;
         }
     }
 """);
@@ -94,5 +132,10 @@ smartThrow:
         builder.EndNamespace();
         builder.Pre_EndIf();
         return builder.BuildAndDispose(this);
+    }
+
+    public override bool ShouldUpdate(in GeneratorOptions oldValue, in GeneratorOptions newValue)
+    {
+        return base.ShouldUpdate(oldValue, newValue) && newValue.AllowUnsafeImplementation;
     }
 }
