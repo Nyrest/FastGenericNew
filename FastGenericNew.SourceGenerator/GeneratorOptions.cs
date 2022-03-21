@@ -58,7 +58,6 @@ public readonly record struct GeneratorOptions
 
         GenerateTypeCreateInstance = options.GetOrDefault(nameof(GenerateTypeCreateInstance), true);
         AllowUnsafeImplementation = options.GetOrDefault(nameof(AllowUnsafeImplementation), false);
-        //GenerateTypeTryCreateInstance = options.GetOrDefault(nameof(GenerateTypeTryCreateInstance), true);
     }
 
     public string GlobalNSDot() => string.IsNullOrWhiteSpace(Namespace)

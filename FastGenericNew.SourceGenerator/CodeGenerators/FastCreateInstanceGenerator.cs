@@ -40,7 +40,15 @@ T>()
 #else
 		    return typeof(T).IsValueType
                 ? System.Activator.CreateInstance<T>() // This will be optimized by JIT
+
+    #if {ClrAllocatorGenerator.ppEnabled}
+                : ({options.GlobalNSDot()}{ClrAllocatorGenerator.ClassName}<T>.IsSupported
+                    ? {options.GlobalNSDot()}{ClrAllocatorGenerator.ClassName}<T>.CreateInstance()
+                    : {options.GlobalNSDot()}{FastNewCoreGenerator.ClassName}<T>.{FastNewCoreGenerator.CompiledDelegateName}());
+    #else
                 : {options.GlobalNSDot()}{FastNewCoreGenerator.ClassName}<T>.{FastNewCoreGenerator.CompiledDelegateName}();
+    #endif
+
 #endif
 	    }}
         /// <summary>
