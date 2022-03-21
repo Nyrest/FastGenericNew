@@ -18,6 +18,15 @@ namespace FastGenericNew.Tests
         #region CreateInstance Class
 
         [Test()]
+        public void CreateInstanceObjct()
+        {
+            var expected = new object();
+            var actual = FastNew.CreateInstance<object>();
+
+            Assert.IsTrue(expected.GetType() == actual.GetType());
+        }
+
+        [Test()]
         public void CreateInstanceClass()
         {
             var expected = new DemoClass();

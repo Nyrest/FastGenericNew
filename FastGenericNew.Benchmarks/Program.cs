@@ -1,8 +1,10 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using BenchmarkDotNet.Configs;
+using BenchmarkDotNet.ConsoleArguments.ListBenchmarks;
 using BenchmarkDotNet.Diagnosers;
 using BenchmarkDotNet.Environments;
 
+using FastGenericNew;
 using FastGenericNew.Benchmarks;
 using FastGenericNew.Benchmarks.Units;
 
