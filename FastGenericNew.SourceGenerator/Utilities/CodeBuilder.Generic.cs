@@ -22,7 +22,7 @@ partial struct CodeBuilder
     {
         StartGeneric();
 
-        if (Options.Trimmable && !doNotAppendTrimmableAttr)
+        if (!doNotAppendTrimmableAttr)
         {
             Pre_If("NET5_0_OR_GREATER");
             AppendLine(Options.DynamicallyAccessedMembers(argumentCount));
@@ -42,12 +42,9 @@ partial struct CodeBuilder
     {
         StartGeneric();
 
-        if (Options.Trimmable)
-        {
-            Pre_If("NET5_0_OR_GREATER");
-            AppendLine(Options.DynamicallyAccessedMembers(argumentCount));
-            Pre_EndIf();
-        }
+        Pre_If("NET5_0_OR_GREATER");
+        AppendLine(Options.DynamicallyAccessedMembers(argumentCount));
+        Pre_EndIf();
 
         Append("out T");
         for (int i = 0; i < argumentCount; i++)

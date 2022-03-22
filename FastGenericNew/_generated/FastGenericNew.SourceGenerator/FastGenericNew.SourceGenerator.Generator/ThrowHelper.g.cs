@@ -21,10 +21,10 @@ namespace @FastGenericNew
     internal static partial class ThrowHelper
     {
         [global::System.Runtime.CompilerServices.MethodImpl(global::System.Runtime.CompilerServices.MethodImplOptions.NoInlining | global::System.Runtime.CompilerServices.MethodImplOptions.NoOptimization)]
-
 #if NET5_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.DynamicDependencyAttribute("SmartThrowImpl``1()", typeof(global::@FastGenericNew.ThrowHelper))]
 #endif
+
 
         public static global::System.Reflection.MethodInfo GetSmartThrow<T>() => typeof(global::@FastGenericNew.ThrowHelper).GetMethod("SmartThrowImpl", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static)!.MakeGenericMethod(typeof(T));
 

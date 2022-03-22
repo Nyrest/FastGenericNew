@@ -17,7 +17,6 @@
     ForceFastNewDelegate = False
     AlertGeneratedFile = True
     DisableGeneratorCache = False
-    Trimmable = True
     PrettyOutput = True  (default: False)
     MultiThreadedGeneration = True
     OutputGenerationInfo = True  (default: False)
@@ -36,7 +35,6 @@
     <FastNew_ForceFastNewDelegate>False<FastNew_ForceFastNewDelegate />
     <FastNew_AlertGeneratedFile>True<FastNew_AlertGeneratedFile />
     <FastNew_DisableGeneratorCache>False<FastNew_DisableGeneratorCache />
-    <FastNew_Trimmable>True<FastNew_Trimmable />
     <FastNew_PrettyOutput>True<FastNew_PrettyOutput />
     <FastNew_MultiThreadedGeneration>True<FastNew_MultiThreadedGeneration />
     <FastNew_OutputGenerationInfo>True<FastNew_OutputGenerationInfo />

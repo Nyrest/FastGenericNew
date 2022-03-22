@@ -17,12 +17,11 @@ public class ThrowHelperGenerator : CodeGenerator<ThrowHelperGenerator>
     [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
     internal static partial class ThrowHelper
     {{
-        [global::System.Runtime.CompilerServices.MethodImpl(global::System.Runtime.CompilerServices.MethodImplOptions.NoInlining | global::System.Runtime.CompilerServices.MethodImplOptions.NoOptimization)]");
-        if (options.Trimmable)
-            builder.AppendLine(@$"
+        [global::System.Runtime.CompilerServices.MethodImpl(global::System.Runtime.CompilerServices.MethodImplOptions.NoInlining | global::System.Runtime.CompilerServices.MethodImplOptions.NoOptimization)]
 #if NET5_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.DynamicDependencyAttribute(""SmartThrowImpl``1()"", typeof({options.GlobalNSDot()}{ClassName}))]
-#endif");
+#endif
+");
         builder.AppendLine(@$"
         public static global::System.Reflection.MethodInfo GetSmartThrow<T>() => typeof({options.GlobalNSDot()}ThrowHelper).GetMethod(""SmartThrowImpl"", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static)!.MakeGenericMethod(typeof(T));
 
