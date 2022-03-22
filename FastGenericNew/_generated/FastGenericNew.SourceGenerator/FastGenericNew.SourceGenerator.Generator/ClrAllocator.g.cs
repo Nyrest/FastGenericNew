@@ -77,26 +77,31 @@ namespace @FastGenericNew
             if (!global::@FastGenericNew.ClrAllocator.IsSupported) goto MarkUnsupported;
             var type = typeof(T);
 
-            // GetActivationInfo has many extra limits
-            // https://github.com/dotnet/runtime/blob/a5ec8aa173e4bc76b173a70aa7fa3be1867011eb/src/coreclr/vm/reflectioninvocation.cpp#L1942:25
-            
-            // Exceptions SmartThrow CAN NOT handle.
-            // Mark unsupported so FastGenericNew will use FastNewCore instead if hit any
-            // 
-            if (
-                type.IsArray // typeHandle.IsArray()
-                || type.IsByRefLike // pMT->IsByRefLike()
-                || type == typeof(string) // pMT->HasComponentSize()
-                || typeof(Delegate).IsAssignableFrom(type) // pMT->IsDelegate()
-                ) 
-                goto MarkUnsupported;
-
-            // Exceptions SmartThrow can handle.
-            if (type.IsAbstract) goto GoSmartThrow;
-
             int _ctorIsPublic = default;
-            ((delegate*<void*, ref delegate*<void*, object>, ref void*, ref delegate*<object, void>, int*, void>)global::@FastGenericNew.ClrAllocator.GetActivationInfo)
-            (Unsafe.AsPointer(ref type), ref _pfnAllocator, ref _allocatorFirstArg, ref _pfnCtor, &_ctorIsPublic);
+            try
+            {
+                ((delegate*<void*, ref delegate*<void*, object>, ref void*, ref delegate*<object, void>, int*, void>)global::@FastGenericNew.ClrAllocator.GetActivationInfo)
+                    (Unsafe.AsPointer(ref type), ref _pfnAllocator, ref _allocatorFirstArg, ref _pfnCtor, &_ctorIsPublic);
+            }
+            catch
+            {
+                // Exceptions SmartThrow can handle.
+                //if (type.IsAbstract) goto GoSmartThrow;
+
+                // GetActivationInfo has many extra limits
+                // https://github.com/dotnet/runtime/blob/a5ec8aa173e4bc76b173a70aa7fa3be1867011eb/src/coreclr/vm/reflectioninvocation.cpp#L1942:25
+  
+                // Exceptions SmartThrow CAN NOT handle.
+                // Mark unsupported so FastGenericNew will use FastNewCore instead if hit any
+                // 
+                if (
+                    type.IsArray // typeHandle.IsArray()
+                    || type.IsByRefLike // pMT->IsByRefLike()
+                    || type == typeof(string) // pMT->HasComponentSize()
+                    || typeof(Delegate).IsAssignableFrom(type) // pMT->IsDelegate()
+                    ) 
+                    goto MarkUnsupported;
+            }
 
             if (_pfnAllocator is null)
                 goto GoSmartThrow;
