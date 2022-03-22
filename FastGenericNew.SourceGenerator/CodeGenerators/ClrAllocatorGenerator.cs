@@ -108,7 +108,12 @@ internal class ClrAllocatorGenerator : CodeGenerator<ClrAllocatorGenerator>
                 goto GoSmartThrow;
 
             if (_pfnCtor is null)
-                _pfnCtor = &{{options.GlobalNSDot()}}{{ClassName}}.CtorNoopStub;
+            {
+                if(type.IsValueType)
+                    _pfnCtor = &{{options.GlobalNSDot()}}{{ClassName}}.CtorNoopStub;
+                else
+                    goto GoSmartThrow;
+            }
 
             IsSupported = true;
             return;

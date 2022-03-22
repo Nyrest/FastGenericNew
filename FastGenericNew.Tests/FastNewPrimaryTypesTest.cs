@@ -55,6 +55,7 @@ namespace FastGenericNew.Tests
         public void CreateInstanceClassPrivateParameterCtor()
         {
             const int val = 99999;
+            
             var actual = FastNew.CreateInstance<DemoClassPrivateCtor, int>(val);
             var expected = DemoClassPrivateCtor.Create(val);
             Assert.AreEqual(expected, actual);
