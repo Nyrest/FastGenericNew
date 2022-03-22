@@ -7,7 +7,6 @@
 		<CompilerVisibleProperty Include="FastNew_GenerateTryCreateInstance" />
 		<CompilerVisibleProperty Include="FastNew_GenerateCreateInstance" />
 		<CompilerVisibleProperty Include="FastNew_GenerateTypeCreateInstance" />
-		<CompilerVisibleProperty Include="FastNew_PublicCompiledDelegate" />
 		<CompilerVisibleProperty Include="FastNew_NonPublicConstructorSupport" />
 		<CompilerVisibleProperty Include="FastNew_Namespace" />
 		<CompilerVisibleProperty Include="FastNew_ForceFastNewDelegate" />
