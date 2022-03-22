@@ -13,6 +13,7 @@ The ultimate fast alternative to `Activator.CreateInstance<T>` / `new T()`
   - Non-Public Constructor Support
   - No Generic Constraints
   - Compatible with .NET Standard 2.0
+  - Multiple backend implementations.
 
 - Modern Compiler Integration
   - Source Generator v2 (Incremental Generator)
