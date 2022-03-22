@@ -20,5 +20,6 @@ public unsafe class Generator : IIncrementalGenerator
     {
         GeneratorOptionAttributeGenerator.Register(in context);
         GeneratorOptionsRelatedGenerator.Register(in context);
+        RoslynPropsFileGenerator.Register(in context);
     }
 }

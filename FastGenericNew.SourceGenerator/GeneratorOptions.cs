@@ -49,6 +49,7 @@ public readonly partial record struct GeneratorOptions
 
     [GeneratorOption(false, PresentPreProcessor = true)]
     public bool AllowUnsafeImplementation { get; }
+
     /*
     public GeneratorOptions(AnalyzerConfigOptionsProvider? provider)
     {
