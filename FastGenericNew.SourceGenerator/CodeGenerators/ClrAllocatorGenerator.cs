@@ -55,7 +55,7 @@ internal class ClrAllocatorGenerator : CodeGenerator<ClrAllocatorGenerator>
         [global::System.Runtime.CompilerServices.MethodImpl(global::System.Runtime.CompilerServices.MethodImplOptions.NoInlining | global::System.Runtime.CompilerServices.MethodImplOptions.NoOptimization)]
 		public static object ThrowNotSupported(void* _) => throw new global::System.NotSupportedException();
         [global::System.Runtime.CompilerServices.MethodImpl(global::System.Runtime.CompilerServices.MethodImplOptions.NoInlining | global::System.Runtime.CompilerServices.MethodImplOptions.NoOptimization)]
-        public static object SmartThrow<T>(void* _) => (object){{options.GlobalNSDot()}}{{ThrowHelperGenerator.ClassName}}.{{ThrowHelperGenerator.SmartThrowName}}<T>();
+        public static object SmartThrow<T>(void* _) => (object){{options.GlobalNSDot()}}{{ThrowHelperGenerator.ClassName}}.{{ThrowHelperGenerator.SmartThrowName}}<T>()!;
     }
 
     [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
