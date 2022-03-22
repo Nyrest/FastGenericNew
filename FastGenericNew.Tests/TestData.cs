@@ -42,7 +42,9 @@ namespace FastGenericNew.Tests
             typeof(TypeCode), // Enum
 
             typeof(DemoStruct),
+#if !NETFRAMEWORK
             typeof(DemoStructParameterless),
+#endif
         };
     }
 }
