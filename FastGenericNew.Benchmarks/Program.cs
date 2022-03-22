@@ -18,6 +18,6 @@ config.AddDiagnoser(MemoryDiagnoser.Default);
 
 //BenchmarkRunner.Run(Assembly.GetCallingAssembly(), config);
 #if NET6_0_OR_GREATER
-BenchmarkRunner.Run<ImplementationsInitBenchmark>(config);
+BenchmarkRunner.Run<ImplementationsBenchmark>(config);
 
 #endif
