@@ -55,8 +55,9 @@ namespace FastGenericNew.Tests
                 }
                 if (enumerable is null) continue;
 
-                foreach (Type type in enumerable)
+                foreach (Type? type in enumerable)
                 {
+                    if (type is null) continue;
                     var a = new TestMethod(method.MakeGenericMethod(type), suite);
                     a.Name = $"{a.Name}<{type.FullName}>";
                     yield return a;
