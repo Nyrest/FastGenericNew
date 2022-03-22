@@ -43,24 +43,24 @@ public class FastNewCoreGenerator : CodeGenerator<FastNewCoreGenerator>
 T>
     {{
 #if NETFRAMEWORK
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         internal static readonly bool _isValueTypeT = typeof(T).IsValueType;
 #endif
 		/// <summary>
 		/// The constructor of <typeparamref name=""T"" /> with given arguments. <br/>
 		/// Could be <see langword=""null"" /> if the constructor couldn't be found.
 		/// </summary>
-		public static readonly ConstructorInfo? {ConsructorName} = typeof(T).GetConstructor({(options.NonPublicConstructorSupport
-? "BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic"
-: "BindingFlags.Instance | BindingFlags.Public")}, null, Type.EmptyTypes, null);
+		public static readonly global::System.Reflection.ConstructorInfo? {ConsructorName} = typeof(T).GetConstructor({(options.NonPublicConstructorSupport
+? "global::System.Reflection.BindingFlags.Instance | global::System.Reflection.BindingFlags.Public | global::System.Reflection.BindingFlags.NonPublic"
+: "global::System.Reflection.BindingFlags.Instance | global::System.Reflection.BindingFlags.Public")}, null, global::System.Type.EmptyTypes, null);
 
-	    {(options.PublicCompiledDelegate ? "public" : "internal")} static readonly Func<T> {CompiledDelegateName} = System.Linq.Expressions.Expression.Lambda<Func<T>>(typeof(T).IsValueType
+	    public static readonly global::System.Func<T> {CompiledDelegateName} = global::System.Linq.Expressions.Expression.Lambda<Func<T>>(typeof(T).IsValueType
             ? ({options.GlobalNSDot()}{ClassName}<T>.{ConsructorName} != null
-                ? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New({options.GlobalNSDot()}{ClassName}<T>.{ConsructorName})
-                : (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New(typeof(T)))
+                ? (global::System.Linq.Expressions.Expression)global::System.Linq.Expressions.Expression.New({options.GlobalNSDot()}{ClassName}<T>.{ConsructorName})
+                : (global::System.Linq.Expressions.Expression)global::System.Linq.Expressions.Expression.New(typeof(T)))
             : (({options.GlobalNSDot()}{ClassName}<T>.{ConsructorName} != null && !typeof(T).IsAbstract)
-                ? (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.New({options.GlobalNSDot()}{ClassName}<T>.{ConsructorName})
-                : (System.Linq.Expressions.Expression)System.Linq.Expressions.Expression.Call({options.GlobalNSDot()}{ThrowHelperGenerator.ClassName}.GetSmartThrow<T>()))
+                ? (global::System.Linq.Expressions.Expression)global::System.Linq.Expressions.Expression.New({options.GlobalNSDot()}{ClassName}<T>.{ConsructorName})
+                : (global::System.Linq.Expressions.Expression)global::System.Linq.Expressions.Expression.Call({options.GlobalNSDot()}{ThrowHelperGenerator.ClassName}.GetSmartThrow<T>()))
             , Array.Empty<System.Linq.Expressions.ParameterExpression>()).Compile();
     
         public static readonly bool {IsValidName} = typeof(T).IsValueType || ({options.GlobalNSDot()}{ClassName}<T>.{ConsructorName} != null && !typeof(T).IsAbstract);
@@ -85,7 +85,7 @@ T>
         internal static readonly bool _isValueTypeT = typeof(T).IsValueType;
 #endif
 
-	    {(options.PublicCompiledDelegate ? "public" : "internal")} static readonly {compiledDelegateTypeNoParam} {CompiledDelegateName};
+	    public static readonly {compiledDelegateTypeNoParam} {CompiledDelegateName};
     
         public static readonly bool {IsValidName} = typeof(T).IsValueType || ({options.GlobalNSDot()}{ClassName}<T>.{ConsructorName} != null && !typeof(T).IsAbstract);
     
@@ -166,8 +166,7 @@ T>
             #endregion
 
             builder.Indent(2);
-            builder.AppendAccessibility(options.PublicCompiledDelegate);
-            builder.Append("static readonly ");
+            builder.Append("public static readonly ");
             builder.UseGenericDelegate(parameterIndex);
             builder.AppendLine($" {CompiledDelegateName};");
             builder.PrettyNewLine();
@@ -305,6 +304,5 @@ T>
 
     public override bool ShouldUpdate(in GeneratorOptions oldValue, in GeneratorOptions newValue) =>
         base.ShouldUpdate(oldValue, newValue)
-        || oldValue.ForceFastNewDelegate != newValue.ForceFastNewDelegate
-        || oldValue.PublicCompiledDelegate != newValue.PublicCompiledDelegate;
+        || oldValue.ForceFastNewDelegate != newValue.ForceFastNewDelegate;
 }

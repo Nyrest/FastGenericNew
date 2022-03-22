@@ -39,7 +39,15 @@ T>()
 #else
 		    return typeof(T).IsValueType
                 ? System.Activator.CreateInstance<T>() // This will be optimized by JIT
+
+    #if NET6_0_OR_GREATER && FastNewPX_AllowUnsafeImplementation
+                : (global::@FastGenericNew.ClrAllocator<T>.IsSupported
+                    ? global::@FastGenericNew.ClrAllocator<T>.CreateInstance()
+                    : global::@FastGenericNew.FastNew<T>.CompiledDelegate());
+    #else
                 : global::@FastGenericNew.FastNew<T>.CompiledDelegate();
+    #endif
+
 #endif
 	    }
         /// <summary>
