@@ -54,7 +54,7 @@ namespace @FastGenericNew
         [global::System.Runtime.CompilerServices.MethodImpl(global::System.Runtime.CompilerServices.MethodImplOptions.NoInlining | global::System.Runtime.CompilerServices.MethodImplOptions.NoOptimization)]
 		public static object ThrowNotSupported(void* _) => throw new global::System.NotSupportedException();
         [global::System.Runtime.CompilerServices.MethodImpl(global::System.Runtime.CompilerServices.MethodImplOptions.NoInlining | global::System.Runtime.CompilerServices.MethodImplOptions.NoOptimization)]
-        public static object SmartThrow<T>(void* _) => (object)global::@FastGenericNew.ThrowHelper.SmartThrowImpl<T>();
+        public static object SmartThrow<T>(void* _) => (object)global::@FastGenericNew.ThrowHelper.SmartThrowImpl<T>()!;
     }
 
     [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
