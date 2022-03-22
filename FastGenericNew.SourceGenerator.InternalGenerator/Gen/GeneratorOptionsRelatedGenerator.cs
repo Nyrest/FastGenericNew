@@ -1,8 +1,5 @@
 ﻿using System.Collections.Immutable;
-using System.Diagnostics;
-using System.Text;
 
-using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
@@ -13,7 +10,7 @@ namespace FastGenericNew.SourceGenerator.InternalGenerator.Gen
     {
         public static void Register(in IncrementalGeneratorInitializationContext context)
         {
-            var classDeclarations = context.SyntaxProvider
+            var declarations = context.SyntaxProvider
                 .CreateSyntaxProvider(
                 static (syntax, _) => syntax is PropertyDeclarationSyntax { AttributeLists.Count: > 0 },
                 static (syntaxContext, cancellationToken) =>
@@ -36,10 +33,10 @@ namespace FastGenericNew.SourceGenerator.InternalGenerator.Gen
                 })
             .Where(static c => c is not null);
 
-            var compilationAndClasses =
-                context.CompilationProvider.Combine(classDeclarations.Collect());
+            var compilationAndDeclarations =
+                context.CompilationProvider.Combine(declarations.Collect());
 
-            context.RegisterSourceOutput(compilationAndClasses, (spc, source) => BuildSource(in spc, source.Left, source.Right));
+            context.RegisterSourceOutput(compilationAndDeclarations, (spc, source) => BuildSource(in spc, source.Left, source.Right));
         }
 
         private static void BuildSource(in SourceProductionContext context, Compilation compilation, ImmutableArray<PropertyDeclarationSyntax> syntaxs)
@@ -163,6 +160,5 @@ partial class CodeGenerator
 """);
             context.AddSource("CodeGenerator.PreProcessorRelatedCheck.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
         }
-
     }
 }

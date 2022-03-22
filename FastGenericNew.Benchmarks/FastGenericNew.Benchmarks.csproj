@@ -20,6 +20,7 @@
 		<FastNew_PublicSourceExpression>true</FastNew_PublicSourceExpression>
 		<FastNew_PrettyOutput>true</FastNew_PrettyOutput>
 		<FastNew_OutputGenerationInfo>true</FastNew_OutputGenerationInfo>
+		<FastNew_AllowUnsafeImplementation>true</FastNew_AllowUnsafeImplementation>
 	</PropertyGroup>
 
 	<ItemGroup>
