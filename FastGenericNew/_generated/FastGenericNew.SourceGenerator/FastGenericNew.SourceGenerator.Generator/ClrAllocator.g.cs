@@ -67,7 +67,7 @@ namespace @FastGenericNew
         private static readonly delegate*<object, void> _pfnCtor;
 
         /// <summary>
-        /// TRUE means ClrAllocator&lt;T&gt; can fully replace to FastNewCore<br>
+        /// TRUE means ClrAllocator&lt;T&gt; can fully replace to FastNewCore</br>
         /// So this can be TRUE even the CreateInstance will throw an exception.
         /// </summary>
         public static readonly bool IsSupported;
