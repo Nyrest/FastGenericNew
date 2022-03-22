@@ -17,7 +17,6 @@ partial record struct GeneratorOptions
         ForceFastNewDelegate = options.GetOrDefault(nameof(ForceFastNewDelegate), false);
         AlertGeneratedFile = options.GetOrDefault(nameof(AlertGeneratedFile), true);
         DisableGeneratorCache = options.GetOrDefault(nameof(DisableGeneratorCache), false);
-        Trimmable = options.GetOrDefault(nameof(Trimmable), true);
         PrettyOutput = options.GetOrDefault(nameof(PrettyOutput), false);
         MultiThreadedGeneration = options.GetOrDefault(nameof(MultiThreadedGeneration), true);
         OutputGenerationInfo = options.GetOrDefault(nameof(OutputGenerationInfo), false);

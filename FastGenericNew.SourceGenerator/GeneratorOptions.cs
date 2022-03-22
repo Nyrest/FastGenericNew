@@ -32,9 +32,6 @@ public readonly partial record struct GeneratorOptions
     [GeneratorOption(false)]
     public bool DisableGeneratorCache { get; }
 
-    [GeneratorOption(true)]
-    public bool Trimmable { get; }
-
     [GeneratorOption(false)]
     public bool PrettyOutput { get; }
 

@@ -12,7 +12,6 @@
 		<CompilerVisibleProperty Include="FastNew_ForceFastNewDelegate" />
 		<CompilerVisibleProperty Include="FastNew_AlertGeneratedFile" />
 		<CompilerVisibleProperty Include="FastNew_DisableGeneratorCache" />
-		<CompilerVisibleProperty Include="FastNew_Trimmable" />
 		<CompilerVisibleProperty Include="FastNew_PrettyOutput" />
 		<CompilerVisibleProperty Include="FastNew_MultiThreadedGeneration" />
 		<CompilerVisibleProperty Include="FastNew_OutputGenerationInfo" />
