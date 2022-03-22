@@ -22,7 +22,7 @@
     PrettyOutput = True  (default: False)
     MultiThreadedGeneration = True
     OutputGenerationInfo = True  (default: False)
-    AllowUnsafeImplementation = True  (default: False)
+    AllowUnsafeImplementation = False
 
 
   MSBuild Properties:
@@ -42,6 +42,6 @@
     <FastNew_PrettyOutput>True<FastNew_PrettyOutput />
     <FastNew_MultiThreadedGeneration>True<FastNew_MultiThreadedGeneration />
     <FastNew_OutputGenerationInfo>True<FastNew_OutputGenerationInfo />
-    <FastNew_AllowUnsafeImplementation>True<FastNew_AllowUnsafeImplementation />
+    <FastNew_AllowUnsafeImplementation>False<FastNew_AllowUnsafeImplementation />
 
 */
