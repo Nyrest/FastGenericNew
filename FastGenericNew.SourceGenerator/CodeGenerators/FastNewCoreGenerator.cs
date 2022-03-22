@@ -54,7 +54,7 @@ T>
 ? "global::System.Reflection.BindingFlags.Instance | global::System.Reflection.BindingFlags.Public | global::System.Reflection.BindingFlags.NonPublic"
 : "global::System.Reflection.BindingFlags.Instance | global::System.Reflection.BindingFlags.Public")}, null, global::System.Type.EmptyTypes, null);
 
-	    {(options.PublicCompiledDelegate ? "public" : "internal")} static readonly global::System.Func<T> {CompiledDelegateName} = global::System.Linq.Expressions.Expression.Lambda<Func<T>>(typeof(T).IsValueType
+	    public static readonly global::System.Func<T> {CompiledDelegateName} = global::System.Linq.Expressions.Expression.Lambda<Func<T>>(typeof(T).IsValueType
             ? ({options.GlobalNSDot()}{ClassName}<T>.{ConsructorName} != null
                 ? (global::System.Linq.Expressions.Expression)global::System.Linq.Expressions.Expression.New({options.GlobalNSDot()}{ClassName}<T>.{ConsructorName})
                 : (global::System.Linq.Expressions.Expression)global::System.Linq.Expressions.Expression.New(typeof(T)))
@@ -85,7 +85,7 @@ T>
         internal static readonly bool _isValueTypeT = typeof(T).IsValueType;
 #endif
 
-	    {(options.PublicCompiledDelegate ? "public" : "internal")} static readonly {compiledDelegateTypeNoParam} {CompiledDelegateName};
+	    public static readonly {compiledDelegateTypeNoParam} {CompiledDelegateName};
     
         public static readonly bool {IsValidName} = typeof(T).IsValueType || ({options.GlobalNSDot()}{ClassName}<T>.{ConsructorName} != null && !typeof(T).IsAbstract);
     
@@ -166,8 +166,7 @@ T>
             #endregion
 
             builder.Indent(2);
-            builder.AppendAccessibility(options.PublicCompiledDelegate);
-            builder.Append("static readonly ");
+            builder.Append("public static readonly ");
             builder.UseGenericDelegate(parameterIndex);
             builder.AppendLine($" {CompiledDelegateName};");
             builder.PrettyNewLine();
@@ -305,6 +304,5 @@ T>
 
     public override bool ShouldUpdate(in GeneratorOptions oldValue, in GeneratorOptions newValue) =>
         base.ShouldUpdate(oldValue, newValue)
-        || oldValue.ForceFastNewDelegate != newValue.ForceFastNewDelegate
-        || oldValue.PublicCompiledDelegate != newValue.PublicCompiledDelegate;
+        || oldValue.ForceFastNewDelegate != newValue.ForceFastNewDelegate;
 }
