@@ -107,7 +107,12 @@ namespace @FastGenericNew
                 goto GoSmartThrow;
 
             if (_pfnCtor is null)
-                _pfnCtor = &global::@FastGenericNew.ClrAllocator.CtorNoopStub;
+            {
+                if(type.IsValueType)
+                    _pfnCtor = &global::@FastGenericNew.ClrAllocator.CtorNoopStub;
+                else
+                    goto GoSmartThrow;
+            }
 
             IsSupported = true;
             return;
