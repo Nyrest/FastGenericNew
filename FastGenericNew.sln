@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastGenericNew.Tests", "Fas
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastGenericNew.Benchmarks", "FastGenericNew.Benchmarks\FastGenericNew.Benchmarks.csproj", "{24108B29-8FAD-4080-90B4-0A6A19CE06BE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastGenericNew.SourceGenerator.InternalGenerator", "FastGenericNew.SourceGenerator.InternalGenerator\FastGenericNew.SourceGenerator.InternalGenerator.csproj", "{33032C07-28EF-4AD6-BE00-32303BB9DA7B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{24108B29-8FAD-4080-90B4-0A6A19CE06BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24108B29-8FAD-4080-90B4-0A6A19CE06BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24108B29-8FAD-4080-90B4-0A6A19CE06BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33032C07-28EF-4AD6-BE00-32303BB9DA7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33032C07-28EF-4AD6-BE00-32303BB9DA7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33032C07-28EF-4AD6-BE00-32303BB9DA7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33032C07-28EF-4AD6-BE00-32303BB9DA7B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

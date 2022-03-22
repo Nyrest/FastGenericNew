@@ -6,7 +6,7 @@ internal class ClrAllocatorGenerator : CodeGenerator<ClrAllocatorGenerator>
 
     internal const string ClassName = "ClrAllocator";
 
-    internal const string ppEnabled = "NET6_0_OR_GREATER"; // Since the API is only available on .NET 6 or above
+    internal const string ppEnabled = $"NET6_0_OR_GREATER && {CodeBuilder.Const_PreProcessDefinePrefix}{nameof(GeneratorOptions.AllowUnsafeImplementation)}";
 
     public override CodeGenerationResult Generate(in GeneratorOptions options)
     {
