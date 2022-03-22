@@ -10,6 +10,7 @@ internal class ClrAllocatorGenerator : CodeGenerator<ClrAllocatorGenerator>
 
     public override CodeGenerationResult Generate(in GeneratorOptions options)
     {
+        if (!options.AllowUnsafeImplementation) return CodeGenerationResult.Empty;
         CodeBuilder builder = new(6144, in options);
         builder.WriteFileHeader();
 

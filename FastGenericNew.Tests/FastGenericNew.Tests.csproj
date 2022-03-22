@@ -18,7 +18,8 @@
 
 	<!-- FastGenericNew Properties -->
 	<PropertyGroup>
-		<FastNew_MaxParameterCount>20</FastNew_MaxParameterCount>
+		<FastNew_MaxParameterCount>18</FastNew_MaxParameterCount>
+		<FastNew_ForceFastNewDelegate>true</FastNew_ForceFastNewDelegate>
 		<FastNew_MultiThreadedGeneration>true</FastNew_MultiThreadedGeneration>
 		<FastNew_AllowUnsafeImplementation>true</FastNew_AllowUnsafeImplementation>
 	</PropertyGroup>
@@ -33,5 +34,6 @@
 			<ReferenceOutputAssembly>false</ReferenceOutputAssembly>
 		</ProjectReference>
 	</ItemGroup>
+	<Import Project="../FastGenericNew.SourceGenerator/FastGenericNew.SourceGenerator.props" />
 		
 </Project>
