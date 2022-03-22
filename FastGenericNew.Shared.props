@@ -26,6 +26,7 @@ C# 10 Parameterless struct constructors Support (Both invokes or not)
 		<PackageProjectUrl>https://github.com/Nyerst/FastGenericNew</PackageProjectUrl>
 		<PackageTags>Performance, Fast, Generic, New, Expression, Optimization, CreateInstance, Activator, $(PackageTagsPostfix)</PackageTags>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageIcon>Logo.png</PackageIcon>
 		<IsPackable>true</IsPackable>
 	</PropertyGroup>
 
