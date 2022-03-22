@@ -17,7 +17,6 @@
 		<FastNew_MaxParameterCount>16</FastNew_MaxParameterCount>
 		<FastNew_ForceFastNewDelegate>false</FastNew_ForceFastNewDelegate>
 		<FastNew_MultiThreadedGeneration>true</FastNew_MultiThreadedGeneration>
-		<FastNew_PublicSourceExpression>true</FastNew_PublicSourceExpression>
 		<FastNew_PrettyOutput>true</FastNew_PrettyOutput>
 		<FastNew_OutputGenerationInfo>true</FastNew_OutputGenerationInfo>
 		<FastNew_AllowUnsafeImplementation>true</FastNew_AllowUnsafeImplementation>
