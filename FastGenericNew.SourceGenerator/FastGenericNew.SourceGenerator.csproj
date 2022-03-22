@@ -11,19 +11,37 @@
 		<IncludeBuildOutput>false</IncludeBuildOutput>
 		<TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);_AddAnalyzersToOutput</TargetsForTfmSpecificContentInPackage>
 		<DevelopmentDependency>true</DevelopmentDependency>
+		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+		<CompilerGeneratedFilesOutputPath>_generated</CompilerGeneratedFilesOutputPath>
+
 	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="$(CompilerGeneratedFilesOutputPath)\**" />
+		<None Include="$(CompilerGeneratedFilesOutputPath)\**" />
+	</ItemGroup>
+
 
 	<!-- The following libraries include the source generator interfaces and types we need -->
 	<ItemGroup>
 		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.3" PrivateAssets="all" />
 		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.1.0" PrivateAssets="all" />
 	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\FastGenericNew.SourceGenerator.InternalGenerator\FastGenericNew.SourceGenerator.InternalGenerator.csproj">
+			<OutputItemType>Analyzer</OutputItemType>
+			<ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+		</ProjectReference>
+		<AdditionalFiles Include="FastGenericNew.SourceGenerator.props" />
+	</ItemGroup>
 
 	<!-- Nuget Package Properties-->
 	<PropertyGroup>
 		<PackageId>FastGenericNew.SourceGenerator</PackageId>
-		<DescriptionPrefix>Configurable Source Generator of FastGenericNew
-Minimum required: .NET Standard 2.0 &amp; C# 8.0</DescriptionPrefix>
+		<DescriptionPrefix>
+			Configurable Source Generator of FastGenericNew
+			Minimum required: .NET Standard 2.0 &amp; C# 8.0
+		</DescriptionPrefix>
 		<PackageTagsPostfix>Roslyn, DotNetAnalyzers, Analyzer, SourceGenerator, SourceGeneratorV2, IncrementalGenerator</PackageTagsPostfix>
 	</PropertyGroup>
 
@@ -38,5 +56,5 @@ Minimum required: .NET Standard 2.0 &amp; C# 8.0</DescriptionPrefix>
 			<TfmSpecificPackageFile Include="uninstall.ps1" PackagePath="tools" />
 		</ItemGroup>
 	</Target>
-	
+
 </Project>

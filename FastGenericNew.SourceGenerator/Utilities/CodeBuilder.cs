@@ -95,40 +95,6 @@ internal unsafe ref partial struct CodeBuilder
     }
     #endregion
 
-    #region Preprocessor
-
-    public void Pre_If(string condition)
-    {
-        if (LastChar != '\n')
-            AppendLine();
-        Append("#if ");
-        AppendLine(condition);
-    }
-
-    public void Pre_Else()
-    {
-        if (LastChar != '\n')
-            AppendLine();
-        AppendLine("#else");
-    }
-
-    public void Pre_ElseIf(string condition)
-    {
-        if (LastChar != '\n')
-            AppendLine();
-        Append("#elif ");
-        AppendLine(condition);
-    }
-
-    public void Pre_EndIf()
-    {
-        if (LastChar != '\n')
-            AppendLine();
-        AppendLine("#endif");
-    }
-
-    #endregion
-
     public void XmlDoc(int indent, string value)
     {
         foreach (var line in value.AsSpan().Trim().Split('\n', false))
