@@ -12,7 +12,6 @@ partial record struct GeneratorOptions
         GenerateTryCreateInstance = options.GetOrDefault(nameof(GenerateTryCreateInstance), true);
         GenerateCreateInstance = options.GetOrDefault(nameof(GenerateCreateInstance), true);
         GenerateTypeCreateInstance = options.GetOrDefault(nameof(GenerateTypeCreateInstance), true);
-        PublicCompiledDelegate = options.GetOrDefault(nameof(PublicCompiledDelegate), true);
         NonPublicConstructorSupport = options.GetOrDefault(nameof(NonPublicConstructorSupport), true);
         Namespace = options.GetOrDefault(nameof(Namespace), "FastGenericNew");
         ForceFastNewDelegate = options.GetOrDefault(nameof(ForceFastNewDelegate), false);

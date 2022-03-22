@@ -18,9 +18,6 @@ public readonly partial record struct GeneratorOptions
     public bool GenerateTypeCreateInstance { get; }
 
     [GeneratorOption(true)]
-    public bool PublicCompiledDelegate { get; }
-
-    [GeneratorOption(true)]
     public bool NonPublicConstructorSupport { get; }
 
     [GeneratorOption("FastGenericNew")]
