@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Debug Roslyn": {
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "..\\FastGenericNew.SourceGenerator\\FastGenericNew.SourceGenerator.csproj"
+    }
+  }
+}

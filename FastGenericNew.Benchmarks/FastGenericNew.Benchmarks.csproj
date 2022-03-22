@@ -9,6 +9,18 @@
 		<LangVersion>10</LangVersion>
 		<NoWarn>$(NoWarn);CA1822</NoWarn>
 		<IsPackable>false</IsPackable>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	</PropertyGroup>
+
+	<!-- FastGenericNew Properties -->
+	<PropertyGroup>
+		<FastNew_MaxParameterCount>16</FastNew_MaxParameterCount>
+		<FastNew_ForceFastNewDelegate>false</FastNew_ForceFastNewDelegate>
+		<FastNew_MultiThreadedGeneration>true</FastNew_MultiThreadedGeneration>
+		<FastNew_PublicSourceExpression>true</FastNew_PublicSourceExpression>
+		<FastNew_PrettyOutput>true</FastNew_PrettyOutput>
+		<FastNew_OutputGenerationInfo>true</FastNew_OutputGenerationInfo>
+		<FastNew_AllowUnsafeImplementation>true</FastNew_AllowUnsafeImplementation>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -16,7 +28,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\FastGenericNew\FastGenericNew.csproj" />
+		<ProjectReference Include="..\FastGenericNew.SourceGenerator\FastGenericNew.SourceGenerator.csproj">
+			<OutputItemType>Analyzer</OutputItemType>
+			<ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+		</ProjectReference>
 	</ItemGroup>
+
+	<!-- Imports -->
+	<Import Project="../FastGenericNew.SourceGenerator/FastGenericNew.SourceGenerator.props" />
 
 </Project>
