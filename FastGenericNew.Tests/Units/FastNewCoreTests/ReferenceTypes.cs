@@ -38,7 +38,8 @@ public class ReferenceTypes
         Assert.AreEqual(expected, actual);
     }
 
-    [TestCaseSourceGenericAttribute(typeof(TestData), nameof(TestData.CommonReferenceTypesPL))]
+    [TestCaseSourceGeneric(typeof(TestData), nameof(TestData.CommonReferenceTypesPL))]
+    [Parallelizable(ParallelScope.All)]
     public void CommonTypes<T>()
     {
         var expected = Activator.CreateInstance<T>();

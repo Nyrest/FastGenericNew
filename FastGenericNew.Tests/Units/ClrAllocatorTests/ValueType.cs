@@ -3,7 +3,8 @@ namespace FastGenericNew.Tests.Units.ClrAllocatorTests;
 
 public class ValueTypes
 {
-    [TestCaseSourceGenericAttribute(typeof(TestData), nameof(TestData.CommonValueTypes))]
+    [TestCaseSourceGeneric(typeof(TestData), nameof(TestData.CommonValueTypes))]
+    [Parallelizable(ParallelScope.All)]
     public void CommonTypes<T>()
     {
         var expected = Activator.CreateInstance<T>();
