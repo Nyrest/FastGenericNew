@@ -38,6 +38,24 @@ public class ReferenceTypes
         Assert.AreEqual(expected, actual);
     }
 
+    [Test()]
+    public void PrivateCtor()
+    {
+        var expected = DemoClassPrivateCtor.Create();
+        var actual = FastNew.CreateInstance<DemoClassPrivateCtor>();
+        Assert.AreEqual(expected, actual);
+    }
+
+    [Test()]
+    public void PrivateCtorWithParameter()
+    {
+        const int val = 99999;
+
+        var expected = DemoClassPrivateCtor.Create(val);
+        var actual = FastNew.CreateInstance<DemoClassPrivateCtor, int>(val);
+        Assert.AreEqual(expected, actual);
+    }
+
     [TestCaseSourceGeneric(typeof(TestData), nameof(TestData.CommonReferenceTypesPL))]
     [Parallelizable(ParallelScope.All)]
     public void CommonTypes<T>()
