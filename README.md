@@ -1,6 +1,10 @@
-# FastGenericNew V3 [![Tests](https://github.com/Nyerst/FastGenericNew/actions/workflows/tests.yml/badge.svg)](https://github.com/Nyerst/FastGenericNew/actions/workflows/tests.yml) [![](https://img.shields.io/nuget/vpre/FastGenericNew)](https://www.nuget.org/packages/FastGenericNew/) [![](https://img.shields.io/nuget/vpre/FastGenericNew.SourceGenerator?label=SourceGenerator)](https://www.nuget.org/packages/FastGenericNew.SourceGenerator/)
-
-The ultimate fast alternative to `Activator.CreateInstance<T>` / `new T()`
+<div align="center">
+  <img height="320" src="https://github.com/Nyerst/FastGenericNew/raw/main/Assets/FastGenericNew-Wide.svg">
+  
+  <a href="https://github.com/Nyerst/FastGenericNew/actions/workflows/tests.yml"><img src="https://github.com/Nyerst/FastGenericNew/actions/workflows/tests.yml/badge.svg"></a>
+  <a href="https://www.nuget.org/packages/FastGenericNew/"><img src="https://img.shields.io/nuget/vpre/FastGenericNew"></a>
+  <a href="https://www.nuget.org/packages/FastGenericNew.SourceGenerator/"><img src="https://img.shields.io/nuget/vpre/FastGenericNew.SourceGenerator?label=SourceGenerator"></a>
+</div>
 
 ## Features
 
