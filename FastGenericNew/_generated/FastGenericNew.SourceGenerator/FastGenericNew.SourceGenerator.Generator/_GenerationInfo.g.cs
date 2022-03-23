@@ -7,7 +7,7 @@
 
   KeyValues:
 
-    MaxParameterCount = 16
+    MaxParameterCount = 18  (default: 16)
     PublicFastNewCore = False
     GenerateTryCreateInstance = True
     GenerateCreateInstance = True
@@ -25,7 +25,7 @@
 
   MSBuild Properties:
 
-    <FastNew_MaxParameterCount>16<FastNew_MaxParameterCount />
+    <FastNew_MaxParameterCount>18<FastNew_MaxParameterCount />
     <FastNew_PublicFastNewCore>False<FastNew_PublicFastNewCore />
     <FastNew_GenerateTryCreateInstance>True<FastNew_GenerateTryCreateInstance />
     <FastNew_GenerateCreateInstance>True<FastNew_GenerateCreateInstance />

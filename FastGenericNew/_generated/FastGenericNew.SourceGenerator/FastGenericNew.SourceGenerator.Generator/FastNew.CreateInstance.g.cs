@@ -188,5 +188,19 @@ T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10,
 T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TArg15>(TArg0 p0, TArg1 p1, TArg2 p2, TArg3 p3, TArg4 p4, TArg5 p5, TArg6 p6, TArg7 p7, TArg8 p8, TArg9 p9, TArg10 p10, TArg11 p11, TArg12 p12, TArg13 p13, TArg14 p14, TArg15 p15) =>
 			global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TArg15>.CompiledDelegate(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15);
 
+		public static T CreateInstance<
+#if NET5_0_OR_GREATER
+[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
+#endif
+T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TArg15, TArg16>(TArg0 p0, TArg1 p1, TArg2 p2, TArg3 p3, TArg4 p4, TArg5 p5, TArg6 p6, TArg7 p7, TArg8 p8, TArg9 p9, TArg10 p10, TArg11 p11, TArg12 p12, TArg13 p13, TArg14 p14, TArg15 p15, TArg16 p16) =>
+			global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TArg15, TArg16>.CompiledDelegate(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16);
+
+		public static T CreateInstance<
+#if NET5_0_OR_GREATER
+[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
+#endif
+T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TArg15, TArg16, TArg17>(TArg0 p0, TArg1 p1, TArg2 p2, TArg3 p3, TArg4 p4, TArg5 p5, TArg6 p6, TArg7 p7, TArg8 p8, TArg9 p9, TArg10 p10, TArg11 p11, TArg12 p12, TArg13 p13, TArg14 p14, TArg15 p15, TArg16 p16, TArg17 p17) =>
+			global::@FastGenericNew.FastNew<T, TArg0, TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TArg15, TArg16, TArg17>.CompiledDelegate(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17);
+
 	}
 }

@@ -31,12 +31,12 @@ public class TypeNewGenerator : CodeGenerator<TypeNewGenerator>
                 builder.Append(", Type ");
                 builder.AppendGenericMethodArgumentName(i);
             }
-            builder.AppendLine(") =>");
-            builder.Indent(3);
-            builder.Append('(');
-            builder.UseGenericDelegate(parameterIndex);
+            builder.AppendLine(')');
 
-            builder.Append(")typeof(");
+            builder.StartBlock(2);
+            #region Body
+
+            builder.Append(3, "var result = typeof(");
             builder.Append(FastNewCoreGenerator.ClassName);
             builder.Append('<');
             builder.Append(',', parameterIndex);
@@ -46,7 +46,14 @@ public class TypeNewGenerator : CodeGenerator<TypeNewGenerator>
                 builder.Append(',', ' ');
                 builder.AppendGenericMethodArgumentName(i);
             }
-            builder.Append($").GetField(\"{FastNewCoreGenerator.CompiledDelegateName}\")!.GetValue(null)!;");
+            builder.AppendLine($").GetField(\"{FastNewCoreGenerator.CompiledDelegateName}\")!.GetValue(null)!;");
+            builder.Append(3, "return global::System.Runtime.CompilerServices.Unsafe.As<object, ");
+            builder.UseGenericDelegate(parameterIndex);
+            builder.AppendLine(">(ref result);");
+
+            #endregion
+            builder.EndBlock(2);
+
             #endregion
             builder.PrettyNewLine();
         }
