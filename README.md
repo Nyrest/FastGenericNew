@@ -1,9 +1,9 @@
 <div align="center">
   <a href="https://github.com/Nyerst/FastGenericNew"><img height="320" src="https://github.com/Nyerst/FastGenericNew/raw/main/Assets/FastGenericNew-Wide.svg"></a>
   
-  <a href="https://github.com/Nyerst/FastGenericNew/actions/workflows/tests.yml"><img src="https://github.com/Nyerst/FastGenericNew/actions/workflows/tests.yml/badge.svg"></a>
-  <a href="https://www.nuget.org/packages/FastGenericNew/"><img src="https://img.shields.io/nuget/vpre/FastGenericNew"></a>
-  <a href="https://www.nuget.org/packages/FastGenericNew.SourceGenerator/"><img src="https://img.shields.io/nuget/vpre/FastGenericNew.SourceGenerator?label=SourceGenerator"></a>
+  <a href="https://github.com/Nyerst/FastGenericNew/actions/workflows/tests.yml"><img src="https://img.shields.io/github/workflow/status/Nyerst/FastGenericNew/Tests?style=for-the-badge"></a>
+  <a href="https://www.nuget.org/packages/FastGenericNew/"><img src="https://img.shields.io/nuget/vpre/FastGenericNew?style=for-the-badge&color=0065b3"></a>
+  <a href="https://www.nuget.org/packages/FastGenericNew.SourceGenerator/"><img src="https://img.shields.io/nuget/vpre/FastGenericNew.SourceGenerator?label=SourceGenerator&style=for-the-badge&color=0065b3"></a>
 </div>
 
 ## Features
