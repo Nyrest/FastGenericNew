@@ -1,7 +1,7 @@
 <Project>
 	<PropertyGroup>
-		<Version>3.1.0-preview1</Version>
-		<AssemblyVersion>3.1.0</AssemblyVersion>
+		<Version>3.2.0-preview1</Version>
+		<AssemblyVersion>3.2.0</AssemblyVersion>
 	</PropertyGroup>
 
 	<!-- Nuget Package Properties -->
@@ -21,9 +21,9 @@ C# 8 Nullable Support
 C# 10 Parameterless struct constructors Support (Both invokes or not)
 		</Description>
 		<Authors>Boring3</Authors>
-		<RepositoryUrl>https://github.com/Nyerst/FastGenericNew</RepositoryUrl>
+		<RepositoryUrl>https://github.com/Nyrest/FastGenericNew</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<PackageProjectUrl>https://github.com/Nyerst/FastGenericNew</PackageProjectUrl>
+		<PackageProjectUrl>https://github.com/Nyrest/FastGenericNew</PackageProjectUrl>
 		<PackageTags>Performance, Fast, Generic, New, Expression, Optimization, CreateInstance, Activator, $(PackageTagsPostfix)</PackageTags>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageIcon>Logo.png</PackageIcon>
