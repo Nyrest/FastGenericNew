@@ -1,7 +1,7 @@
 <div align="center">
-  <a href="https://github.com/Nyerst/FastGenericNew"><img height="320" src="https://github.com/Nyerst/FastGenericNew/raw/main/Assets/FastGenericNew-Wide.svg"></a>
+  <a href="https://github.com/Nyrest/FastGenericNew"><img height="320" src="https://github.com/Nyrest/FastGenericNew/raw/main/Assets/FastGenericNew-Wide.svg"></a>
   
-  <a href="https://github.com/Nyerst/FastGenericNew/actions/workflows/tests.yml"><img src="https://img.shields.io/github/workflow/status/Nyerst/FastGenericNew/Tests?style=for-the-badge"></a>
+  <a href="https://github.com/Nyrest/FastGenericNew/actions/workflows/tests.yml"><img src="https://img.shields.io/github/workflow/status/Nyrest/FastGenericNew/Tests?style=for-the-badge"></a>
   <a href="https://www.nuget.org/packages/FastGenericNew/"><img src="https://img.shields.io/nuget/vpre/FastGenericNew?style=for-the-badge&color=0065b3"></a>
   <a href="https://www.nuget.org/packages/FastGenericNew.SourceGenerator/"><img src="https://img.shields.io/nuget/vpre/FastGenericNew.SourceGenerator?label=SourceGenerator&style=for-the-badge&color=0065b3"></a>
 </div>
@@ -102,11 +102,11 @@ AMD Ryzen 9 3900X, 1 CPU, 24 logical and 12 physical cores
 
 ### Reference Types
 
-[![Benchmark Result of Reference Types](https://raw.githubusercontent.com/Nyerst/FastGenericNew/main/Benchmark_ReferenceType.png)](https://github.com/Nyerst/FastGenericNew/blob/main/FastGenericNew.Benchmarks/Benchmarks/ReferenceTypeBenchmark.cs)
+[![Benchmark Result of Reference Types](https://raw.githubusercontent.com/Nyrest/FastGenericNew/main/Benchmark_ReferenceType.png)](https://github.com/Nyrest/FastGenericNew/blob/main/FastGenericNew.Benchmarks/Benchmarks/ReferenceTypeBenchmark.cs)
 
 ### Value Types
 
-[![Benchmark Result of Value Types](https://raw.githubusercontent.com/Nyerst/FastGenericNew/main/Benchmark_ValueType.png)](https://github.com/Nyerst/FastGenericNew/blob/main/FastGenericNew.Benchmarks/Benchmarks/ValueTypeBenchmark.cs)
+[![Benchmark Result of Value Types](https://raw.githubusercontent.com/Nyrest/FastGenericNew/main/Benchmark_ValueType.png)](https://github.com/Nyrest/FastGenericNew/blob/main/FastGenericNew.Benchmarks/Benchmarks/ValueTypeBenchmark.cs)
 
 ## License
 
