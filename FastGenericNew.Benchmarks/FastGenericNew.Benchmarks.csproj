@@ -10,6 +10,7 @@
 		<NoWarn>$(NoWarn);CA1822</NoWarn>
 		<IsPackable>false</IsPackable>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
 	</PropertyGroup>
 
 	<!-- FastGenericNew Properties -->

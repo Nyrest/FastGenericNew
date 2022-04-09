@@ -10,6 +10,7 @@
 		<IncludeBuildOutput>false</IncludeBuildOutput>
 		<DevelopmentDependency>true</DevelopmentDependency>
 		<IsPackable>false</IsPackable>
+		<SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
 	</PropertyGroup>
 
 	<!-- The following libraries include the source generator interfaces and types we need -->
