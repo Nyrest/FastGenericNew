@@ -4,6 +4,14 @@
 		<AssemblyVersion>3.2.0</AssemblyVersion>
 	</PropertyGroup>
 
+	<!-- Ensure the asset files are referenced in the project file -->
+	<ItemGroup>
+		<!-- Nuget Logo -->
+		<None Include="..\Assets\Logo.png" Pack="true" PackagePath="\" />
+		<!-- Nuget Readme -->
+		<None Include="..\README.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
 	<!-- Nuget Package Properties -->
 	<PropertyGroup>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
@@ -29,14 +37,6 @@ C# 10 Parameterless struct constructors Support (Both invokes or not)
 		<PackageIcon>Logo.png</PackageIcon>
 		<IsPackable>true</IsPackable>
 	</PropertyGroup>
-
-	<!-- Nuget Package README -->
-	<ItemGroup>
-		<None Include="..\README.md">
-			<Pack>True</Pack>
-			<PackagePath>\</PackagePath>
-		</None>
-	</ItemGroup>
 
 	<!-- Create symbol package (.snupkg) -->
 	<!--PropertyGroup>
