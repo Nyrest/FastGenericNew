@@ -6,7 +6,7 @@
   <a href="https://www.nuget.org/packages/FastGenericNew.SourceGenerator/"><img src="https://img.shields.io/nuget/vpre/FastGenericNew.SourceGenerator?label=SourceGenerator&style=for-the-badge&color=0065b3"></a>
 </div>
 
-## Features
+## ✨ Features
 
 - The best `CreateInstance` ever
   - Up to 50x faster than `Activator.CreateInstance<T>`
@@ -29,7 +29,7 @@
   - [C# 10 Parameterless struct constructors](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-10.0/parameterless-struct-constructors) Support (Both invokes or not)
   - WebAssembly Support
 
-## Installation
+## 🔧 Installation
 
 > You should only use one of them
 
@@ -59,7 +59,7 @@ dotnet add package FastGenericNew.SourceGenerator --version 3.1.0-preview1
 
 > .NET Standard 2.0 & C# 8.0 or above is required for SourceGenerator version
 
-## Examples
+## 📖 Examples
 
 ```cs
 using FastGenericNew;
@@ -86,7 +86,7 @@ if (FastNew.TryCreateInstance<T, string>("arg0", out T result));
 > If you don't want to invoke the parameterless constructor of **ValueType**.  
 > Consider to use `FastNew.NewOrDefault<T>()` which **will never invoke the parameterless constructor of `ValueType`**
 
-## Benchmark  
+## 🚀 Benchmark  
 
 ### **Environment**
 
@@ -108,6 +108,6 @@ AMD Ryzen 9 3900X, 1 CPU, 24 logical and 12 physical cores
 
 [![Benchmark Result of Value Types](https://raw.githubusercontent.com/Nyrest/FastGenericNew/main/Assets/Benchmark_ValueType.png)](https://github.com/Nyrest/FastGenericNew/blob/main/FastGenericNew.Benchmarks/Benchmarks/ValueTypeBenchmark.cs)
 
-## License
+## 📜 License
 
 FastGenericNew is licensed under the [MIT](LICENSE) license.
