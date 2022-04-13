@@ -8,7 +8,7 @@
 
 ## ✨ Features
 
-- The best `CreateInstance` ever
+- ✔️ **The best** `CreateInstance` ever
   - Up to 50x faster than `Activator.CreateInstance<T>`
   - Generic Parameters Support
   - Zero boxing/unboxing
@@ -20,12 +20,12 @@
   - Multiple backend implementations.
   - Heavily tested on Win/Mac/Linux
 
-- Modern Compiler Integration
+- 🪛 **Modern** Compiler Integration
   - Source Generator v2 (Incremental Generator)
   - Highly Configurable ([Props](https://github.com/Nyrest/FastGenericNew/wiki/SourceGenerator-Options))
   - Multi-threaded Generation
 
-- Lastest C#/.NET Features Support
+- 🔥 **Lastest** C#/.NET Features Support
   - [C# 8 Nullable](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nullable-reference-types) Support
   - [C# 10 Parameterless struct constructors](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-10.0/parameterless-struct-constructors) Support (Both invokes or not)
   - WebAssembly Support
