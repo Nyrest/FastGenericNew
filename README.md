@@ -71,7 +71,9 @@ var obj = FastNew.CreateInstance<T>();
 var obj2 = FastNew.CreateInstance<T, string>("text");
 var obj3 = FastNew.CreateInstance<T, string, int>("text", 0);
 
-// Try
+// Try pattern
+// NOTE: Try pattern will only check the constructor could be called (exist & callable)
+//       It will not catch or handle any exceptions thrown in the constructor.
 if (FastNew.TryCreateInstance<T, string>("arg0", out T result));
 {
     // ...
