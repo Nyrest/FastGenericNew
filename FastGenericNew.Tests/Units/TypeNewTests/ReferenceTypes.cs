@@ -74,5 +74,22 @@ namespace FastGenericNew.Tests.Units.TypeNewTests
             var actual = FastNew.GetCreateInstance<object>(type).Invoke();
             Assert.AreEqual(expected, actual);
         }
+
+        [TestCaseSource(typeof(TestData), nameof(TestData.CommonReferenceTypesPL))]
+        [Parallelizable(ParallelScope.All)]
+        public void ParallelNew(Type type)
+        {
+            const int count = 512;
+            object[] array = new object[count];
+            Parallel.For(0, count, new ParallelOptions() { MaxDegreeOfParallelism = count }, i =>
+            {
+                array[i] = FastNew.GetCreateInstance<object>(type).Invoke();
+            });
+            var expected = Activator.CreateInstance(type);
+            foreach (var item in array)
+            {
+                Assert.AreEqual(expected, item);
+            }
+        }
     }
 }
