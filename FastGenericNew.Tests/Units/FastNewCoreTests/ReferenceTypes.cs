@@ -1,4 +1,6 @@
-﻿namespace FastGenericNew.Tests.Units.FastNewCoreTests;
+﻿using System.Threading.Tasks;
+
+namespace FastGenericNew.Tests.Units.FastNewCoreTests;
 
 public class ReferenceTypes
 {
@@ -63,5 +65,22 @@ public class ReferenceTypes
         var expected = Activator.CreateInstance<T>();
         var actual = FastNew<T>.CompiledDelegate();
         Assert.AreEqual(expected, actual);
+    }
+
+    [TestCaseSourceGeneric(typeof(TestData), nameof(TestData.CommonReferenceTypesPL))]
+    [Parallelizable(ParallelScope.All)]
+    public void ParallelNew<T>()
+    {
+        const int count = 512;
+        T[] array = new T[count];
+        Parallel.For(0, count, new ParallelOptions() { MaxDegreeOfParallelism = count}, i =>
+        {
+            array[i] = FastNew<T>.CompiledDelegate();
+        });
+        var expected = Activator.CreateInstance<T>();
+        foreach (var item in array)
+        {
+            Assert.AreEqual(expected, item);
+        }
     }
 }
