@@ -18,6 +18,7 @@
   - No Generic Constraints
   - Compatible with .NET Standard 2.0
   - Multiple backend implementations.
+  - Heavily tested on Win/Mac/Linux
 
 - Modern Compiler Integration
   - Source Generator v2 (Incremental Generator)
