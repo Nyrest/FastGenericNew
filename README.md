@@ -57,7 +57,7 @@ dotnet add package FastGenericNew.SourceGenerator --version 3.1.0-preview1
   <PackageReference Include="FastGenericNew.SourceGenerator" Version="3.1.0-preview1" />
 </ItemGroup>
 ```
-#### SourceGenerator requires
+#### SourceGeneratorV2 requires
 > ***.NET Standard 2.0*** or above  
 > ***C# 8.0*** or above  
 > ***Roslyn 4.0.1*** or above  
