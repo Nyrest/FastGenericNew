@@ -68,6 +68,7 @@ dotnet add package FastGenericNew.SourceGenerator --version 3.1.0-preview1
 ```cs
 using FastGenericNew;
 
+// Simply replace 'Activator' to 'FastNew'
 var obj = FastNew.CreateInstance<T>();
 
 // With parameter(s)
