@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32104.313
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastGenericNew", "FastGenericNew\FastGenericNew.csproj", "{72D5DF05-5E45-40F4-A094-C81E7BD4CCDE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastGenericNew", "src\FastGenericNew\FastGenericNew.csproj", "{72D5DF05-5E45-40F4-A094-C81E7BD4CCDE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastGenericNew.SourceGenerator", "FastGenericNew.SourceGenerator\FastGenericNew.SourceGenerator.csproj", "{307B56AB-83E3-4D45-90A6-E125EDDF4132}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastGenericNew.SourceGenerator", "src\FastGenericNew.SourceGenerator\FastGenericNew.SourceGenerator.csproj", "{307B56AB-83E3-4D45-90A6-E125EDDF4132}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Root", "Root", "{F142034C-8FF8-4738-A8C3-1E27CEA25BA6}"
 	ProjectSection(SolutionItems) = preProject
@@ -17,11 +17,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Root", "Root", "{F142034C-8
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastGenericNew.Tests", "FastGenericNew.Tests\FastGenericNew.Tests.csproj", "{7A750C15-4CF3-4F5B-BFA8-AFBB98827770}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastGenericNew.Tests", "src\FastGenericNew.Tests\FastGenericNew.Tests.csproj", "{7A750C15-4CF3-4F5B-BFA8-AFBB98827770}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastGenericNew.Benchmarks", "FastGenericNew.Benchmarks\FastGenericNew.Benchmarks.csproj", "{24108B29-8FAD-4080-90B4-0A6A19CE06BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastGenericNew.Benchmarks", "src\FastGenericNew.Benchmarks\FastGenericNew.Benchmarks.csproj", "{24108B29-8FAD-4080-90B4-0A6A19CE06BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastGenericNew.SourceGenerator.InternalGenerator", "FastGenericNew.SourceGenerator.InternalGenerator\FastGenericNew.SourceGenerator.InternalGenerator.csproj", "{33032C07-28EF-4AD6-BE00-32303BB9DA7B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastGenericNew.SourceGenerator.InternalGenerator", "src\FastGenericNew.SourceGenerator.InternalGenerator\FastGenericNew.SourceGenerator.InternalGenerator.csproj", "{33032C07-28EF-4AD6-BE00-32303BB9DA7B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

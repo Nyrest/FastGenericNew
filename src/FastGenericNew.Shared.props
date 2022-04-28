@@ -7,9 +7,9 @@
 	<!-- Ensure the asset files are referenced in the project file -->
 	<ItemGroup>
 		<!-- Nuget Logo -->
-		<None Include="..\Assets\Logo.png" Pack="true" PackagePath="\" />
+		<None Include="..\..\Assets\Logo.png" Pack="true" PackagePath="\" />
 		<!-- Nuget Readme -->
-		<None Include="..\README.md" Pack="true" PackagePath="\" />
+		<None Include="..\..\README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 	<!-- Nuget Package Properties -->
