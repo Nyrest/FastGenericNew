@@ -6,8 +6,6 @@ public class FastNewVisibilityGenerator : CodeGenerator<FastNewVisibilityGenerat
 
     internal const string ClassName = "FastNew";
 
-    internal const string DelegateName = "FastNewDelegate";
-
     public override CodeGenerationResult Generate(in GeneratorOptions options)
     {
         CodeBuilder builder = new(1024, in options);
