@@ -1,18 +1,16 @@
-﻿#if AllowUnsafeImplementation && NET6_0_OR_GREATER
-namespace FastGenericNew.Tests.Units.ClrAllocatorTests;
+﻿namespace FastGenericNew.Tests.Units.GetFastNewTests;
 
 public class ExceptionsTest
 {
     [Test()]
     public void ExceptionInterface()
     {
-        if (!ClrAllocator<IEnumerable>.IsSupported) Assert.Ignore("Unsupported");
         try
         {
-            ClrAllocator<IEnumerable>.CreateInstance();
+            FastNew.GetCreateInstance<IEnumerable>(typeof(IEnumerable))();
             Assert.Fail("The expected exception is not thrown.");
         }
-        catch (Exception e)
+        catch (MissingMethodException e)
         {
             Assert.IsTrue(e.Message.StartsWith("Cannot create an instance of an interface"));
         }
@@ -21,10 +19,9 @@ public class ExceptionsTest
     [Test()]
     public void ExceptionAbstract()
     {
-        if (!ClrAllocator<Stream>.IsSupported) Assert.Ignore("Unsupported");
         try
         {
-            ClrAllocator<Stream>.CreateInstance();
+            FastNew.GetCreateInstance<Stream>(typeof(Stream))();
             Assert.Fail("The expected exception is not thrown.");
         }
         catch (MissingMethodException e)
@@ -36,32 +33,42 @@ public class ExceptionsTest
     [Test()]
     public void ExceptionPLString()
     {
-        if (!ClrAllocator<string>.IsSupported) Assert.Ignore("Unsupported");
         try
         {
-            ClrAllocator<string>.CreateInstance();
+            FastNew.GetCreateInstance<string>(typeof(string))();
             Assert.Fail("The expected exception is not thrown.");
         }
-        catch (NotSupportedException)
+        catch (MissingMethodException e)
         {
-            // Marked as unsupported
-            Assert.Pass();
+            Assert.IsTrue(e.Message.StartsWith("No match constructor found in type"));
         }
     }
 
     [Test()]
     public void ExceptionNotFoundNoParameter()
     {
-        if (!ClrAllocator<DemoClassNoParamlessCtor>.IsSupported) Assert.Ignore("Unsupported");
         try
         {
-            ClrAllocator<DemoClassNoParamlessCtor>.CreateInstance();
+            FastNew.GetCreateInstance<DemoClassNoParamlessCtor>(typeof(DemoClassNoParamlessCtor))();
             Assert.Fail("The expected exception is not thrown.");
         }
-        catch (Exception e)
+        catch (MissingMethodException e)
+        {
+            Assert.IsTrue(e.Message.StartsWith("No match constructor found in type"));
+        }
+    }
+
+    [Test()]
+    public void ExceptionNotFoundWithParameter()
+    {
+        try
+        {
+            FastNew.GetCreateInstance<DemoClass, DBNull>(typeof(DemoClass), typeof(DBNull))(DBNull.Value);
+            Assert.Fail("The expected exception is not thrown.");
+        }
+        catch (MissingMethodException e)
         {
             Assert.IsTrue(e.Message.StartsWith("No match constructor found in type"));
         }
     }
 }
-#endif
