@@ -1,14 +1,13 @@
 ﻿namespace FastGenericNew.Benchmarks.Units;
 
+#if NET6_0_OR_GREATER && FastNew_AllowUnsafeImplementation
 public class ImplementationsBenchmark
 {
-#if NET6_0_OR_GREATER
     [Benchmark]
     public DemoClass ClrNew()
     {
         return ClrAllocator<DemoClass>.CreateInstance();
     }
-#endif
 
     [Benchmark]
     public DemoClass FastNew()
@@ -22,3 +21,4 @@ public class ImplementationsBenchmark
         return System.Activator.CreateInstance<DemoClass>();
     }
 }
+#endif

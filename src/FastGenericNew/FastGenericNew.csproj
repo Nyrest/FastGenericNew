@@ -2,8 +2,8 @@
 
 	<!-- Library Properties -->
 	<PropertyGroup>
-		<TargetFrameworks>net6.0;netstandard2.0;netstandard2.1;net5.0</TargetFrameworks>
-		<TargetFrameworks Condition="'$(OS)' == 'Windows_NT'">$(TargetFrameworks);net461</TargetFrameworks>
+		<TargetFrameworks>netstandard2.0;netstandard2.1;net6.0;net8.0</TargetFrameworks>
+		<TargetFrameworks Condition="'$(OS)' == 'Windows_NT'">$(TargetFrameworks);net461;net48</TargetFrameworks>
 		<LangVersion>9.0</LangVersion>
 		<ImplicitUsings>disabled</ImplicitUsings>
 		<Nullable>enable</Nullable>
@@ -11,7 +11,7 @@
 		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
 		<CompilerGeneratedFilesOutputPath>_generated</CompilerGeneratedFilesOutputPath>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-	<SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
+		<SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -45,7 +45,7 @@
 	</ItemGroup>
 	<!-- Dependencies for .NET Standard 2.0 -->
 	<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-	  <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.7.0" />
+		<PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.7.0" />
 	</ItemGroup>
 
 	<!-- Reference to Source Generator-->

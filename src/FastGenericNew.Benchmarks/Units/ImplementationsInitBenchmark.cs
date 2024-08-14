@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 namespace FastGenericNew.Benchmarks.Units;
 
-#if NET6_0_OR_GREATER
+#if NET6_0_OR_GREATER && FastNew_AllowUnsafeImplementation
 public unsafe class ImplementationsInitBenchmark
 {
     public static readonly delegate* managed<void> clrNew = typeof(ClrAllocator<DemoClass>).GetStaticCtor();
