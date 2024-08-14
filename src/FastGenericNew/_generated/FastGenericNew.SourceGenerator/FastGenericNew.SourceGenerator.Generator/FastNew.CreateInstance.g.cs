@@ -20,7 +20,7 @@ namespace @FastGenericNew
         /// <summary>
         /// <para>Create an instance of <typeparamref name="T" /></para>
         /// <para>Returns <c><see langword="new" /> <typeparamref name="T" />()</c> if <typeparamref name="T"/> is a <see cref="ValueType"/>(struct)</para>
-        /// <para>This <b>CAN</b> call the Parameterless Constructor of the <see cref="ValueType"/>(struct)</para>
+        /// <para>This <b>CAN</b> call the Parameterless Constructor for <see cref="ValueType"/>(struct)</para>
         /// </summary>
         /// <typeparam name="T">The type to create.</typeparam>
         /// <returns>A new instance of <typeparamref name="T" /></returns>
@@ -38,7 +38,7 @@ T>()
             return global::@FastGenericNew.FastNew<T>.CompiledDelegate();
 #else
 		    return typeof(T).IsValueType
-                ? System.Activator.CreateInstance<T>() // This will be optimized by JIT
+                ? System.Activator.CreateInstance<T>() // Value Types will be optimized by JIT in CoreCLR
 
     #if NET6_0_OR_GREATER && FastNewPX_AllowUnsafeImplementation
                 : (global::@FastGenericNew.ClrAllocator<T>.IsSupported
@@ -53,7 +53,7 @@ T>()
         /// <summary>
         /// Create an instance of <typeparamref name="T" /> <br/>
         /// Returns <c><see langword="default" />(<typeparamref name="T" />)</c> if <typeparamref name="T"/> is a <see cref="ValueType"/>(struct) <br/>
-        /// This <b>WILL NOT</b> call the Parameterless Constructor of the <see cref="ValueType"/>(struct)
+        /// This <b>WILL NOT</b> call the Parameterless Constructor for <see cref="ValueType"/>(struct)
         /// </summary>
         /// <typeparam name="T">The type to create.</typeparam>
         /// <returns>A new instance of <typeparamref name="T" /></returns>
