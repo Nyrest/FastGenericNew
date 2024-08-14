@@ -1,7 +1,7 @@
 <Project>
 	<PropertyGroup>
-		<Version>3.2.0-preview1</Version>
-		<AssemblyVersion>3.2.0</AssemblyVersion>
+		<Version>3.3.0</Version>
+		<AssemblyVersion>3.3.0</AssemblyVersion>
 	</PropertyGroup>
 
 	<!-- Ensure the asset files are referenced in the project file -->
@@ -32,7 +32,7 @@ C# 10 Parameterless struct constructors Support (Both invokes or not)
 		<RepositoryUrl>https://github.com/Nyrest/FastGenericNew</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageProjectUrl>https://github.com/Nyrest/FastGenericNew</PackageProjectUrl>
-		<PackageTags>Performance, Fast, Generic, New, Expression, Optimization, CreateInstance, Activator, $(PackageTagsPostfix)</PackageTags>
+		<PackageTags>Performance, Fast, Generic, New, Expression, Optimization, CreateInstance, Activator, DynamicMethod, $(PackageTagsPostfix)</PackageTags>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageIcon>Logo.png</PackageIcon>
 		<IsPackable>true</IsPackable>
