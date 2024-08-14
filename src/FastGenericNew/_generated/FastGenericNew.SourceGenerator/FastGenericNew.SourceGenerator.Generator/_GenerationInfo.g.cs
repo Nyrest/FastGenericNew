@@ -21,6 +21,7 @@
     MultiThreadedGeneration = True
     OutputGenerationInfo = True  (default: False)
     AllowUnsafeImplementation = False
+    PublicFastNew = True  (default: False)
 
 
   MSBuild Properties:
@@ -39,5 +40,6 @@
     <FastNew_MultiThreadedGeneration>True<FastNew_MultiThreadedGeneration />
     <FastNew_OutputGenerationInfo>True<FastNew_OutputGenerationInfo />
     <FastNew_AllowUnsafeImplementation>False<FastNew_AllowUnsafeImplementation />
+    <FastNew_PublicFastNew>True<FastNew_PublicFastNew />
 
 */

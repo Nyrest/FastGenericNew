@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace @FastGenericNew
 {
-	public static partial class FastNew	{
+	static partial class FastNew	{
 
         /// <summary>
         /// <para>Create an instance of <typeparamref name="T" /></para>

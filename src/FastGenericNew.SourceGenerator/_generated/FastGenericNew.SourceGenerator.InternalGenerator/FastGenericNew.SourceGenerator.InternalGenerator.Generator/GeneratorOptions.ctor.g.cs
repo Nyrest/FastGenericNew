@@ -21,5 +21,6 @@ partial record struct GeneratorOptions
         MultiThreadedGeneration = options.GetOrDefault(nameof(MultiThreadedGeneration), true);
         OutputGenerationInfo = options.GetOrDefault(nameof(OutputGenerationInfo), false);
         AllowUnsafeImplementation = options.GetOrDefault(nameof(AllowUnsafeImplementation), false);
+        PublicFastNew = options.GetOrDefault(nameof(PublicFastNew), false);
     }
 }

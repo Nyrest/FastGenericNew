@@ -13,7 +13,7 @@ public class FastTryCreateInstanceGenerator : CodeGenerator<FastTryCreateInstanc
         builder.WriteFileHeader();
         builder.StartNamespace();
         builder.Indent(1);
-        builder.AppendKeyword("public static partial class");
+        builder.AppendKeyword("static partial class");
         builder.Append(ClassName);
 
         builder.StartBlock(1);

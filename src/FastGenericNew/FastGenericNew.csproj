@@ -26,6 +26,7 @@
 		<FastNew_MultiThreadedGeneration>true</FastNew_MultiThreadedGeneration>
 		<FastNew_PrettyOutput>true</FastNew_PrettyOutput>
 		<FastNew_OutputGenerationInfo>true</FastNew_OutputGenerationInfo>
+		<FastNew_PublicFastNew>true</FastNew_PublicFastNew>
 	</PropertyGroup>
 
 	<!-- Nuget Package Properties-->

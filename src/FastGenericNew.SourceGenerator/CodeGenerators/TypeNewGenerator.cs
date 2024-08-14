@@ -12,7 +12,7 @@ public class TypeNewGenerator : CodeGenerator<TypeNewGenerator>
         builder.WriteFileHeader();
         builder.StartNamespace();
 
-        builder.AppendKeyword("public static partial class");
+        builder.AppendKeyword("static partial class");
         builder.Append(ClassName);
 
         builder.StartBlock(1);
