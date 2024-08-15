@@ -43,7 +43,11 @@ public class ThrowHelperGenerator : CodeGenerator<ThrowHelperGenerator>
         return builder.BuildAndDispose(this);
     }
 
-    public override bool ShouldUpdate(in GeneratorOptions oldValue, in GeneratorOptions newValue) =>
-        oldValue.Namespace != newValue.Namespace
-        || oldValue.AlertGeneratedFile != newValue.AlertGeneratedFile;
+    public override GeneratorOptions GetOptionsSubset(GeneratorOptions options)
+    {
+        return base.GetOptionsSubset(options) with
+        {
+            AlertGeneratedFile = options.AlertGeneratedFile,
+        };
+    }
 }

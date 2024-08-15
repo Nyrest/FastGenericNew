@@ -40,8 +40,8 @@
 	<PropertyGroup>
 		<PackageId>FastGenericNew.SourceGenerator</PackageId>
 		<DescriptionPrefix>
-			Configurable Source Generator of FastGenericNew
-			Minimum required: .NET Standard 2.0 &amp; C# 8.0
+			Configurable Source Generator
+			Minimum requirement: .NET Standard 2.0 &amp; C# 8.0
 		</DescriptionPrefix>
 		<PackageTagsPostfix>Roslyn, DotNetAnalyzers, Analyzer, SourceGenerator, SourceGeneratorV2, IncrementalGenerator</PackageTagsPostfix>
 	</PropertyGroup>

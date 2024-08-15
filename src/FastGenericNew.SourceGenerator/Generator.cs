@@ -3,89 +3,48 @@
 [Generator(LanguageNames.CSharp)]
 public unsafe class Generator : IIncrementalGenerator
 {
-    private static GeneratorOptions _lastOptions;
-
-    private static readonly nint[] generatorPointers = Assembly
+    private static readonly CodeGenerator[] generators = Assembly
         .GetCallingAssembly()
         .GetTypes()
         .Where(static x => !x.IsAbstract && typeof(CodeGenerator).IsAssignableFrom(x))
-        .Select(static x =>
-            (nint)
-            typeof(GeneratorInstance<>)
-            .MakeGenericType(x)
-            .GetMethod(nameof(GeneratorInstance<FastNewCoreGenerator>.Generate))
-            .MethodHandle.GetFunctionPointer()
-            )
+        .Select(static x => (CodeGenerator)Activator.CreateInstance(x))
         .ToArray();
-
-    private static readonly object _lock = new();
 
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
-        context.RegisterSourceOutput(context.AnalyzerConfigOptionsProvider.WithComparer(AnalyzerConfigComparer.Instance), BuildSource);
-        static void BuildSource(SourceProductionContext sourceContext, AnalyzerConfigOptionsProvider optionsProvider)
+        foreach (var generator in generators)
         {
-            var newOptions = new GeneratorOptions(optionsProvider);
-
-            if (newOptions.DisableGeneratorCache)
+            var comparer = new AnalyzerConfigComparer(generator);
+            context.RegisterSourceOutput(context.AnalyzerConfigOptionsProvider.WithComparer(comparer), (SourceProductionContext sourceContext, AnalyzerConfigOptionsProvider optionsProvider) =>
             {
-                _lastOptions = default;
-            }
-
-            if (newOptions.MultiThreadedGeneration)
-            {
-                Parallel.ForEach(generatorPointers, nativePointer =>
+                var options = new GeneratorOptions(optionsProvider);
+                var result = generator.Generate(in options);
+                if (result.SourceText != null)
+                    sourceContext.AddSource(result.Filename, result.SourceText);
+                if (result.Diagnostics != null)
                 {
-                    var function = (delegate* managed<in GeneratorOptions, in GeneratorOptions, CodeGenerationResult>)nativePointer;
-                    var result = function(in _lastOptions, in newOptions);
-                    if (result.SourceText != null)
+                    foreach (Diagnostic diag in result.Diagnostics)
                     {
-                        lock (_lock)
-                        {
-                            sourceContext.AddSource(result.Filename, result.SourceText);
-                        }
-                    }
-                    if (result.Diagnostics != null)
-                    {
-                        lock (_lock)
-                        {
-                            foreach (Diagnostic diag in result.Diagnostics)
-                            {
-                                sourceContext.ReportDiagnostic(diag);
-                            }
-                        }
-                    }
-                });
-            }
-            else
-            {
-                foreach (var nativePointer in generatorPointers)
-                {
-                    var function = (delegate* managed<in GeneratorOptions, in GeneratorOptions, CodeGenerationResult>)nativePointer;
-                    var result = function(in _lastOptions, in newOptions);
-                    if (result.SourceText != null)
-                        sourceContext.AddSource(result.Filename, result.SourceText);
-                    if (result.Diagnostics != null)
-                    {
-                        foreach (Diagnostic diag in result.Diagnostics)
-                        {
-                            sourceContext.ReportDiagnostic(diag);
-                        }
+                        sourceContext.ReportDiagnostic(diag);
                     }
                 }
-            }
-            _lastOptions = newOptions;
+            });
         }
     }
 
     class AnalyzerConfigComparer : IEqualityComparer<AnalyzerConfigOptionsProvider>
     {
-        public static readonly AnalyzerConfigComparer Instance = new();
+        private readonly CodeGenerator generator;
+
+        public AnalyzerConfigComparer(CodeGenerator generator)
+        {
+            this.generator = generator;
+        }
 
         public bool Equals(AnalyzerConfigOptionsProvider x, AnalyzerConfigOptionsProvider y) =>
-            new GeneratorOptions(x).Equals(new GeneratorOptions(y));
+           generator.GetOptionsSubset(new GeneratorOptions(x)).Equals(generator.GetOptionsSubset(new GeneratorOptions(y)));
 
         public int GetHashCode(AnalyzerConfigOptionsProvider obj) =>
-            new GeneratorOptions(obj).GetHashCode();
+            generator.GetOptionsSubset(new GeneratorOptions(obj)).GetHashCode();
     }
 }

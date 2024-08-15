@@ -302,7 +302,11 @@ T>
         return builder.BuildAndDispose(this);
     }
 
-    public override bool ShouldUpdate(in GeneratorOptions oldValue, in GeneratorOptions newValue) =>
-        base.ShouldUpdate(oldValue, newValue)
-        || oldValue.ForceFastNewDelegate != newValue.ForceFastNewDelegate;
+    public override GeneratorOptions GetOptionsSubset(GeneratorOptions options)
+    {
+        return base.GetOptionsSubset(options) with
+        {
+            ForceFastNewDelegate = options.ForceFastNewDelegate,
+        };
+    }
 }

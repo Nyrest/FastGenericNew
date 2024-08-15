@@ -145,8 +145,11 @@ MarkUnsupported:
         return builder.BuildAndDispose(this);
     }
 
-    public override bool ShouldUpdate(in GeneratorOptions oldValue, in GeneratorOptions newValue)
+    public override GeneratorOptions GetOptionsSubset(GeneratorOptions options)
     {
-        return base.ShouldUpdate(oldValue, newValue) && newValue.AllowUnsafeImplementation;
+        return base.GetOptionsSubset(options) with
+        {
+            AllowUnsafeImplementation = options.AllowUnsafeImplementation,
+        };
     }
 }
