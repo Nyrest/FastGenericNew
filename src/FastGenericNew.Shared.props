@@ -9,7 +9,7 @@
 		<!-- Nuget Logo -->
 		<None Include="..\..\Assets\Logo.png" Pack="true" PackagePath="\" />
 		<!-- Nuget Readme -->
-		<None Include="..\..\README.md" Pack="true" PackagePath="\" />
+		<None Include="..\..\README_nuget.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 	<!-- Nuget Package Properties -->
@@ -33,7 +33,7 @@ C# 10 Parameterless struct constructors Support (Both invokes or not)
 		<RepositoryType>git</RepositoryType>
 		<PackageProjectUrl>https://github.com/Nyrest/FastGenericNew</PackageProjectUrl>
 		<PackageTags>Performance, Fast, Generic, New, Expression, Optimization, CreateInstance, Activator, DynamicMethod, $(PackageTagsPostfix)</PackageTags>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageReadmeFile>README_nuget.md</PackageReadmeFile>
 		<PackageIcon>Logo.png</PackageIcon>
 		<IsPackable>true</IsPackable>
 	</PropertyGroup>
