@@ -12,6 +12,7 @@
 		<CompilerGeneratedFilesOutputPath>_generated</CompilerGeneratedFilesOutputPath>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
+		<NoWarn>$(NoWarn);CS1591</NoWarn>
 	</PropertyGroup>
 
 	<ItemGroup>

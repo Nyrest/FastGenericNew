@@ -5,9 +5,8 @@ using BenchmarkDotNet.Environments;
 
 ManualConfig config = ManualConfig.Create(DefaultConfig.Instance);
 config.AddJob(
-    Job.Default.WithRuntime(ClrRuntime.Net461),
-    Job.Default.WithRuntime(ClrRuntime.Net48),
-    Job.Default.WithRuntime(CoreRuntime.Core31),
+    Job.Default.WithRuntime(ClrRuntime.Net462),
+    Job.Default.WithRuntime(ClrRuntime.Net481),
     Job.Default.WithRuntime(CoreRuntime.Core60),
     Job.Default.WithRuntime(CoreRuntime.Core80),
     Job.Default.WithRuntime(CoreRuntime.Core90)
