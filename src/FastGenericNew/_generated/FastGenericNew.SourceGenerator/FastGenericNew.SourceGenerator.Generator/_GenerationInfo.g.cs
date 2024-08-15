@@ -2,7 +2,7 @@
 
   Environment:
 
-    Version = 3.2.0.0
+    Version = 3.3.0.0
 
 
   KeyValues:
@@ -16,11 +16,12 @@
     Namespace = FastGenericNew
     ForceFastNewDelegate = False
     AlertGeneratedFile = True
-    DisableGeneratorCache = False
+    DisableGeneratorCache = True
     PrettyOutput = True  (default: False)
     MultiThreadedGeneration = True
     OutputGenerationInfo = True  (default: False)
     AllowUnsafeImplementation = False
+    PublicFastNew = True  (default: False)
 
 
   MSBuild Properties:
@@ -34,10 +35,11 @@
     <FastNew_Namespace>FastGenericNew<FastNew_Namespace />
     <FastNew_ForceFastNewDelegate>False<FastNew_ForceFastNewDelegate />
     <FastNew_AlertGeneratedFile>True<FastNew_AlertGeneratedFile />
-    <FastNew_DisableGeneratorCache>False<FastNew_DisableGeneratorCache />
+    <FastNew_DisableGeneratorCache>True<FastNew_DisableGeneratorCache />
     <FastNew_PrettyOutput>True<FastNew_PrettyOutput />
     <FastNew_MultiThreadedGeneration>True<FastNew_MultiThreadedGeneration />
     <FastNew_OutputGenerationInfo>True<FastNew_OutputGenerationInfo />
     <FastNew_AllowUnsafeImplementation>False<FastNew_AllowUnsafeImplementation />
+    <FastNew_PublicFastNew>True<FastNew_PublicFastNew />
 
 */

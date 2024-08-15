@@ -16,5 +16,6 @@
 		<CompilerVisibleProperty Include="FastNew_MultiThreadedGeneration" />
 		<CompilerVisibleProperty Include="FastNew_OutputGenerationInfo" />
 		<CompilerVisibleProperty Include="FastNew_AllowUnsafeImplementation" />
+		<CompilerVisibleProperty Include="FastNew_PublicFastNew" />
 	</ItemGroup>
 </Project>

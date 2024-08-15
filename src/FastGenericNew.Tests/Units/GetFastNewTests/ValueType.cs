@@ -1,5 +1,4 @@
-﻿#if AllowUnsafeImplementation && NET6_0_OR_GREATER
-namespace FastGenericNew.Tests.Units.ClrAllocatorTests;
+﻿namespace FastGenericNew.Tests.Units.GetFastNewTests;
 
 public class ValueTypes
 {
@@ -7,10 +6,8 @@ public class ValueTypes
     [Parallelizable(ParallelScope.All)]
     public void CommonTypes<T>()
     {
-        if (!ClrAllocator<T>.IsSupported) Assert.Ignore("Unsupported");
         var expected = Activator.CreateInstance<T>();
-        var actual = FastNew<T>.CompiledDelegate();
+        var actual = FastNew.GetCreateInstance<T>(typeof(T))();
         Assert.AreEqual(expected, actual);
     }
 }
-#endif

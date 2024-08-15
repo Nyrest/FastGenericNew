@@ -14,14 +14,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Root", "Root", "{F142034C-8
 		Benchmark_ReferenceType.png = Benchmark_ReferenceType.png
 		Benchmark_ValueType.png = Benchmark_ValueType.png
 		FastGenericNew.Shared.props = FastGenericNew.Shared.props
+		.github\workflows\publish.yml = .github\workflows\publish.yml
 		README.md = README.md
+		.github\workflows\tests.yml = .github\workflows\tests.yml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastGenericNew.Tests", "src\FastGenericNew.Tests\FastGenericNew.Tests.csproj", "{7A750C15-4CF3-4F5B-BFA8-AFBB98827770}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastGenericNew.Benchmarks", "src\FastGenericNew.Benchmarks\FastGenericNew.Benchmarks.csproj", "{24108B29-8FAD-4080-90B4-0A6A19CE06BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastGenericNew.SourceGenerator.InternalGenerator", "src\FastGenericNew.SourceGenerator.InternalGenerator\FastGenericNew.SourceGenerator.InternalGenerator.csproj", "{33032C07-28EF-4AD6-BE00-32303BB9DA7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastGenericNew.SourceGenerator.InternalGenerator", "src\FastGenericNew.SourceGenerator.InternalGenerator\FastGenericNew.SourceGenerator.InternalGenerator.csproj", "{33032C07-28EF-4AD6-BE00-32303BB9DA7B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

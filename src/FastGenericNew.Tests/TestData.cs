@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -34,6 +37,11 @@ namespace FastGenericNew.Tests
 
             typeof(nint),
             typeof(nuint),
+
+#if NET8_0_OR_GREATER
+            typeof(Int128),
+            typeof(UInt128),
+#endif
 
             #endregion
 

@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace @FastGenericNew
 {
-	public static partial class FastNew	{
+	static partial class FastNew	{
 
 	    [MethodImpl(MethodImplOptions.AggressiveInlining)]
 	    public static bool TryCreateInstance<

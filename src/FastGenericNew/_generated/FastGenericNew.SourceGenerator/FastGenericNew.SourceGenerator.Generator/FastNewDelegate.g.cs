@@ -15,7 +15,7 @@ using System.ComponentModel;
 
 namespace @FastGenericNew
 {
-	public static partial class FastNew	{
+	static partial class FastNew	{
 		public delegate T FastNewDelegate<
 #if NET5_0_OR_GREATER
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
