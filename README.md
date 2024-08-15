@@ -37,24 +37,24 @@
 ### Pre-Compiled Version
 
 ```powershell
-dotnet add package FastGenericNew --version 3.1.0-preview1
+dotnet add package FastGenericNew --version 3.3.0
 ```
 
 ```xml
 <ItemGroup>
-  <PackageReference Include="FastGenericNew" Version="3.1.0-preview1" />
+  <PackageReference Include="FastGenericNew" Version="3.3.0" />
 </ItemGroup>
 ```
 
 ### SourceGenerator Version
 
 ```powershell
-dotnet add package FastGenericNew.SourceGenerator --version 3.1.0-preview1
+dotnet add package FastGenericNew.SourceGenerator --version 3.3.0
 ```
 
 ```xml
 <ItemGroup>
-  <PackageReference Include="FastGenericNew.SourceGenerator" Version="3.1.0-preview1" />
+  <PackageReference Include="FastGenericNew.SourceGenerator" Version="3.3.0" />
 </ItemGroup>
 ```
 #### SourceGeneratorV2 requires
