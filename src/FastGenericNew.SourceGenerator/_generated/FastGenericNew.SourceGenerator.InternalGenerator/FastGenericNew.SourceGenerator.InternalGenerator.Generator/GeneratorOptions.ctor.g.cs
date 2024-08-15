@@ -16,9 +16,7 @@ partial record struct GeneratorOptions
         Namespace = options.GetOrDefault(nameof(Namespace), "FastGenericNew");
         ForceFastNewDelegate = options.GetOrDefault(nameof(ForceFastNewDelegate), false);
         AlertGeneratedFile = options.GetOrDefault(nameof(AlertGeneratedFile), true);
-        DisableGeneratorCache = options.GetOrDefault(nameof(DisableGeneratorCache), true);
         PrettyOutput = options.GetOrDefault(nameof(PrettyOutput), false);
-        MultiThreadedGeneration = options.GetOrDefault(nameof(MultiThreadedGeneration), true);
         OutputGenerationInfo = options.GetOrDefault(nameof(OutputGenerationInfo), false);
         AllowUnsafeImplementation = options.GetOrDefault(nameof(AllowUnsafeImplementation), false);
         PublicFastNew = options.GetOrDefault(nameof(PublicFastNew), false);

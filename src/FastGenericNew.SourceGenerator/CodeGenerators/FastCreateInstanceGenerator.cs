@@ -122,8 +122,11 @@ T>()
         return builder.BuildAndDispose(this);
     }
 
-    public override bool ShouldUpdate(in GeneratorOptions oldValue, in GeneratorOptions newValue)
+    public override GeneratorOptions GetOptionsSubset(GeneratorOptions options)
     {
-        return base.ShouldUpdate(oldValue, newValue) && newValue.GenerateCreateInstance;
+        return base.GetOptionsSubset(options) with
+        {
+            GenerateCreateInstance = options.GenerateCreateInstance,
+        };
     }
 }

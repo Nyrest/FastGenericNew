@@ -55,13 +55,12 @@ namespace FastGenericNew.SourceGenerator.InternalGenerator.Gen
                 .ToArray();
             BuildGeneratorOptionsConstructor(in context, symbolsWithAttrData);
             BuildCodeBuilderPreProcessorDefinitions(in context, symbolsWithAttrData);
-            BuildCodeGeneratorExtraCheck(in context, symbolsWithAttrData);
         }
 
         public static void BuildGeneratorOptionsConstructor(in SourceProductionContext context, (IPropertySymbol symbol, AttributeData attrData)[] symbolsWithAttrData)
         {
             const string indent = "        ";
-            StringBuilder sb = new StringBuilder("""
+            StringBuilder sb = new("""
 #nullable enable
 
 namespace FastGenericNew.SourceGenerator;
@@ -94,7 +93,7 @@ partial record struct GeneratorOptions
 
         public static void BuildCodeBuilderPreProcessorDefinitions(in SourceProductionContext context, (IPropertySymbol symbol, AttributeData attrData)[] symbolsWithAttrData)
         {
-            StringBuilder sb = new StringBuilder("""
+            StringBuilder sb = new("""
 #nullable enable
 
 namespace FastGenericNew.SourceGenerator.Utilities;
@@ -123,42 +122,6 @@ partial struct CodeBuilder
 }
 """);
             context.AddSource("CodeBuilder.PreProcessor.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
-        }
-
-        public static void BuildCodeGeneratorExtraCheck(in SourceProductionContext context, (IPropertySymbol symbol, AttributeData attrData)[] symbolsWithAttrData)
-        {
-            const string indent = "        ";
-            StringBuilder sb = new StringBuilder("""
-#nullable enable
-
-namespace FastGenericNew.SourceGenerator;
-
-partial class CodeGenerator
-{
-    private static partial bool PreProcessorRelatedCheck(in GeneratorOptions oldValue, in GeneratorOptions newValue) =>
-
-""", 4096);
-            bool isFirst = true;
-            foreach (var (symbol, attrData) in symbolsWithAttrData)
-            {
-                if (!attrData.TryGetNamedArgument(GeneratorOptionAttributeGenerator.Arg_PresentPreProcessor, out bool value) || !value)
-                    continue;
-                var propertyName = symbol.Name;
-                sb.Append(indent);
-
-                if (!isFirst)
-                {
-                    sb.Append("|| ");
-                }
-                else isFirst = false;
-                sb.AppendLine($"oldValue.{propertyName} != newValue.{propertyName}");
-            }
-            if (isFirst) sb.Append("false");
-            sb.Append("""
-;
-}
-""");
-            context.AddSource("CodeGenerator.PreProcessorRelatedCheck.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
         }
     }
 }

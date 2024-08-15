@@ -82,7 +82,11 @@ public class GenerationInfoGenerator : CodeGenerator<GenerationInfoGenerator>
         return builder.BuildAndDispose(this);
     }
 
-    // Since this won't be invoked if the oldValue equals the newValue.
-    // So just do it.
-    public override bool ShouldUpdate(in GeneratorOptions oldValue, in GeneratorOptions newValue) => newValue.OutputGenerationInfo;
+    public override GeneratorOptions GetOptionsSubset(GeneratorOptions options)
+    {
+        return base.GetOptionsSubset(options) with
+        {
+            OutputGenerationInfo = options.OutputGenerationInfo,
+        };
+    }
 }
