@@ -29,7 +29,7 @@ public readonly partial record struct GeneratorOptions
     [GeneratorOption(true)]
     public bool AlertGeneratedFile { get; }
 
-    [GeneratorOption(false)]
+    [GeneratorOption(true)]
     public bool DisableGeneratorCache { get; }
 
     [GeneratorOption(false)]
