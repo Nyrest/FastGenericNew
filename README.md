@@ -17,7 +17,7 @@
   - Non-Public Constructor Support
   - No Generic Constraints
   - Compatible with .NET Standard 2.0
-  - Multiple backend implementations.
+  - Multiple backend implementations
   - Heavily tested on Win/Mac/Linux
 
 - 🪛 **Modern** Compiler Integration
@@ -25,7 +25,7 @@
   - Highly Configurable ([Props](https://github.com/Nyrest/FastGenericNew/wiki/SourceGenerator-Options))
   - Multi-threaded Generation
 
-- 🔥 **Lastest** C#/.NET Features Support
+- 🔥 **Latest** C#/.NET Features Support
   - [C# 8 Nullable](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nullable-reference-types) Support
   - [C# 10 Parameterless struct constructors](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-10.0/parameterless-struct-constructors) Support (Both invokes or not)
   - WebAssembly Support
@@ -76,7 +76,7 @@ var obj2 = FastNew.CreateInstance<T, string>("text");
 var obj3 = FastNew.CreateInstance<T, string, int>("text", 0);
 
 // Try pattern
-// NOTE: Try pattern will only check the constructor could be called (exist & callable)
+// NOTE: The try pattern will only check if the constructor can be called.
 //       It will not catch or handle any exceptions thrown in the constructor.
 if (FastNew.TryCreateInstance<T, string>("arg0", out T result));
 {
@@ -90,8 +90,8 @@ if (FastNew.TryCreateInstance<T, string>("arg0", out T result));
 > the constraint is `where T : new()` but appears to **ignore the parameterless constructor if the constraint is `where T : struct`**.  
 > **But `FastNew.CreateInstance<T>()` will always invoke the parameterless constructor if it's available.**  
 > 
-> If you don't want to invoke the parameterless constructor of **ValueType**.  
-> Consider to use `FastNew.NewOrDefault<T>()` which **will never invoke the parameterless constructor of `ValueType`**
+> If you don't want to invoke the parameterless constructor of **ValueType**,
+> consider using `FastNew.NewOrDefault<T>()` which **will never invoke the parameterless constructor of `ValueType`**
 
 ## 🚀 Benchmark  
 
