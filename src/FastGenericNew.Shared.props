@@ -1,7 +1,7 @@
 <Project>
 	<PropertyGroup>
-		<Version>3.3.0</Version>
-		<AssemblyVersion>3.3.0</AssemblyVersion>
+		<Version>3.3.1</Version>
+		<AssemblyVersion>3.3.1</AssemblyVersion>
 	</PropertyGroup>
 
 	<!-- Ensure the asset files are referenced in the project file -->
