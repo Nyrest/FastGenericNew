@@ -2,8 +2,8 @@
 
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
-		<TargetFrameworks>net6.0;net8.0;net9.0</TargetFrameworks>
-		<TargetFrameworks Condition="'$(OS)' == 'Windows_NT'">$(TargetFrameworks);net462;net481</TargetFrameworks>
+		<TargetFrameworks>net8.0;net5.0;net6.0;net9.0</TargetFrameworks>
+		<TargetFrameworks Condition="'$(OS)' == 'Windows_NT'">$(TargetFrameworks);net481</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<LangVersion>10</LangVersion>
@@ -17,10 +17,8 @@
 	<PropertyGroup>
 		<FastNew_MaxParameterCount>16</FastNew_MaxParameterCount>
 		<FastNew_ForceFastNewDelegate>false</FastNew_ForceFastNewDelegate>
-		<FastNew_MultiThreadedGeneration>true</FastNew_MultiThreadedGeneration>
 		<FastNew_PrettyOutput>true</FastNew_PrettyOutput>
 		<FastNew_OutputGenerationInfo>true</FastNew_OutputGenerationInfo>
-		<FastNew_AllowUnsafeImplementation>true</FastNew_AllowUnsafeImplementation>
 	</PropertyGroup>
 
 	<ItemGroup>
