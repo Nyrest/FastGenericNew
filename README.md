@@ -37,24 +37,24 @@
 ### Pre-Compiled Version
 
 ```powershell
-dotnet add package FastGenericNew --version 3.3.0
+dotnet add package FastGenericNew --version 3.3.1
 ```
 
 ```xml
 <ItemGroup>
-  <PackageReference Include="FastGenericNew" Version="3.3.0" />
+  <PackageReference Include="FastGenericNew" Version="3.3.1" />
 </ItemGroup>
 ```
 
 ### SourceGenerator Version
 
 ```powershell
-dotnet add package FastGenericNew.SourceGenerator --version 3.3.0
+dotnet add package FastGenericNew.SourceGenerator --version 3.3.1
 ```
 
 ```xml
 <ItemGroup>
-  <PackageReference Include="FastGenericNew.SourceGenerator" Version="3.3.0" />
+  <PackageReference Include="FastGenericNew.SourceGenerator" Version="3.3.1" />
 </ItemGroup>
 ```
 #### SourceGeneratorV2 requires
@@ -94,6 +94,9 @@ if (FastNew.TryCreateInstance<T, string>("arg0", out T result));
 > consider using `FastNew.NewOrDefault<T>()` which **will never invoke the parameterless constructor of `ValueType`**
 
 ## 🚀 Benchmark  
+
+Check updated benchmark results here (Up to .NET 9.0):  
+https://github.com/Nyrest/FastGenericNew/blob/main/benchmark_results.md
 
 ### **Environment**
 
