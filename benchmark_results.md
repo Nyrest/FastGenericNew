@@ -68,7 +68,7 @@ AMD Ryzen 9 3900X, 1 CPU, 24 logical and 12 physical cores
 | FastNewWithParams10   | .NET Framework 4.8.1 |    15.957 ns |  0.0701 ns |  0.0656 ns |  0.02 |    0.00 | 0.0038 |      24 B |        0.05 |
 | ActivatorWithParams10 | .NET Framework 4.8.1 | 1,548.438 ns |  3.6276 ns |  3.3933 ns |  2.18 |    0.01 | 0.1564 |     995 B |        2.18 |
 
-[![Benchmark Result of Reference Types](https://raw.githubusercontent.com/Nyrest/FastGenericNew/main/Assets/benchmark_reference_params.png)](https://github.com/Nyrest/FastGenericNew/blob/main/src/FastGenericNew.Benchmarks/Units/ReferenceTypeWithParamsBenchmark.cs)
+[![Benchmark Result of Reference Types with parameters](https://raw.githubusercontent.com/Nyrest/FastGenericNew/main/Assets/benchmark_reference_params.png)](https://github.com/Nyrest/FastGenericNew/blob/main/src/FastGenericNew.Benchmarks/Units/ReferenceTypeWithParamsBenchmark.cs)
 
 ## Value types
 
@@ -91,7 +91,7 @@ AMD Ryzen 9 3900X, 1 CPU, 24 logical and 12 physical cores
 | FastNew   | .NET Framework 4.8.1 |  1.0006 ns | 0.0023 ns | 0.0020 ns |  0.9995 ns |  0.03 |    0.00 |      - |         - |        0.00 |
 | Activator | .NET Framework 4.8.1 | 38.2332 ns | 0.2768 ns | 0.2312 ns | 38.1499 ns |  1.00 |    0.01 | 0.0038 |      24 B |        1.00 |
 
-[![Benchmark Result of Reference Types](https://raw.githubusercontent.com/Nyrest/FastGenericNew/main/Assets/benchmark_value.png)](https://github.com/Nyrest/FastGenericNew/blob/main/src/FastGenericNew.Benchmarks/Units/ValueTypeBenchmark.cs)
+[![Benchmark Result of Value Types](https://raw.githubusercontent.com/Nyrest/FastGenericNew/main/Assets/benchmark_value.png)](https://github.com/Nyrest/FastGenericNew/blob/main/src/FastGenericNew.Benchmarks/Units/ValueTypeBenchmark.cs)
 
 ### With parameters
 
@@ -122,4 +122,4 @@ AMD Ryzen 9 3900X, 1 CPU, 24 logical and 12 physical cores
 | FastNewWithParams10   | .NET Framework 4.8.1 |    14.3714 ns |  0.1837 ns |  0.1718 ns |  0.02 |    0.00 |      - |         - |        0.00 |
 | ActivatorWithParams10 | .NET Framework 4.8.1 | 1,582.2390 ns | 21.1942 ns | 19.8251 ns |  2.11 |    0.03 | 0.1564 |     995 B |        2.18 |
 
-[![Benchmark Result of Reference Types](https://raw.githubusercontent.com/Nyrest/FastGenericNew/main/Assets/benchmark_value_params.png)](https://github.com/Nyrest/FastGenericNew/blob/main/src/FastGenericNew.Benchmarks/Units/ValueTypeWithParamsBenchmark.cs)
+[![Benchmark Result of Value Types with parameters](https://raw.githubusercontent.com/Nyrest/FastGenericNew/main/Assets/benchmark_value_params.png)](https://github.com/Nyrest/FastGenericNew/blob/main/src/FastGenericNew.Benchmarks/Units/ValueTypeWithParamsBenchmark.cs)
