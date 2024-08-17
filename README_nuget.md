@@ -91,28 +91,30 @@ if (FastNew.TryCreateInstance<T, string>("arg0", out T result));
 
 ## 🚀 Benchmark  
 
-Check updated benchmark results here (Up to .NET 9.0):  
+Check the full benchmark results here:  
 https://github.com/Nyrest/FastGenericNew/blob/main/benchmark_results.md
 
 ### **Environment**
 
-``` ini
-BenchmarkDotNet=v0.13.1, OS=Windows 10.0.22000
+```
+BenchmarkDotNet v0.14.0, Windows 11 (10.0.22631.3958/23H2/2023Update/SunValley3)
 AMD Ryzen 9 3900X, 1 CPU, 24 logical and 12 physical cores
-.NET SDK=6.0.200-preview.22055.15
-  [Host]             : .NET 6.0.2 (6.0.222.6406), X64 RyuJIT
-  .NET 5.0           : .NET 5.0.14 (5.0.1422.5710), X64 RyuJIT
-  .NET 6.0           : .NET 6.0.2 (6.0.222.6406), X64 RyuJIT
-  .NET Framework 4.8 : .NET Framework 4.8 (4.8.4470.0), X64 RyuJIT
+.NET SDK 9.0.100-preview.7.24407.12
+  [Host]     : .NET 8.0.3 (8.0.324.11423), X64 RyuJIT AVX2
+  Job-GFVMQQ : .NET 5.0.17 (5.0.1722.21314), X64 RyuJIT AVX2
+  Job-FGYWFO : .NET 6.0.33 (6.0.3324.36610), X64 RyuJIT AVX2
+  Job-LODQQQ : .NET 8.0.3 (8.0.324.11423), X64 RyuJIT AVX2
+  Job-NXJWMD : .NET 9.0.0 (9.0.24.40507), X64 RyuJIT AVX2
+  Job-VBBRLS : .NET Framework 4.8.1 (4.8.9256.0), X64 RyuJIT VectorSize=256
 ```
 
 ### Reference Types
 
-[![Benchmark Result of Reference Types](https://raw.githubusercontent.com/Nyrest/FastGenericNew/main/Assets/Benchmark_ReferenceType.png)](https://github.com/Nyrest/FastGenericNew/blob/main/FastGenericNew.Benchmarks/Benchmarks/ReferenceTypeBenchmark.cs)
+[![Benchmark Result of Reference Types](https://raw.githubusercontent.com/Nyrest/FastGenericNew/main/Assets/benchmark_reference.png)](https://github.com/Nyrest/FastGenericNew/blob/main/src/FastGenericNew.Benchmarks/Units/ReferenceTypeBenchmark.cs)
 
 ### Value Types
 
-[![Benchmark Result of Value Types](https://raw.githubusercontent.com/Nyrest/FastGenericNew/main/Assets/Benchmark_ValueType.png)](https://github.com/Nyrest/FastGenericNew/blob/main/FastGenericNew.Benchmarks/Benchmarks/ValueTypeBenchmark.cs)
+[![Benchmark Result of Value Types](https://raw.githubusercontent.com/Nyrest/FastGenericNew/main/Assets/benchmark_value.png)](https://github.com/Nyrest/FastGenericNew/blob/main/src/FastGenericNew.Benchmarks/Units/ValueTypeBenchmark.cs)
 
 ## 📜 License
 
