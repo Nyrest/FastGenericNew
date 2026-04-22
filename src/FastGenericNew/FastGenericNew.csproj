@@ -42,7 +42,7 @@
 
 	<!-- Dependencies for TargetFrameworks doesn't compatible to 'NET 5.0' -->
 	<ItemGroup Condition=" !$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net5.0')) ">
-		<PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
+		<PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.1.2" />
 	</ItemGroup>
 	<!-- Dependencies for .NET Standard 2.0 -->
 	<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">

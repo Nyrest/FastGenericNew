@@ -29,6 +29,7 @@
 		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.7.0" PrivateAssets="all" />
 	</ItemGroup>
 	<ItemGroup>
+  	<PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.1.2" />
 		<ProjectReference Include="..\FastGenericNew.SourceGenerator.InternalGenerator\FastGenericNew.SourceGenerator.InternalGenerator.csproj">
 			<OutputItemType>Analyzer</OutputItemType>
 			<ReferenceOutputAssembly>false</ReferenceOutputAssembly>
