@@ -37,4 +37,4 @@ jobs:
     - name: Build
       run: dotnet build -c ${{ matrix.configuration }} --no-restore -p:NoWarn=CS1591
     - name: Test
-      run: dotnet test -c ${{ matrix.configuration }} --no-build --no-restore --verbosity normal
+      run: dotnet test src/FastGenericNew.Tests/FastGenericNew.Tests.csproj -c ${{ matrix.configuration }} --no-build --no-restore --verbosity normal
